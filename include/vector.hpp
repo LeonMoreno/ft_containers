@@ -27,6 +27,7 @@ namespace fd {
 		// The second template parameter (Allocator)
 		typedef Allocator						allocator_type;
 
+		// typename lo exige gcc en linux.
 		// for the default allocator: value_type&
 		typedef typename allocator_type::reference		reference;
 
