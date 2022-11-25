@@ -3,34 +3,32 @@
 #include <cstddef>
 #include <algorithm>
 
-class Integers
-{
-private:
-	int	_m_data[10];
-public:
-	Integers(/* args */);
-	~Integers();
-	struct Iterator
+template <typename T>
+class Iterator
 	{
+	public:
 
 		/* Tags definitions -- las propiedades del iterator */
 
-		typedef	std::forward_iterator_tag iterator_category;
+		// Aqui defino que tipo de iterator es.
+		typedef	std::forward_iterator_tag	iterator_category;
 
 		/* ptrdiff_t : Result of pointer subtraction
-		 difference_type : a signed integer type that can be used to
-			identify distance between iterator steps. */
-		typedef std::ptrdiff_t difference_type;
+		difference_type : a signed integer type that can be used to
+		identify distance between iterator steps. */
+		typedef std::ptrdiff_t				difference_type;
 
-		typedef	int value_type ;
 
-		typedef value_type* pointer	;
+		typedef T 						value_type ;
 
-		typedef  value_type& reference;
+		typedef value_type* 				pointer	;
+
+		typedef value_type&					reference;
 
 		/* Constructor & Destruc */
 
 		Iterator(pointer ptr) : _m_ptr(ptr) {   }
+		~Iterator() { };
 
 		/* Operators */
 		/* deferencia para obtener su valor */
@@ -52,8 +50,18 @@ public:
 		pointer	_m_ptr;
 	};
 
-	Iterator begin() { return (&_m_data[0]); }
-	Iterator end() { return (&_m_data[5]); }
+
+class Integers
+{
+private:
+	int	_m_data[10];
+public:
+	Integers (/* args */);
+	~Integers();
+
+
+	Iterator<int> begin() { return (&_m_data[0]); }
+	Iterator<int> end() { return (&_m_data[5]); }
 
 };
 
@@ -75,14 +83,14 @@ int	main(void)
 {
 	Integers in;
 
-	Integers::Iterator begin(in.begin());
+	Iterator<int> begin(in.begin());
 
 	// for (int i = 0; begin != in.end(); begin++, i++)
 	// 	*begin = i;
 
 	std::fill(in.begin(), in.end(), 7);
 
-	Integers::Iterator begin2(in.begin());
+	Iterator<int> begin2(in.begin());
 
 
 	for (; begin2 != in.end(); ++begin2)
