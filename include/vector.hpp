@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <iostream>
+#include <cstddef>
 
 namespace fd {
 
@@ -21,48 +22,39 @@ namespace fd {
 		// Todos estos typedef son requisito de Allocator
 		// 	The first template parameter (T)
 		// value_type: tipo de elemtos que el container stores (T)
-		typedef		T						value_type;
+		typedef T					value_type;
 
 		// The second template parameter (Allocator)
-		typedef		Allocator				allocator_type;
+		typedef Allocator						allocator_type;
 
 		// for the default allocator: value_type&
-		typedef		value_type&				reference;
+		typedef typename allocator_type::reference		reference;
 
 		// 	for the default allocator: const value_type&
-		typedef		const value_type&		const_reference;
+		typedef typename allocator_type::const_reference	const_reference;
 
 		// for the default allocator: value_type*
-		typedef		value_type*				pointer;
+		typedef typename  allocator_type::pointer				pointer;
 
 		// for the default allocator: const value_type*
-		typedef		const value_type*		const_pointer;
+		typedef typename allocator_type::const_pointer		const_pointer;
 
 		// a random access iterator to value_type // Le falta asi no es
-		typedef		value_type*				iterator;
+		typedef value_type*				iterator;
 
 		// a random access iterator to const value_type // Le falta asi no es
-		typedef		const value_type*		const_iterator;
+		typedef const value_type*		const_iterator;
 
 		// an unsigned integral type that can represent any non-negative value
-		typedef		size_t					size_type;
+		typedef size_t					size_type;
 
 		// a signed integral type  identical to:
 		// iterator_traits<iterator>::difference_type
-		typedef		ptrdiff_t				difference_type;
+		typedef ptrdiff_t				difference_type;
 
 
 		/* Member functions */
 		//********* Constructor & Destructor *************//
-
-		/**
-		 * @brief Creates a %vector with no elements.
-		 * @param alloc An allocator object.
-		 *
-		 */
-		// vector()
-		// : _arr(allocator_type()), _start(nullptr), _end(nullptr), _end_of_storage(nullptr)
-		// 	{ std::cout << "Default constructor\n"; }
 
 		/**
 		 * @brief Default constructor - Creates a %vector with no elements.
@@ -70,7 +62,7 @@ namespace fd {
 		 *
 		 */
 		explicit vector (const allocator_type& alloc = allocator_type())
-		: _arr(allocator_type(alloc)), _start(nullptr), _end(nullptr), _end_of_storage(nullptr)
+		: _arr(allocator_type(alloc)), _start(0), _end(0), _end_of_storage(0)
 			{ std::cout << "Default constructor\n"; }
 
 		/**
@@ -80,23 +72,22 @@ namespace fd {
 		 * @param val
 		 * @param alloc An allocator object.
 		 */
-
 		explicit vector (size_type n, const value_type& val = value_type(),
 			const allocator_type& alloc = allocator_type())
-		: _arr(alloc), _start(nullptr), _end(nullptr), _end_of_storage(0)
+		: _arr(alloc), _start(0), _end(0), _end_of_storage(0)
 			{
 				std::cout << "Fill Constructor" << std::endl;
 
 				_start = _arr.allocate(n);
-				_end = _start + n + 1;
+				_end_of_storage = _start + n;
+				_end = _start;
 
-				for (size_type i = 0; i < n; i++, _start++)
-				{
-					_start[i] = val;
-					std::cout << _start[i] << std::endl;
-				}
-				std::cout << "end = " << *(_end) << std::endl;
+				for (size_type i = 0; i < n; i++, _end++)
+					_arr.construct(_end, val);
+					// _start[i] = val;
+				std::cout << "end = " << *(_end - 1) << std::endl;
 			}
+
 
 		~vector(){}
 	private:
