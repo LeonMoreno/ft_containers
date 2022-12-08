@@ -5,7 +5,7 @@
 #include <iostream>
 #include <cstddef>
 
-namespace fd {
+namespace ft {
 
 	/**
 	 * @brief
@@ -17,7 +17,7 @@ namespace fd {
 	class vector {
 
 	public :
-		/* Member Types */
+		/* varios --- falta aclaracion */
 
 		// Todos estos typedef son requisito de Allocator
 		// 	The first template parameter (T)
@@ -25,33 +25,33 @@ namespace fd {
 		typedef T					value_type;
 
 		// The second template parameter (Allocator)
-		typedef Allocator						allocator_type;
+		typedef Allocator									allocator_type;
 
 		// typename lo exige gcc en linux.
 		// for the default allocator: value_type&
-		typedef typename allocator_type::reference		reference;
+		typedef typename allocator_type::reference			reference;
 
 		// 	for the default allocator: const value_type&
 		typedef typename allocator_type::const_reference	const_reference;
 
 		// for the default allocator: value_type*
-		typedef typename  allocator_type::pointer				pointer;
+		typedef typename  allocator_type::pointer			pointer;
 
 		// for the default allocator: const value_type*
 		typedef typename allocator_type::const_pointer		const_pointer;
 
 		// a random access iterator to value_type // Le falta asi no es
-		typedef value_type*				iterator;
+		typedef value_type*									iterator;
 
 		// a random access iterator to const value_type // Le falta asi no es
-		typedef const value_type*		const_iterator;
+		typedef const value_type*							const_iterator;
 
 		// an unsigned integral type that can represent any non-negative value
-		typedef size_t					size_type;
+		typedef size_t										size_type;
 
 		// a signed integral type  identical to:
 		// iterator_traits<iterator>::difference_type
-		typedef ptrdiff_t				difference_type;
+		typedef ptrdiff_t									difference_type;
 
 
 		/* Member functions */
@@ -60,7 +60,6 @@ namespace fd {
 		/**
 		 * @brief Default constructor - Creates a %vector with no elements.
 		 * @param alloc An allocator object.
-		 *
 		 */
 		explicit vector (const allocator_type& alloc = allocator_type())
 		: _arr(allocator_type(alloc)), _start(0), _end(0), _end_of_storage(0)
@@ -89,8 +88,32 @@ namespace fd {
 				std::cout << "end = " << *(_end - 1) << std::endl;
 			}
 
+		// template <class InputIterator>
+		// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+
 
 		~vector(){}
+
+		//********* Iterators *************//
+		iterator begin() { return (_start); }
+		const_iterator begin() const { return (_start); }
+		// reverse_iterator rbegin() { return (_end - 1); }
+
+		iterator end() { return (_end); }
+
+		//********* Capacity *************//
+		size_type size() const {
+			pointer begin = _start;
+			pointer end = _end;
+			size_type	count = 0;
+
+			for ( ; begin != end; begin++)
+				count++;
+			return count;
+		}
+
+
+
 	private:
 		allocator_type		_arr;
 		pointer				_start;
@@ -98,6 +121,8 @@ namespace fd {
 		pointer				_end_of_storage;
 	};
 
-}
+
+
+} // end ::ft
 
 # endif

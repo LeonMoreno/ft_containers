@@ -4,7 +4,7 @@
 #include <algorithm>
 
 namespace ft {
-	//  /  Marking input iterators.
+	 ///  Marking input iterators.
   struct input_iterator_tag {};
   ///  Marking output iterators.
   struct output_iterator_tag {};
@@ -14,11 +14,31 @@ namespace ft {
 
   /// Bidirectional iterators support a superset of forward iterator
   /// operations.
-  struct bidirectional_iterator_tag : public forward_iterator_tag {};
+  struct bidirectional_iterator_tag {};
   /// Random-access iterators support a superset of bidirectional iterator
   /// operations.
-  struct random_access_iterator_tag : public bidirectional_iterator_tag {};
+  struct random_access_iterator_tag {};
   //@}
+
+
+ template <bool is_valid, typename T>
+        struct valid_iterator_tag_res { typedef T type; const static bool value = is_valid; };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	template <class T>
 	struct iterator_traits {
@@ -33,7 +53,7 @@ namespace ft {
 		struct iterator_traits<T*> {
 			typedef T								value_type;
 			typedef std::ptrdiff_t					difference_type;
-			typedef ft::random_access_iterator_tag	iterator_category;
+			typedef std::random_access_iterator_tag	iterator_category;
 			typedef T*								pointer;
 			typedef T&								reference;
 		};
@@ -47,7 +67,7 @@ class Iterator
 		/* Tags definitions -- las propiedades del iterator */
 
 		// Aqui defino que tipo de iterator es.
-		typedef	ft::forward_iterator_tag	iterator_category;
+		typedef	std::forward_iterator_tag	iterator_category;
 
 		/* ptrdiff_t : Result of pointer subtraction
 		difference_type : a signed integer type that can be used to
@@ -118,10 +138,10 @@ int	main(void)
 {
 	Integers ap;
 
-	Iterator<int> begin(ap.begin());
+	// Iterator<int> begin(ap.begin());
 
-	for (int i = 0; begin != ap.end(); begin++, i++)
-		*begin = i;
+	// for (int i = 0; begin != in.end(); begin++, i++)
+	// 	*begin = i;
 
 	std::fill(ap.begin(), ap.end(), 7);
 
@@ -129,8 +149,8 @@ int	main(void)
 	// 	*begin = i;
 
 
-	for (begin = ap.begin(); begin != ap.end(); ++begin)
-		std::cout << *begin << std::endl;
+	// for (begin = ap.begin(); begin != ap.end(); ++begin)
+	// 	std::cout << *begin << std::endl;
 
 
 	std::cout <<"todo funciona " << std::endl;
