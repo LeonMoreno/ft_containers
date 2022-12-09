@@ -19,10 +19,10 @@ namespace ft {
 	public :
 		/* varios --- falta aclaracion */
 
-		// Todos estos typedef son requisito de Allocator
+		// The next Member types de std::allocator
 		// 	The first template parameter (T)
 		// value_type: tipo de elemtos que el container stores (T)
-		typedef T					value_type;
+		typedef T											value_type;
 
 		// The second template parameter (Allocator)
 		typedef Allocator									allocator_type;
@@ -102,6 +102,9 @@ namespace ft {
 		iterator end() { return (_end); }
 
 		//********* Capacity *************//
+		/**
+		 * @brief Returns the number of elements in the vector.
+		 */
 		size_type size() const {
 			pointer begin = _start;
 			pointer end = _end;
@@ -112,7 +115,34 @@ namespace ft {
 			return count;
 		}
 
+		/**
+		 * @brief Returns the maximum number of elements that the vector can hold.
+		 */
+		size_type max_size() const { return _arr.max_size(); }
 
+		/**
+		 * @brief Resizes the container so that it contains n elements.
+		 *
+		 * @param n New container size, expressed in number of elements.
+		 * @param val
+		 */
+		void resize (size_type n, value_type val = value_type()) {
+			(void) val;
+			if (n < this->size()) {
+				std::cout << "n es menor\n";
+
+				while (this->size() > n)
+				{
+					std::cout << "Entre " << std::endl;
+
+					_end--;
+					_arr.destroy(_end);
+				}
+				std::cout << "end in resize() = " << *(_end -1) << std::endl;
+			}
+			else
+				std::cout << "n es mayor\n";
+		}
 
 	private:
 		allocator_type		_arr;

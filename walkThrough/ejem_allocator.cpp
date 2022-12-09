@@ -15,9 +15,9 @@ void	alloString()
 	std::cout << ptr[0] << ptr[1] << ptr[2]  << std::endl;
 
 	// destroy these 3 strings
-    myAlloc.destroy(ptr);
-    myAlloc.destroy(ptr + 1);
-    myAlloc.destroy(ptr + 2);
+    // myAlloc.destroy(ptr);
+    // myAlloc.destroy(ptr + 1);
+    // myAlloc.destroy(ptr + 2);
 
 	// deallocate space for 3 strings
 	myAlloc.deallocate(ptr, 4);
@@ -26,18 +26,21 @@ void	alloString()
 void	alloInt()
 {
 	std::allocator<int>	myAlloc;
-	int*	ptr;
+	std::allocator<int>::pointer	ptr;
+	std::allocator<int>::pointer	start;
 
 	ptr = myAlloc.allocate(5);
-	ptr[0] = 7;
-	ptr[3] = 42;
+	start = ptr;
+	for (int i = 0; i < 5; i++, ptr++)
+		myAlloc.construct(ptr, 7);
 
-	std::cout << ptr[0] << std::endl;
-	std::cout << ptr[3] << std::endl;
+	ptr = start;
+	for (int i = 0; i < 5; i++, ptr++)
+		std::cout << *ptr << std::endl;
 	std::cout << myAlloc.max_size() << std::endl;
-	std::cout << &ptr << std::endl;
+	// std::cout << &ptr << std::endl;
 
-	myAlloc.deallocate(ptr, 5);
+	myAlloc.deallocate(start, 5);
 }
 
 int	main()
