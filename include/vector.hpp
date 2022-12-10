@@ -130,18 +130,19 @@ namespace ft {
 			(void) val;
 			if (n < this->size()) {
 				std::cout << "n es menor\n";
-
-				while (this->size() > n)
-				{
-					std::cout << "Entre " << std::endl;
-
-					_end--;
-					_arr.destroy(_end);
-				}
-				std::cout << "end in resize() = " << *(_end -1) << std::endl;
+				erase_end(_start + n);
+				std::cout << "end in resize() = " << *(_end) << std::endl;
 			}
 			else
 				std::cout << "n es mayor\n";
+		}
+		void	erase_end(pointer p) {
+			while (_end != p)
+			{
+				std::cout << "entre\n";
+				_end--;
+				_arr.destroy(_end);
+			}
 		}
 
 	private:
