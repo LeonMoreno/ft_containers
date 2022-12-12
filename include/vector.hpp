@@ -136,6 +136,7 @@ namespace ft {
 			else
 				std::cout << "n es mayor\n";
 		}
+
 		void	erase_end(pointer p) {
 			while (_end != p)
 			{
@@ -144,6 +145,40 @@ namespace ft {
 				_arr.destroy(_end);
 			}
 		}
+
+		/**
+		 * @brief Returns the size of the storage space currently allocated for the vector, expressed in terms of elements.
+		 */
+		size_type capacity() const { return (_end_of_storage - _start); }
+
+		/**
+		 * @brief Returns whether the vector is empty (i.e. whether its size is 0).
+		 */
+		bool empty() const { return (_start == _end); }
+
+		/**
+		 * @brief Requests that the vector capacity be at least enough to contain n elements.
+		 *
+		 * @param n Minimum capacity for the vector.
+		 */
+		void reserve (size_type n) {
+			if (n > this->capacity())
+			{
+				pointer new_start = _arr.allocate(n);
+				pointer new_end = new_start;
+				pointer old_start = _start;
+				pointer old_end = _end;
+
+				for ( ; old_start != old_end; old_start++, new_end++)
+					_arr.construct(new_end, *old_start);
+				_arr.deallocate(_start, this->capacity());
+				_start = new_start;
+				_end = new_end;
+				_end_of_storage = _start + n;
+			}
+		}
+
+
 
 	private:
 		allocator_type		_arr;
