@@ -62,7 +62,7 @@ namespace ft {
 		 * @param alloc An allocator object.
 		 */
 		explicit vector (const allocator_type& alloc = allocator_type())
-		: _arr(allocator_type(alloc)), _start(0), _end(0), _end_of_storage(0)
+		: _arr(allocator_type(alloc)), _start(0), _end(0), _end_cap(0)
 			{ std::cout << "Default constructor\n"; }
 
 		/**
@@ -74,12 +74,12 @@ namespace ft {
 		 */
 		explicit vector (size_type n, const value_type& val = value_type(),
 			const allocator_type& alloc = allocator_type())
-		: _arr(alloc), _start(0), _end(0), _end_of_storage(0)
+		: _arr(alloc), _start(0), _end(0), _end_cap(0)
 			{
 				std::cout << "Fill Constructor" << std::endl;
 
 				_start = _arr.allocate(n);
-				_end_of_storage = _start + n;
+				_end_cap = _start + n;
 				_end = _start;
 
 				for (size_type i = 0; i < n; i++, _end++)
@@ -134,22 +134,43 @@ namespace ft {
 				std::cout << "end in resize() = " << *(_end) << std::endl;
 			}
 			else
+			{
 				std::cout << "n es mayor\n";
+				size_type temp = _end - _end_cap;
+				std::cout << "temp = " << temp << std::endl;
+				// this->insert(this->end(), n - this->size(), val);
+			}
+
 		}
-		void	erase_end(pointer p) {
-			while (_end != p)
+		void	erase_end(pointer new_end) {
+			while (_end != new_end)
 			{
 				std::cout << "entre\n";
 				_end--;
-				_arr.destroy(_end);
+				this->_arr.destroy(_end);
 			}
+		}
+		/**
+		 * @brief Returns the size of the storage space currently allocated for the vector.
+		 *		 This capacity is not necessarily equal to the vector size.
+		 *
+		 * @return size_type capacity
+		 */
+		size_type capacity() const {
+			return (_end - _start);
+		}
+
+		bool empty() const {
+			if (this->size() > 0)
+				return (false);
+			return (true);
 		}
 
 	private:
 		allocator_type		_arr;
 		pointer				_start;
 		pointer				_end;
-		pointer				_end_of_storage;
+		pointer				_end_cap;
 	};
 
 
