@@ -12,31 +12,17 @@ void	ejem_std()
 
 	std::cout << "size = " << vex.size() << std::endl;
 	std::cout << "capacity = " << vex.capacity() << std::endl;
-	vex.push_back(7);
-	vex.push_back(3);
-	vex.push_back(2);
+
 	for (int i = 0; i < 10; i++)
 		vex.push_back(i);
-	for (it = vex.begin(); it != vex.end(); it++)
-		std::cout << *it << std::endl;
-	// vex.resize(7);
-	std::cout << "size = " << vex.size() << std::endl;
-	for (it = vex.begin(); it != vex.end(); it++)
-		std::cout << *it << " ";
-		std::cout << std::endl;
-	vex.push_back(42);
 
 	std::cout << "size = " << vex.size() << std::endl;
 	std::cout << "capacity = " << vex.capacity() << std::endl;
 
 	for (it = vex.begin(); it != vex.end(); it++)
 		std::cout << *it << " ";
-		std::cout << std::endl;
+	std::cout << std::endl;
 
-
-	// std::vector<int>::reverse_iterator itr = vex.rbegin();;
-
-	// std::cout << "ITR = " << *itr << std::endl;
 
 }
 
@@ -53,7 +39,7 @@ void	ejem_unitialized_copy()
 
 int	main()
 {
-	// ft::vector<int> vec(5, 7);
+	ft::vector<int> vec(5, 7);
 	// ft::vector<int>::iterator it;
 	// // // // ft::vector<int>::reverse_iterator itr = vec.rbegin();
 
@@ -61,7 +47,8 @@ int	main()
 	// std::cout << "ft_vec capacite = " << vec.capacity() << std::endl;
 	// vec.resize(6);
 
-	// std::cout << "size = " << vec.size() << std::endl;
+	std::cout << "size = " << vec.size() << std::endl;
+	std::cout << "Max_size = " << vec.max_size() << std::endl;
 
 
 	// it = vec.begin();
