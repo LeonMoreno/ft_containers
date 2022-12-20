@@ -2,6 +2,7 @@
 # define VECTOR_ITERATOR_HPP
 
 #include "itetator_traits.hpp"
+#include <iostream>
 
 namespace ft {
 
@@ -12,16 +13,17 @@ namespace ft {
 
 			/*---------------VECTOR ITERATOR TYPEDEFS (iterator traits - las propiedades del iterator)-------- */
 
-			typedef typename ft::itetator_traits<T>::value_type			value_type;
-			typedef typename ft::itetator_traits<T>::difference_type	difference_type;
+			typedef	T													iterator_type;
+			typedef typename ft::iterator_traits<T>::value_type			value_type;
+			typedef typename ft::iterator_traits<T>::difference_type	difference_type;
 			typedef typename ft::iterator_traits<T>::iterator_category	iterator_category;
 			typedef typename ft::iterator_traits<T>::pointer			pointer;
 			typedef typename ft::iterator_traits<T>::reference			reference;
 
 			/*---------------Constructor and Destructors ----------------------------------------------------- */
 
-			vector_iterator(void) : _ptr(NULL) { } /* por si aca ??*/
-			vector_iterator(pointer ptr) : _ptr(ptr) { } /* default constructor */
+			vector_iterator(void) : _ptr(NULL) { std::cout << "Default Construct\n"; } /* por si aca ??*/
+			vector_iterator(pointer ptr) : _ptr(ptr) { std::cout << " INT Construct\n"; } /* default constructor */
 			vector_iterator(const vector_iterator &copy) : _ptr(copy._ptr()) {} /* copy constructor */
 			~vector_iterator() { };
 

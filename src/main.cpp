@@ -40,6 +40,9 @@ void	ejem_unitialized_copy()
 int	main()
 {
 	ft::vector<int> vec(5, 7);
+
+	std::vector<int>::iterator it;
+
 	// ft::vector<int>::iterator it;
 	// // // // ft::vector<int>::reverse_iterator itr = vec.rbegin();
 
@@ -47,8 +50,8 @@ int	main()
 	// std::cout << "ft_vec capacite = " << vec.capacity() << std::endl;
 	// vec.resize(6);
 
-	std::cout << "size = " << vec.size() << std::endl;
-	std::cout << "Max_size = " << vec.max_size() << std::endl;
+	// std::cout << "size = " << vec.size() << std::endl;
+	// std::cout << "Max_size = " << vec.max_size() << std::endl;
 
 
 	// it = vec.begin();
@@ -60,7 +63,7 @@ int	main()
 
 	// std::cout << "vec size = " << vec.size() << std::endl;
 
-	ejem_std();
+	// ejem_std();
 	// ejem_unitialized_copy();
 
 	return (0);

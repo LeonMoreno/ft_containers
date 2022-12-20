@@ -2,6 +2,7 @@
 # define ITERATOR_TRAITS_HPP
 
 #include <cstddef> // ptrdiff_t
+// #include <iterator> // para std::random_access_iterator_tag
 
 // Intro iterators traits :
 // https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits
@@ -15,8 +16,6 @@ namespace ft {
 	 */
 	///  Marking input iterators.
 	struct input_iterator_tag {};
-	 ///  Marking output iterators.
-	struct output_iterator_tag {};
 	/// Forward iterators support a superset of input iterator operations.
 	struct forward_iterator_tag : public input_iterator_tag {};
 	/// Bidirectional iterators support a superset of forward iterator oper.
@@ -35,7 +34,7 @@ namespace ft {
 
 	// generic
 	template <typename T>
-	struct itetator_traits
+	struct iterator_traits
 	{
 		typedef	typename	T::value_type			value_type;
 		typedef	typename	T::difference_type		difference_type;
@@ -48,8 +47,9 @@ namespace ft {
 	template <typename T>
 	struct iterator_traits<T*> {
 		typedef		T								value_type;
-		typedef		ptrdiff_t						difference_type;
-		typedef		random_access_iterator_tag		iterator_category;
+		typedef		std::ptrdiff_t					difference_type;
+		typedef		random_access_iterator_tag	iterator_category;
+		// typedef		std::random_access_iterator_tag	iterator_category; // pilas std::
 		typedef		T* 								pointer;
 		typedef		T&								reference;
 	};
@@ -58,10 +58,11 @@ namespace ft {
 	template <typename T>
 	struct iterator_traits<const T*> {
 		typedef			T								value_type;
-		typedef			ptrdiff_t					difference_type;
-		typedef			random_access_iterator_tag		iterator_category;
-		typedef const 	T const*								pointer; // verificar el const
-		typedef const 	T const&								reference; // verificar el const
+		typedef			std::ptrdiff_t					difference_type;
+		typedef			random_access_iterator_tag	iterator_category;
+		// typedef			std::random_access_iterator_tag	iterator_category; // pilas std::
+		typedef const T* 								pointer;
+		typedef	const T& 								reference;
 	};
 
 } // end namespace ft
