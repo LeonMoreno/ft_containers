@@ -39,9 +39,10 @@ void	ejem_unitialized_copy()
 
 int	main()
 {
-	ft::vector<int> vec(5, 7);
+	int	arr[] = {43, 54, 65, 7};
+	ft::vector<int> vec(arr, &arr[4]);
 
-	std::vector<int>::iterator it;
+	ft::vector<int>::iterator it;
 
 	// ft::vector<int>::iterator it;
 	// // // // ft::vector<int>::reverse_iterator itr = vec.rbegin();

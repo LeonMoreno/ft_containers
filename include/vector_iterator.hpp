@@ -22,7 +22,7 @@ namespace ft {
 
 			/*---------------Constructor and Destructors ----------------------------------------------------- */
 
-			vector_iterator(void) : _ptr(NULL) { std::cout << "Default Construct\n"; } /* por si aca ??*/
+			vector_iterator(void) : _ptr(NULL) { std::cout << "Default Construct iterator\n"; } /* por si aca ??*/
 			vector_iterator(pointer ptr) : _ptr(ptr) { std::cout << " INT Construct\n"; } /* default constructor */
 			vector_iterator(const vector_iterator &copy) : _ptr(copy._ptr()) {} /* copy constructor */
 			~vector_iterator() { };

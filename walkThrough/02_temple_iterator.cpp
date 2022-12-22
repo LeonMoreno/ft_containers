@@ -2,6 +2,7 @@
 #include <iterator>
 #include <cstddef>
 #include <algorithm>
+#include <vector>
 
 namespace ft {
 	 ///  Marking input iterators.
@@ -24,22 +25,6 @@ namespace ft {
  template <bool is_valid, typename T>
         struct valid_iterator_tag_res { typedef T type; const static bool value = is_valid; };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	template <class T>
 	struct iterator_traits {
 		typedef typename T::value_type            value_type;
@@ -57,7 +42,6 @@ namespace ft {
 			typedef T*								pointer;
 			typedef T&								reference;
 		};
-}
 
 template <typename T>
 class Iterator
@@ -77,12 +61,13 @@ class Iterator
 
 		typedef T 						value_type ;
 
-		typedef value_type* 				pointer	;
+		typedef T* 				pointer	;
 
 		typedef value_type&					reference;
 
 		/* Constructor & Destruc */
 
+		Iterator(void) : _m_ptr(NULL) { std::cout << "Default Construct\n"; } /* por si aca ??*/
 		Iterator(pointer ptr) : _m_ptr(ptr) {   }
 		~Iterator() { };
 
@@ -90,6 +75,11 @@ class Iterator
 		/* deferencia para obtener su valor */
 		reference	operator*() const { return *_m_ptr; }
 		pointer		operator->() {return _m_ptr; }
+
+		Iterator& operator=(Iterator &rhs) {
+				_m_ptr = rhs._m_ptr;
+				return (*this);
+			}
 
 		// Prefix increment
 		Iterator& operator++() { _m_ptr++; return *this; }
@@ -105,52 +95,76 @@ class Iterator
 	private:
 		pointer	_m_ptr;
 	};
+} // end ft
 
-
-class Integers
+template< typename T, class Alloc = std::allocator<T> >
+class vector
 {
-private:
-	int	_m_data[10];
 public:
-	Integers (/* args */);
-	~Integers();
+			typedef T													value_type;
+			typedef Alloc												allocator_type;
+			typedef std::size_t											size_type;
+			typedef std::ptrdiff_t										difference_type;
+			typedef T&													reference;
+			typedef const T&											const_reference;
+			typedef T*													pointer;
+			typedef const T*											const_pointer;
+			typedef ft::Iterator<pointer>			iterator;
+			typedef ft::Iterator<const_pointer >	const_iterator;
+			// typedef reverse_vector_iterator<iterator>					reverse_iterator;
+			// typedef reverse_vector_iterator<const_iterator>				const_reverse_iterator;
+
+private:
+	T	_m_data[10];
+public:
+	vector (/* args */);
+	~vector();
 
 
-	Iterator<int> begin() { return Iterator<int> (&_m_data[0]); }
-	Iterator<int> end() { return Iterator<int> (&_m_data[5]); }
+	ft::Iterator<int> begin() { return ft::Iterator<int> (&_m_data[0]); }
+	ft::Iterator<int> end() { return ft::Iterator<int> (&_m_data[5]); }
 
 };
 
-Integers::Integers(/* args */)
+template< class T, class Alloc>
+vector<T, Alloc> ::vector(/* args */)
 {
 	std::cout <<"Default construc " << std::endl;
 
 }
 
-Integers::~Integers()
+template< class T, class Alloc>
+vector<T, Alloc>::~vector()
 {
 	std::cout <<" Destruc " << std::endl;
 
 }
 
+void	ft_ensayo()
+{
+	std::vector<int> vec;
+
+	std::vector<int>::iterator it;
+}
+
 
 int	main(void)
 {
-	Integers ap;
 
-	// Iterator<int> begin(ap.begin());
+	ft_ensayo();
+	vector<int> ap;
 
-	// for (int i = 0; begin != in.end(); begin++, i++)
-	// 	*begin = i;
+	vector<int>::iterator it = ap.begin();
 
-	std::fill(ap.begin(), ap.end(), 7);
+	for (int i = 0; it != ap.end(); it++, i++)
+		*it = i;
 
-	// for (int i = 0; begin != ap.end(); begin++, i++)
-	// 	*begin = i;
+	// std::fill(ap.begin(), ap.end(), 7);
 
 
-	// for (begin = ap.begin(); begin != ap.end(); ++begin)
-	// 	std::cout << *begin << std::endl;
+
+	for (it = ap.begin(); it != ap.end(); ++it)
+		std::cout << *it << std::endl;
 
 
 	std::cout <<"todo funciona " << std::endl;

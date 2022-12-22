@@ -3,7 +3,7 @@ NAME		= Containers
 SRC_DIR		= src/
 OBJ_DIR		= obj/
 # CPPFLAGS	= -Wall -Wextra -Werror -std=c++98 -pedantic -Wno-unused -I include/
-CPPFLAGS	= -g -Wall -Wextra -Werror -std=c++98 -pedantic -Wno-unused -I include/
+CPPFLAGS	= -g -Wall -Wextra -Werror -std=c++98 -I include/
 CC 			= c++
 RM 			= rm -fr
 
