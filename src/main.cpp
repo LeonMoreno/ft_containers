@@ -1,4 +1,5 @@
 #include "vector.hpp"
+#include "utils.hpp"
 #include <vector>
 #include <iterator>
 
@@ -41,8 +42,21 @@ int	main()
 {
 	int	arr[] = {43, 54, 65, 7};
 	ft::vector<int> vec(arr, &arr[4]);
+	ft::vector<int> copy(vec);
 
-	ft::vector<int>::iterator it;
+	// ft::vector<int>(3, 7);
+	// ft::vector<int>::iterator it;
+
+
+	// // is_integral //
+	// std::cout << "std float : " << std::is_integral<float>::value << std::endl;
+	// std::cout << "ft float : " << ft::is_integral<float>::value << std::endl;
+
+	// std::cout << "std char : " << std::is_integral<char>::value << std::endl;
+	// std::cout << "ft char : " << ft::is_integral<char>::value << std::endl;
+
+
+	// ft::vector<int>::iterator it;
 
 	// ft::vector<int>::iterator it;
 	// // // // ft::vector<int>::reverse_iterator itr = vec.rbegin();

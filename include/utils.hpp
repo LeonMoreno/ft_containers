@@ -1,3 +1,8 @@
+/*
+	"SFINAE" (substitution failure is not an error)
+
+*/
+
 #ifndef UTILS_HPP
 # define UTILS_HPP
 
@@ -6,11 +11,23 @@
 
 namespace ft {
 
+//------------ENABLE_IF--------------------------------------
+
+
+	template<bool, typename T = void>
+	struct enable_if {};
+
+	template<typename T>
+	struct enable_if<true, T> {
+		typedef T type;
+	};
+
+
 /*------------------------ is_integer------------------------------------ */
 	template <typename T>
 	struct is_integral : public std::false_type { };
 
-	// Specializaciones para otros tipos de datos integrale
+	// Specializaciones para otros tipos de datos integrales
 	template<> struct is_integral<bool> : public std::true_type { };
 	template<> struct is_integral<char> : public std::true_type { };
 	template<> struct is_integral<char16_t> : public std::true_type { };
@@ -29,6 +46,5 @@ namespace ft {
 	template<> struct is_integral<unsigned long long int> : public std::true_type { };
 
 } // namespace ft end
-
 
 #endif

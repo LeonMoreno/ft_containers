@@ -25,8 +25,8 @@ void	alloString()
 
 void	alloInt()
 {
-	std::allocator<int>	myAlloc;
-	std::allocator<int>::pointer	ptr;
+	std::allocator<int>	myAlloc; // object allocator<int>
+	std::allocator<int>::pointer	ptr; // pointer to int
 	std::allocator<int>::pointer	start;
 
 	ptr = myAlloc.allocate(5);
@@ -46,6 +46,6 @@ void	alloInt()
 int	main()
 {
 	alloInt();
-	alloString();
+	// alloString();
 	return (0);
 }

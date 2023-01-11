@@ -2,7 +2,7 @@
 # define ITERATOR_TRAITS_HPP
 
 #include <cstddef> // ptrdiff_t
-// #include <iterator> // para std::random_access_iterator_tag
+#include <iterator> // para std::random_access_iterator_tag
 
 // Intro iterators traits :
 // https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits
@@ -48,8 +48,8 @@ namespace ft {
 	struct iterator_traits<T*> {
 		typedef		T								value_type;
 		typedef		std::ptrdiff_t					difference_type;
-		typedef		random_access_iterator_tag	iterator_category;
-		// typedef		std::random_access_iterator_tag	iterator_category; // pilas std::
+		// typedef		random_access_iterator_tag	iterator_category;
+		typedef		std::random_access_iterator_tag	iterator_category; // pilas std::
 		typedef		T* 								pointer;
 		typedef		T&								reference;
 	};
@@ -59,8 +59,8 @@ namespace ft {
 	struct iterator_traits<const T*> {
 		typedef			T								value_type;
 		typedef			std::ptrdiff_t					difference_type;
-		typedef			random_access_iterator_tag	iterator_category;
-		// typedef			std::random_access_iterator_tag	iterator_category; // pilas std::
+		// typedef			random_access_iterator_tag	iterator_category;
+		typedef			std::random_access_iterator_tag	iterator_category; // pilas std::
 		typedef const T* 								pointer;
 		typedef	const T& 								reference;
 	};
