@@ -42,11 +42,11 @@ int	main()
 {
 	int	arr[] = {43, 54, 65, 7};
 	ft::vector<int> vec(arr, &arr[4]);
-	ft::vector<int> copy(vec);
+
+	// ft::vector<int> copy(vec);
 
 	// ft::vector<int>(3, 7);
-	// ft::vector<int>::iterator it;
-
+	ft::vector<int>::iterator it = vec.begin();
 
 	// // is_integral //
 	// std::cout << "std float : " << std::is_integral<float>::value << std::endl;
