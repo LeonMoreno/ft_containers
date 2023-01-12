@@ -22,10 +22,10 @@ namespace ft {
 
 			/*---------------Constructor and Destructors ----------------------------------------------------- */
 
-			vector_iterator(void) : _ptr(NULL) { std::cout << "Default Construct iterator\n"; } /* por si aca ??*/
-			vector_iterator(pointer ptr) : _ptr(ptr) { std::cout << " INT Construct iterator\n"; } /* default constructor */
-			vector_iterator(const vector_iterator &copy) : _ptr(copy.base()) {} /* copy constructor */
-			~vector_iterator() { std::cout << "Destructor iterator\n"; };
+			vector_iterator(void) : _ptr(NULL) { } /* por si aca ??*/
+			vector_iterator(pointer ptr) : _ptr(ptr) { } /* default constructor */
+			vector_iterator(const vector_iterator &copy) : _ptr(copy.base()) { } /* copy constructor */
+			~vector_iterator() { };
 
 			/*--------------- Getters and Setters-------------------------------------------------------------- */
 
@@ -93,6 +93,56 @@ namespace ft {
 		/* ************************************************************************** */
 		/* Non-Member Functions Overloads                                             */
 		/* ************************************************************************** */
+
+	template<typename T1, typename T2>
+	bool operator==(const vector_iterator<T1> &lhs, const vector_iterator<T2> &rhs) {
+				return (lhs.base() == rhs.base());
+	}
+
+	template<typename T1, typename T2>
+	bool operator!=(const vector_iterator<T1> &lhs, const vector_iterator<T2> &rhs) {
+				return (lhs.base() != rhs.base());
+	}
+
+	template<typename T1, typename T2>
+	bool operator>(const vector_iterator<T1> &lhs, const vector_iterator<T2> &rhs) {
+				return (lhs.base() > rhs.base());
+	}
+
+	template<typename T1, typename T2>
+	bool operator>=(const vector_iterator<T1> &lhs, const vector_iterator<T2> &rhs) {
+				return (lhs.base() >= rhs.base());
+	}
+
+	template<typename T1, typename T2>
+	bool operator<(const vector_iterator<T1> &lhs, const vector_iterator<T2> &rhs) {
+				return (lhs.base() < rhs.base());
+	}
+
+	template<typename T1, typename T2>
+	bool operator<=(const vector_iterator<T1> &lhs, const vector_iterator<T2> &rhs) {
+				return (lhs.base() <= rhs.base());
+	}
+
+	template<typename T1>
+	vector_iterator<T1> operator+(typename vector_iterator<T1>::difference_type n, const vector_iterator<T1> &rhs) {
+				return (vector_iterator<T1>(rhs.base() + n));
+	}
+
+	template<typename T1>
+	vector_iterator<T1> operator+(const vector_iterator<T1> &lhs, typename vector_iterator<T1>::difference_type n) {
+				return (vector_iterator<T1>(lhs.base() + n));
+	}
+
+	template<typename T1>
+	vector_iterator<T1> operator-(typename vector_iterator<T1>::difference_type n, const vector_iterator<T1> &rhs) {
+				return (vector_iterator<T1>(rhs.base() - n));
+	}
+
+	template<typename T1>
+	vector_iterator<T1> operator-(const vector_iterator<T1> &lhs, typename vector_iterator<T1>::difference_type n) {
+				return (vector_iterator<T1>(lhs.base() - n));
+	}
 
 
 } // namespace ft end

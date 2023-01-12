@@ -1,85 +1,54 @@
 #include "vector.hpp"
 #include "utils.hpp"
+#include "colors.hpp"
+#include <unistd.h>
 #include <vector>
 #include <iterator>
 
-
-void	ejem_std()
+void	ft_print_vec(ft::vector<int> &vec)
 {
-	std::cout << "++++++++++++++++++ STD " << std::endl;
-
-	std::vector<int> vex;
-	std::vector<int>::iterator it;
-
-	std::cout << "size = " << vex.size() << std::endl;
-	std::cout << "capacity = " << vex.capacity() << std::endl;
-
-	for (int i = 0; i < 10; i++)
-		vex.push_back(i);
-
-	std::cout << "size = " << vex.size() << std::endl;
-	std::cout << "capacity = " << vex.capacity() << std::endl;
-
-	for (it = vex.begin(); it != vex.end(); it++)
+	std::cout << "The values in the vector are (via iterator): [ ";
+	for (ft::vector<int>::iterator it = vec.begin(); it != vec.end(); it++) {
+		fflush(stdout);
+		usleep(500000);
 		std::cout << *it << " ";
-	std::cout << std::endl;
-
-
+	}
+	std::cout << "]" << std::endl << std::endl;
 }
 
-void	ejem_unitialized_copy()
+
+void	vec_construct(void)
 {
-	int	arr[] = {43, 6, 62, 98,};
-	int	arr_2[] = {2, 3, 44, 54};
+	std::cout << BRED << "CONSTRUCTOR TEST " << RESET << std::endl;
+	std::cout << BLU << "\t Init empty vector v_01" << RESET << std::endl;
+	ft::vector<int> v_01;
+	ft_print_vec(v_01);
 
-	std::uninitialized_copy(arr, &arr[4], arr_2);
-	for (int i = 0; i < 4; i++)
-		std::cout << arr_2[i] << std::endl;
+	std::cout << BLU << "\t Init Fill constructor vector v_02(5, 7)" << RESET << std::endl;
+	ft::vector<int> v_02(5, 7);
+	ft_print_vec(v_02);
 
+	std::cout << BLU << "\t Init Range constructor with iterator vector v_03(v_02.begin() + 1, v_02.end() - 1)" << RESET << std::endl;
+	ft::vector<int> v_03(v_02.begin() +1, v_02.end() - 1);
+	ft_print_vec(v_03);
+
+	std::cout << BLU << "\t Init Range constructor with ptr_arry vector v_04(arr, &arr[5])" << RESET << std::endl;
+	int	arr[] = {89, 7, 100, 2, 1};
+	ft::vector<int> v_04(arr, &arr[5]);
+	ft_print_vec(v_04);
+
+	std::cout << BLU << "Init  assignment constructor v_05 'v_05 = v_02'" << RESET  << std::endl;
+	ft::vector<int> v_05 = v_02;
+	ft_print_vec(v_05);
+	usleep(500000);
 }
 
 int	main()
 {
-	int	arr[] = {43, 54, 65, 7};
-	ft::vector<int> vec(arr, &arr[4]);
+	std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
+	usleep(500000);
+	vec_construct();
 
-	// ft::vector<int> copy(vec);
-
-	// ft::vector<int>(3, 7);
-	ft::vector<int>::iterator it = vec.begin();
-
-	// // is_integral //
-	// std::cout << "std float : " << std::is_integral<float>::value << std::endl;
-	// std::cout << "ft float : " << ft::is_integral<float>::value << std::endl;
-
-	// std::cout << "std char : " << std::is_integral<char>::value << std::endl;
-	// std::cout << "ft char : " << ft::is_integral<char>::value << std::endl;
-
-
-	// ft::vector<int>::iterator it;
-
-	// ft::vector<int>::iterator it;
-	// // // // ft::vector<int>::reverse_iterator itr = vec.rbegin();
-
-	// std::cout << "ft_vec size = " << vec.size() << std::endl;
-	// std::cout << "ft_vec capacite = " << vec.capacity() << std::endl;
-	// vec.resize(6);
-
-	// std::cout << "size = " << vec.size() << std::endl;
-	// std::cout << "Max_size = " << vec.max_size() << std::endl;
-
-
-	// it = vec.begin();
-	// for (it; it != vec.end(); it++)
-	// 	std::cout << *it << std::endl;
-
-	// fd::vector<int> vec1(4, 1);
-	// std::vector<int> vec;
-
-	// std::cout << "vec size = " << vec.size() << std::endl;
-
-	// ejem_std();
-	// ejem_unitialized_copy();
 
 	return (0);
 }

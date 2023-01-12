@@ -35,7 +35,7 @@ namespace ft{
 			// default constructor
 			explicit vector (const allocator_type& alloc = allocator_type())
 			: _arr(alloc), _begin(nullptr), _end(nullptr), _capacity(nullptr)
-			{std::cout << "default construc\n"; }
+			{ }
 
 			// fill constructor
 			explicit vector (size_type n, const value_type& val = value_type(),
@@ -43,7 +43,7 @@ namespace ft{
 			_arr(alloc), _begin(_arr.allocate(n)), _end(_begin),
 			_capacity(_begin + n) {
 
-				std::cout << "Fill construc\n";
+				// std::cout << "Fill construc\n";
 				while (n--)
 					_arr.construct(_end++, val);
 
@@ -59,7 +59,7 @@ namespace ft{
 				typename std::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
 				: _arr(alloc), _begin(nullptr), _end(nullptr), _capacity(nullptr) {
 
-				std::cout << "Range construc\n";
+				// std::cout << "Range construc\n";
 
 				InputIterator tmp = first;
 				size_t	size = 0;
@@ -78,13 +78,15 @@ namespace ft{
 				// Comprobando que funciono el constructor.
 				// for (tmp = _begin; tmp != _end; tmp++)
 				// 	std::cout << *tmp << std::endl;
+				// std::cout << "_begin = " << _begin << std::endl;
+
 			}
 
 			// copy constructor
 			vector (const vector& src)
 			: _arr(src._arr), _begin(nullptr), _end(nullptr), _capacity(nullptr) {
 
-				std::cout << "Copy construc\n";
+				// std::cout << "Copy construc\n";
 
 				pointer	tmp = src._begin;
 				size_t	size = 0;
@@ -106,7 +108,7 @@ namespace ft{
 
 
 			~vector(void) {
-				std::cout << "Destructor Vector\n";
+				// std::cout << "Destructor Vector\n";
 
 				size_t n = 0;
 				for (pointer tmp = this->_begin; tmp != this->_end; tmp++, n++)
