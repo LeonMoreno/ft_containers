@@ -62,7 +62,7 @@ namespace ft{
 				// std::cout << "Range construc\n";
 
 				InputIterator tmp = first;
-				size_t	size = 0;
+				size_type	size = 0;
 
 				while (tmp != last)
 				{
@@ -89,7 +89,7 @@ namespace ft{
 				// std::cout << "Copy construc\n";
 
 				pointer	tmp = src._begin;
-				size_t	size = 0;
+				size_type	size = 0;
 				while (tmp != src._end)
 				{
 					size++;
@@ -110,7 +110,7 @@ namespace ft{
 			~vector(void) {
 				// std::cout << "Destructor Vector\n";
 
-				size_t n = 0;
+				size_type n = 0;
 				for (pointer tmp = this->_begin; tmp != this->_end; tmp++, n++)
 					this->_arr.destroy(tmp);
 				this->_arr.deallocate(this->_begin, n);
@@ -141,6 +141,87 @@ namespace ft{
 			const_iterator begin() const { return (const_iterator(_begin)); }
 			const_iterator end() const { return (const_iterator(_end)); }
 
+//---------------------------CAPACITY----------------------------------------//
+
+			size_type size() const {
+				size_type siz = 0;
+
+				for (pointer temp = _begin; temp != _end; temp++)
+					siz++;
+				return (siz);
+			}
+
+			size_type max_size() const {
+				return (_arr.max_size());
+			}
+
+			bool empty() const {
+				return (this->size() == 0);
+			}
+
+			size_type capacity() const { return (_end - _begin); }
+
+			void reserve (size_type new_cap) {
+
+				pointer new_begin = nullptr;
+				if (new_cap > _arr.max_size())
+					throw std::length_error("Reserve: new_cap too big");
+				else if (new_cap < this->capacity())
+					return;
+				try {
+					new_begin = _arr.allocate(new_cap);
+				}
+				catch (std::bad_alloc &e) {
+					throw e;
+				}
+
+				pointer new_end = new_begin;
+				for (pointer tmp = _begin; tmp != _end; tmp++, new_end++)
+					_arr.construct(new_end, *tmp);
+
+				for (pointer tmp = _begin; tmp != _end; tmp++)
+					_arr.destroy(tmp);
+				_arr.deallocate(_begin, this->capacity());
+
+				_begin = new_begin;
+				_end = new_end;
+				_capacity = _begin + new_cap;
+				}
+
+//---------------------------ELEMENT ACCESS----------------------------------------//
+
+			reference operator[] (size_type n) { return *(this->_begin + n); }
+
+			const_reference operator[] (size_type n) const { return *(this->_begin + n); }
+
+			reference at (size_type n) {
+
+				if (n >= this->size())
+					throw std::out_of_range("out of range");
+				return *(this->_begin + n);
+			}
+
+			const_reference at (size_type n) const {
+
+				if (n >= this->size())
+					throw std::out_of_range("out of range");
+				return *(this->_begin + n);
+			}
+
+
+			reference front() { return *(this->_begin); }
+
+			const_reference front() const { return *(this->_begin); }
+
+			reference back() { return *(this->_end - 1); }
+
+			const_reference back() const { return *(this->_end - 1); }
+
+			value_type* data() { return (this->_begin); }
+
+			const value_type* data() const { return (this->_begin); }
+
+//---------------------------Modifiers----------------------------------------//
 
 
 
@@ -150,6 +231,8 @@ namespace ft{
 			pointer			_begin;
 			pointer			_end;
 			pointer			_capacity;
+
+
 
 
 	};

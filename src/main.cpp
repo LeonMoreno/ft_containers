@@ -10,12 +10,11 @@ void	ft_print_vec(ft::vector<int> &vec)
 	std::cout << "The values in the vector are (via iterator): [ ";
 	for (ft::vector<int>::iterator it = vec.begin(); it != vec.end(); it++) {
 		fflush(stdout);
-		usleep(500000);
+		usleep(70000);
 		std::cout << *it << " ";
 	}
 	std::cout << "]" << std::endl << std::endl;
 }
-
 
 void	vec_construct(void)
 {
@@ -45,10 +44,33 @@ void	vec_construct(void)
 
 int	main()
 {
-	std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
-	usleep(500000);
-	vec_construct();
+	// std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
+	// usleep(520000);
+	// vec_construct();
+
+	int	arr[] = {89, 7, 100, 2, 1};
+	ft::vector<int> vec(arr, &arr[5]);
+	std::cout << "sizxe = " << vec.size() << std::endl;
+	std::cout << "capaci = " << vec.capacity() << std::endl;
+
+	vec.reserve(5);
+	std::cout << "sizxe = " << vec.size() << std::endl;
+	std::cout << "capaci = " << vec.capacity() << std::endl;
+
+	// try {
+	std::cout << "ele 0 = " << vec.data() << std::endl;
+
+	ft::vector<int>::iterator  it = vec.data();
+
+	it++;
 
 
+	std::cout << "ele 0 = " << *it << std::endl;
+
+
+	// }
+	// catch (std::out_of_range &e) {
+	// 	std::cout << "out" << e.what() << std::endl;
+	// }
 	return (0);
 }
