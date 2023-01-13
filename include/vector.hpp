@@ -34,18 +34,21 @@ namespace ft{
 //---------------------------constructor & Destructor---------------------------------------//
 			// default constructor
 			explicit vector (const allocator_type& alloc = allocator_type())
-			: _arr(alloc), _begin(nullptr), _end(nullptr), _capacity(nullptr)
+			: _arr(alloc), _begin(nullptr), _end(nullptr), _capacity(nullptr), _size(0), _cap(0)
 			{ }
 
 			// fill constructor
 			explicit vector (size_type n, const value_type& val = value_type(),
 			const allocator_type& alloc = allocator_type()) :
 			_arr(alloc), _begin(_arr.allocate(n)), _end(_begin),
-			_capacity(_begin + n) {
+			 _capacity(_begin + n), _size(n), _cap(n) {
 
 				// std::cout << "Fill construc\n";
-				while (n--)
-					_arr.construct(_end++, val);
+				// while (n--)
+				// 	_arr.construct(_end++, val);
+				for (size_type i = 0; i < n; i++)
+					_arr.construct(&(_begin[i]), val);
+				_end = _begin + n; // temporal
 
 			// Comprobando que funciono el constructor.
 			// for (pointer tmp = _begin; tmp != _end; tmp++)
@@ -57,23 +60,28 @@ namespace ft{
 			template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
 				typename std::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
-				: _arr(alloc), _begin(nullptr), _end(nullptr), _capacity(nullptr) {
+				: _arr(alloc), _begin(nullptr), _end(nullptr), _capacity(nullptr),
+				 _size(0), _cap(0) {
 
 				// std::cout << "Range construc\n";
 
 				InputIterator tmp = first;
-				size_type	size = 0;
 
 				while (tmp != last)
 				{
-					size++;
+					_size++;
 					tmp++;
 				}
-				_begin = _arr.allocate(size);
-				_end = _begin;
-				_capacity = _begin + size;
-				for ( ;first != last; _end++, first++)
-					_arr.construct(_end, *first);
+				_begin = _arr.allocate(_size);
+				// for ( ;first != last; _end++, first++)
+				// 	_arr.construct(_end, *first);
+
+				for (size_type i = 0; i < _size; i++)
+					_arr.construct(&(_begin[i]), first[i]);
+
+				_capacity = _begin + _size;
+				_end = _begin + _size;
+				_cap = _size;
 
 				// Comprobando que funciono el constructor.
 				// for (tmp = _begin; tmp != _end; tmp++)
@@ -84,23 +92,28 @@ namespace ft{
 
 			// copy constructor
 			vector (const vector& src)
-			: _arr(src._arr), _begin(nullptr), _end(nullptr), _capacity(nullptr) {
+			: _arr(src._arr), _begin(nullptr), _end(nullptr), _capacity(nullptr),
+				_size(src._size), _cap(src._cap) {
 
 				// std::cout << "Copy construc\n";
 
-				pointer	tmp = src._begin;
-				size_type	size = 0;
-				while (tmp != src._end)
-				{
-					size++;
-					tmp++;
-				}
-				_begin = _arr.allocate(size);
-				_end = _begin;
-				_capacity = _begin + size;
-				for (tmp = src._begin; tmp != src._end; tmp++, _end++)
-					_arr.construct(_end, *tmp);
+				// pointer	tmp = src._begin;
+				// while (tmp != src._end)
+				// {
+				// 	_size++;
+				// 	tmp++;
+				// }
+				_begin = _arr.allocate(_size);
 
+				// for (tmp = src._begin; tmp != src._end; tmp++, _end++)
+				// 	_arr.construct(_end, *tmp);
+
+				for (size_type i = 0; i < _size; i++)
+					_arr.construct(&(_begin[i]), src._begin[i]);
+
+
+				_end = _begin + _size;
+				_capacity = _begin + _size;
 				// Comprobando que funciono el constructor.
 				// for (tmp = _begin; tmp != _end; tmp++)
 				// 	std::cout << *tmp << std::endl;
@@ -110,18 +123,22 @@ namespace ft{
 			~vector(void) {
 				// std::cout << "Destructor Vector\n";
 
-				size_type n = 0;
-				for (pointer tmp = this->_begin; tmp != this->_end; tmp++, n++)
-					this->_arr.destroy(tmp);
-				this->_arr.deallocate(this->_begin, n);
+				// size_type n = 0;
+				// for (pointer tmp = this->_begin; tmp != this->_end; tmp++, n++)
+				// 	this->_arr.destroy(tmp);
+
+				for(size_type i = 0; i < _size; i++)
+					_arr.destroy(&(_begin[i]));
+
+				this->_arr.deallocate(_begin, _size);
 				}
 
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
 
-			vector& operator= (const vector& x) {
-				if (this->_begin != x.begin())
+			vector& operator= (const vector& rhs) {
+				if (_begin != rhs.begin())
 				{
-					this->_arr = x.alloc;
+					_arr = rhs._arr;
 					// assign(x.begin(), x.end()); // PILAS !!!! FALTA AUN
 				}
 				return (*this);
@@ -130,7 +147,9 @@ namespace ft{
 //-------------------------------Getters and Setters-----------------------------------------------//
 
 			// Get Alloc
-			// allocator_type get_allocator(void) const { return _alloc; }  // NO SE
+			allocator_type get_allocator(void) const { return _arr; }  // NO SE
+
+			size_type sileo() const { return (_size); }
 
 
 //---------------------------Iterator from vector----------------------------------------//
@@ -144,11 +163,12 @@ namespace ft{
 //---------------------------CAPACITY----------------------------------------//
 
 			size_type size() const {
-				size_type siz = 0;
 
-				for (pointer temp = _begin; temp != _end; temp++)
-					siz++;
-				return (siz);
+				size_type si = 0;
+
+				for (pointer tmp = _begin; tmp != _end; tmp++)
+					si++;
+				return (si);
 			}
 
 			size_type max_size() const {
@@ -191,6 +211,7 @@ namespace ft{
 				_begin = new_begin;
 				_end = new_end;
 				_capacity = _begin + new_cap;
+				_cap = new_cap;
 				}
 
 //---------------------------ELEMENT ACCESS----------------------------------------//
@@ -275,14 +296,13 @@ namespace ft{
 
 			void push_back (const value_type& val) {
 
-				size_t temp = this->size();
-
 				if (!this->capacity())
-					_ft_realloc(1);
-				if (this->size() == this->capacity())
-					reserve(this->capacity() * 2);
-				_arr.construct(_begin + temp, val);
-				_end = _begin + temp + 1;
+					reserve(1);
+				if (_size == _cap)
+					reserve(_cap * 2);
+				_arr.construct(_begin + _size, val);
+				_end = _begin + _size + 1;
+				this->_size++;
 			}
 
 
@@ -291,6 +311,8 @@ namespace ft{
 			pointer			_begin;
 			pointer			_end;
 			pointer			_capacity;
+			size_type		_size;
+			size_type		_cap;
 
 			void	_ft_realloc(size_type new_cap, value_type val = value_type()) {
 

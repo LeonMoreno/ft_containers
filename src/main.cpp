@@ -36,9 +36,14 @@ void	vec_construct(void)
 	ft::vector<int> v_04(arr, &arr[5]);
 	ft_print_vec(v_04);
 
-	std::cout << BLU << "Init  assignment constructor v_05 'v_05 = v_02'" << RESET  << std::endl;
-	ft::vector<int> v_05 = v_02;
+
+	std::cout << BLU << "\t Copy constructor v_05  'v_05(v_02)'" << RESET  << std::endl;
+	ft::vector<int> v_05(v_02);
 	ft_print_vec(v_05);
+
+	std::cout << BLU << "\t Init  assignment constructor v_06 'v_06 = v_02'" << RESET  << std::endl;
+	ft::vector<int> v_06 = v_02;
+	ft_print_vec(v_06);
 	usleep(500000);
 }
 
@@ -48,14 +53,15 @@ int	main()
 	// usleep(520000);
 	// vec_construct();
 
-	// int	arr[] = {89, 7, 100, 2, 1};
-	// ft::vector<int> vec(arr, &arr[5]);
-	ft::vector<int> vec;
-	std::cout << "sizxe = " << vec.size() << std::endl;
+	int	arr[] = {89, 7, 100, 2, 1};
+	ft::vector<int> vec(arr, &arr[5]);
+	// ft::vector<int> vec;
+	std::cout << "sizee = " << vec.size() << std::endl;
+	std::cout << "LeoSIze = " << vec.sileo() << std::endl;
 	std::cout << "capaci = " << vec.capacity() << std::endl;
-	ft_print_vec(vec);
+	// ft_print_vec(vec);
 
-	for (int i = 0; i < 1000; i++)
+	for (int i = 0; i < 100000; i++)
 		vec.push_back(i);
 
 		// vec.push_back(98);
@@ -65,7 +71,8 @@ int	main()
 
 
 
-	std::cout << "sizxe = " << vec.size() << std::endl;
+	std::cout << "size = " << vec.size() << std::endl;
+	std::cout << "LeoSIze = " << vec.sileo() << std::endl;
 	std::cout << "capaci = " << vec.capacity() << std::endl;
 	// ft_print_vec(vec);
 
