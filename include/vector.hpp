@@ -40,29 +40,28 @@ namespace ft{
 			// fill constructor
 			explicit vector (size_type n, const value_type& val = value_type(),
 			const allocator_type& alloc = allocator_type()) :
-			_arr(alloc), _begin(_arr.allocate(n)), size(n),
+			_arr(alloc), _begin(_arr.allocate(n)), _size(n),
 			_capacity(n) {
 
 				// std::cout << "Fill construc\n";
-				while (n--)
-					_arr.construct(_end++, val);
+				for (size_type i = 0; i < n; i++)
+					_arr.construct(&(_begin[i]), val);
 
-			// Comprobando que funciono el constructor.
-			// for (pointer tmp = _begin; tmp != _end; tmp++)
-			// 	std::cout << *tmp << std::endl;
+				// Comprobando que funciono el constructor.
+				// for (size_type i = 0; i < _size; i++)
+				// 	std::cout << _begin[i] << std::endl;
 			}
 
 			// range contruc
-
 			template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
 				typename std::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
-				: _arr(alloc), _begin(nullptr), _end(nullptr), _capacity(nullptr) {
+				: _arr(alloc), _begin(nullptr), _size(0), _capacity(0) {
 
 				// std::cout << "Range construc\n";
 
-				InputIterator tmp = first;
-				size_type	size = 0;
+				InputIterator	tmp = first;
+				size_type		size = 0;
 
 				while (tmp != last)
 				{
@@ -70,58 +69,48 @@ namespace ft{
 					tmp++;
 				}
 				_begin = _arr.allocate(size);
-				_end = _begin;
-				_capacity = _begin + size;
-				for ( ;first != last; _end++, first++)
-					_arr.construct(_end, *first);
+				_size = size;
+				_capacity = size;
+				for (size_type i = 0; i < size; i++)
+					_arr.construct(&(_begin[i]), first[i]);
 
-				// Comprobando que funciono el constructor.
-				// for (tmp = _begin; tmp != _end; tmp++)
-				// 	std::cout << *tmp << std::endl;
+				// // Comprobando que funciono el constructor.
+				// for (size_type i = 0; i < size; i++)
+				// 	std::cout << _begin[i] << std::endl;
 				// std::cout << "_begin = " << _begin << std::endl;
 
 			}
 
-			// copy constructor
+			// // copy constructor
 			vector (const vector& src)
-			: _arr(src._arr), _begin(nullptr), _end(nullptr), _capacity(nullptr) {
+			: _arr(src._arr), _begin(nullptr), _size(src._size), _capacity(src._capacity) {
 
 				// std::cout << "Copy construc\n";
 
-				pointer	tmp = src._begin;
-				size_type	size = 0;
-				while (tmp != src._end)
-				{
-					size++;
-					tmp++;
-				}
-				_begin = _arr.allocate(size);
-				_end = _begin;
-				_capacity = _begin + size;
-				for (tmp = src._begin; tmp != src._end; tmp++, _end++)
-					_arr.construct(_end, *tmp);
+				_begin = _arr.allocate(src._size);
+				for (size_type i = 0; i < _size; i++)
+					_arr.construct(&(_begin[i]), src._begin[i]);
 
 				// Comprobando que funciono el constructor.
-				// for (tmp = _begin; tmp != _end; tmp++)
-				// 	std::cout << *tmp << std::endl;
+				// for (size_type i = 0; i < _size; i++)
+				// 	std::cout << _begin[i] << std::endl;
 			}
 
 
 			~vector(void) {
 				// std::cout << "Destructor Vector\n";
 
-				size_type n = 0;
-				for (pointer tmp = this->_begin; tmp != this->_end; tmp++, n++)
-					this->_arr.destroy(tmp);
-				this->_arr.deallocate(this->_begin, n);
+				for (size_type i = 0; i < _size; i++)
+					this->_arr.destroy(&(_begin[i]));
+				this->_arr.deallocate(this->_begin, _size);
 				}
 
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
 
-			vector& operator= (const vector& x) {
-				if (this->_begin != x.begin())
+			vector& operator= (const vector& rhs) {
+				if (this->_begin != rhs._begin)
 				{
-					this->_arr = x.alloc;
+					this->_arr = rhs.alloc;
 					// assign(x.begin(), x.end()); // PILAS !!!! FALTA AUN
 				}
 				return (*this);
@@ -130,93 +119,77 @@ namespace ft{
 // //-------------------------------Getters and Setters-----------------------------------------------//
 
 // 			// Get Alloc
-// 			// allocator_type get_allocator(void) const { return _alloc; }  // NO SE
+			allocator_type get_allocator(void) const { return this->_arr; }
 
 
 // //---------------------------Iterator from vector----------------------------------------//
 
-// 			iterator begin() { return (iterator(_begin)); }
-// 			iterator end() { return (iterator(_end)); }
+			iterator begin() { return (iterator(_begin)); }
+			iterator end() { return (iterator(_begin + this->_size)); }
 
-// 			const_iterator begin() const { return (const_iterator(_begin)); }
-// 			const_iterator end() const { return (const_iterator(_end)); }
+			const_iterator begin() const { return (const_iterator(_begin)); }
+			const_iterator end() const { return (const_iterator(_begin + this->_size)); }
 
 // //---------------------------CAPACITY----------------------------------------//
 
-// 			size_type size() const {
-// 				size_type siz = 0;
+			size_type size() const { return (this->_size); }
 
-// 				for (pointer temp = _begin; temp != _end; temp++)
-// 					siz++;
-// 				return (siz);
-// 			}
+			size_type max_size() const { return (_arr.max_size()); }
 
-// 			size_type max_size() const {
-// 				return (_arr.max_size());
-// 			}
+			bool empty() const { return (this->size() == 0); }
 
-// 			bool empty() const {
-// 				return (this->size() == 0);
-// 			}
+			size_type capacity() const { return (_capacity); }
 
-// 			size_type capacity() const { return (_capacity - _begin); }
+			void reserve (size_type new_cap) {
 
-// 			void reserve (size_type new_cap) {
+				pointer new_begin = nullptr;
 
-// 				pointer new_begin = nullptr;
-// 				if (new_cap > _arr.max_size())
-// 					throw std::length_error("Reserve: new_cap too big");
-// 				else if (new_cap < this->capacity())
-// 					return;
-// 				try {
-// 					new_begin = _arr.allocate(new_cap);
-// 				}
-// 				catch (std::bad_alloc &e) {
-// 					throw e;
-// 				}
+				if (new_cap > _arr.max_size())
+					throw std::length_error("Reserve: new_cap too big");
+				else if (new_cap < this->capacity())
+					return;
+				try {
+					new_begin = _arr.allocate(new_cap);
+				}
+				catch (std::bad_alloc &e) {
+					throw e;
+				}
 
-// 				pointer new_end = new_begin;
-// 				size_type siz = this->size();
+				for (size_type i = 0; i < this->_size; i++)
+					_arr.construct(&(new_begin[i]), _begin[i]);
 
-// 				for (size_type i = 0; i < siz; i++)
-// 					_arr.construct(&new_end[i], _begin[i]);
+				for (size_type i = 0; i < this->_size; i++)
+					_arr.destroy(&(_begin[i]));
+				_arr.deallocate(_begin, this->_capacity);
 
-// 				// for (pointer tmp = _begin; tmp != _end; tmp++, new_end++)
-// 				// 	_arr.construct(new_end, *tmp);
-
-// 				for (pointer tmp = _begin; tmp != _end; tmp++)
-// 					_arr.destroy(tmp);
-// 				_arr.deallocate(_begin, this->capacity());
-
-// 				_begin = new_begin;
-// 				_end = new_end;
-// 				_capacity = _begin + new_cap;
-// 				}
+				_begin = new_begin;
+				_capacity = new_cap;
+				}
 
 // //---------------------------ELEMENT ACCESS----------------------------------------//
 
-// 			reference operator[] (size_type n) { return *(this->_begin + n); }
+			reference operator[] (size_type n) { return *(this->_begin + n); }
 
-// 			const_reference operator[] (size_type n) const { return *(this->_begin + n); }
+			const_reference operator[] (size_type n) const { return *(this->_begin + n); }
 
-// 			reference at (size_type n) {
+			reference at (size_type n) {
 
-// 				if (n >= this->size())
-// 					throw std::out_of_range("out of range");
-// 				return *(this->_begin + n);
-// 			}
+				if (n >= this->size())
+					throw std::out_of_range("out of range");
+				return *(this->_begin + n);
+			}
 
-// 			const_reference at (size_type n) const {
+			const_reference at (size_type n) const {
 
-// 				if (n >= this->size())
-// 					throw std::out_of_range("out of range");
-// 				return *(this->_begin + n);
-// 			}
+				if (n >= this->size())
+					throw std::out_of_range("out of range");
+				return *(this->_begin + n);
+			}
 
 
-// 			reference front() { return *(this->_begin); }
+			reference front() { return *(this->_begin); }
 
-// 			const_reference front() const { return *(this->_begin); }
+			const_reference front() const { return *(this->_begin); }
 
 // 			reference back() { return *(this->_end - 1); }
 
