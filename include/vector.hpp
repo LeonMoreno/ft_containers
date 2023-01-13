@@ -176,8 +176,13 @@ namespace ft{
 				}
 
 				pointer new_end = new_begin;
-				for (pointer tmp = _begin; tmp != _end; tmp++, new_end++)
-					_arr.construct(new_end, *tmp);
+				size_type siz = this->size();
+
+				for (size_type i = 0; i < siz; i++)
+					_arr.construct(&new_end[i], _begin[i]);
+
+				// for (pointer tmp = _begin; tmp != _end; tmp++, new_end++)
+				// 	_arr.construct(new_end, *tmp);
 
 				for (pointer tmp = _begin; tmp != _end; tmp++)
 					_arr.destroy(tmp);
@@ -275,7 +280,7 @@ namespace ft{
 				if (!this->capacity())
 					_ft_realloc(1);
 				if (this->size() == this->capacity())
-					_ft_realloc(this->capacity() * 2);
+					reserve(this->capacity() * 2);
 				_arr.construct(_begin + temp, val);
 				_end = _begin + temp + 1;
 			}

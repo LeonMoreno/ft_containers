@@ -48,16 +48,30 @@ int	main()
 	// usleep(520000);
 	// vec_construct();
 
-	int	arr[] = {89, 7, 100, 2, 1};
-	ft::vector<int> vec(arr, &arr[5]);
+	// int	arr[] = {89, 7, 100, 2, 1};
+	// ft::vector<int> vec(arr, &arr[5]);
+	ft::vector<int> vec;
 	std::cout << "sizxe = " << vec.size() << std::endl;
 	std::cout << "capaci = " << vec.capacity() << std::endl;
 	ft_print_vec(vec);
 
-	vec.push_back(7);
+	for (int i = 0; i < 1000; i++)
+		vec.push_back(i);
+
+		// vec.push_back(98);
+		// vec.push_back(43);
+		// vec.push_back(100);
+		// vec.push_back(200);
+
+
+
 	std::cout << "sizxe = " << vec.size() << std::endl;
 	std::cout << "capaci = " << vec.capacity() << std::endl;
-	ft_print_vec(vec);
+	// ft_print_vec(vec);
+
+
+
+
 
 	return (0);
 }

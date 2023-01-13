@@ -21,9 +21,9 @@ int	main(void)
 	// std::cout << plantilla<int, float>(123.456) << std::endl;
 
 	f<int>(42);
-	f(1u);
-	f(43.54);
-	f(42);
+	// f(1u);
+	// f(43.54);
+	// f(42);
 
 
 	return(0);
