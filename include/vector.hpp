@@ -159,7 +159,7 @@ namespace ft{
 				return (this->size() == 0);
 			}
 
-			size_type capacity() const { return (_end - _begin); }
+			size_type capacity() const { return (_capacity - _begin); }
 
 			void reserve (size_type new_cap) {
 
@@ -223,7 +223,62 @@ namespace ft{
 
 //---------------------------Modifiers----------------------------------------//
 
+			/**
+			 * @brief assing range version
+			 *
+			 * @tparam InputIterator
+			 * @param first
+			 * @param last
+			 */
+			template <class InputIterator>
+			void assign (InputIterator first, InputIterator last,
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) {
 
+				size_type		new_size = 0;
+				InputIterator	tmp = first;
+
+				for (pointer tmp = this->_begin; tmp != this->_end; tmp++)
+					this->_arr.destroy(tmp);
+				while (tmp++ != last)
+					new_size++;
+				std::cout << "Nex size = " << new_size << std::endl;
+				if (new_size > this->capacity())
+					_ft_realloc(new_size);
+				for (pointer tmp = _begin; tmp != _end; tmp++)
+					_arr.construct(tmp, *first++);
+				if (new_size < this->size())
+				{
+					size_t new_end = this->size();
+					for (size_t i = new_size; i < new_end; i++, _end--)
+						std::cout << "valor = " << *_end << std::endl;
+						this->_arr.destroy(_end);
+				}
+			}
+
+			void assign (size_type n, const value_type& val) {
+
+				for (pointer tmp = this->_begin; tmp != this->_end; tmp++)
+					this->_arr.destroy(tmp);
+				if (this->size() < n)
+					_ft_realloc(n);
+				pointer new_end = _begin;
+
+				for (size_type i = 0; i < n; i++, new_end++)
+					_arr.construct(new_end, val);
+				_end = new_end;
+			}
+
+			void push_back (const value_type& val) {
+
+				size_t temp = this->size();
+
+				if (!this->capacity())
+					_ft_realloc(1);
+				if (this->size() == this->capacity())
+					_ft_realloc(this->capacity() * 2);
+				_arr.construct(_begin + temp, val);
+				_end = _begin + temp + 1;
+			}
 
 
 		private:
@@ -232,7 +287,21 @@ namespace ft{
 			pointer			_end;
 			pointer			_capacity;
 
+			void	_ft_realloc(size_type new_cap, value_type val = value_type()) {
 
+				pointer new_begin = _arr.allocate(new_cap);
+				pointer new_end = new_begin;
+				for (pointer tmp = _begin; tmp != _end; tmp++, new_end++)
+					_arr.construct(new_end, *tmp);
+				for (size_type i = this->size(); i < new_cap; i++, new_end++)
+					_arr.construct(new_end, val);
+				for (pointer tmp = _begin; tmp != _end; tmp++)
+					_arr.destroy(tmp);
+				this->_arr.deallocate(this->_begin, this->capacity());
+				this->_begin = new_begin;
+				this->_end = new_end;
+				this->_capacity = _begin + new_cap;
+			}
 
 
 	};

@@ -3,21 +3,19 @@
 
 int	main ()
 {
-	int	arr[] = {54, 67, 98, 2, 5};
+	int	arr[] = {89, 7, 100, 2, 1};
 	std::vector<int> vec(arr, &arr[5]);
-
-	std::cout << "vec.end() = " << *(vec.end() - 1) << std::endl;
+	std::cout << "sizxe = " << vec.size() << std::endl;
+	std::cout << "capaci = " << vec.capacity() << std::endl;
 
 	for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
 		std::cout << *it << " ";
-
 	std::cout << std::endl;
 
-	std::vector<int>::iterator tp = vec.begin();
+	vec.push_back(7);
+	std::cout << "sizxe = " << vec.size() << std::endl;
+	std::cout << "capaci = " << vec.capacity() << std::endl;
 
-	tp++;
-
-	vec.assign(tp, vec.end());
 	for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
 	std::cout << *it << " ";
 	std::cout << std::endl;

@@ -52,25 +52,12 @@ int	main()
 	ft::vector<int> vec(arr, &arr[5]);
 	std::cout << "sizxe = " << vec.size() << std::endl;
 	std::cout << "capaci = " << vec.capacity() << std::endl;
+	ft_print_vec(vec);
 
-	vec.reserve(5);
+	vec.push_back(7);
 	std::cout << "sizxe = " << vec.size() << std::endl;
 	std::cout << "capaci = " << vec.capacity() << std::endl;
+	ft_print_vec(vec);
 
-	// try {
-	std::cout << "ele 0 = " << vec.data() << std::endl;
-
-	ft::vector<int>::iterator  it = vec.data();
-
-	it++;
-
-
-	std::cout << "ele 0 = " << *it << std::endl;
-
-
-	// }
-	// catch (std::out_of_range &e) {
-	// 	std::cout << "out" << e.what() << std::endl;
-	// }
 	return (0);
 }
