@@ -61,17 +61,15 @@ namespace ft{
 				// std::cout << "Range construc\n";
 
 				InputIterator	tmp = first;
-				size_type		size = 0;
 
 				while (tmp != last)
 				{
-					size++;
+					_size++;
 					tmp++;
 				}
-				_begin = _arr.allocate(size);
-				_size = size;
-				_capacity = size;
-				for (size_type i = 0; i < size; i++)
+				_begin = _arr.allocate(_size);
+				_capacity = _size;
+				for (size_type i = 0; i < _size; i++)
 					_arr.construct(&(_begin[i]), first[i]);
 
 				// // Comprobando que funciono el constructor.
@@ -87,9 +85,9 @@ namespace ft{
 
 				// std::cout << "Copy construc\n";
 
-				_begin = _arr.allocate(src._size);
+				_begin = _arr.allocate(_capacity);
 				for (size_type i = 0; i < _size; i++)
-					_arr.construct(&(_begin[i]), src._begin[i]);
+					_arr.construct(&(_begin[i]), src[i]);
 
 				// Comprobando que funciono el constructor.
 				// for (size_type i = 0; i < _size; i++)
@@ -102,7 +100,7 @@ namespace ft{
 
 				for (size_type i = 0; i < _size; i++)
 					this->_arr.destroy(&(_begin[i]));
-				this->_arr.deallocate(this->_begin, _size);
+				this->_arr.deallocate(this->_begin, _capacity);
 				}
 
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
@@ -124,19 +122,19 @@ namespace ft{
 
 // //---------------------------Iterator from vector----------------------------------------//
 
-			iterator begin() { return (iterator(_begin)); }
-			iterator end() { return (iterator(_begin + this->_size)); }
+			iterator begin(void) { return (iterator(_begin)); }
+			iterator end(void) { return (iterator(_begin + _size)); }
 
-			const_iterator begin() const { return (const_iterator(_begin)); }
-			const_iterator end() const { return (const_iterator(_begin + this->_size)); }
+			const_iterator begin(void) const { return (const_iterator(_begin)); }
+			const_iterator end(void) const { return (const_iterator(_begin + this->_size)); }
 
 // //---------------------------CAPACITY----------------------------------------//
 
-			size_type size() const { return (this->_size); }
+			size_type size(void) const { return (_size); }
 
 			size_type max_size() const { return (_arr.max_size()); }
 
-			bool empty() const { return (this->size() == 0); }
+			bool empty() const { return (_size == 0); }
 
 			size_type capacity() const { return (_capacity); }
 
@@ -168,7 +166,7 @@ namespace ft{
 
 // //---------------------------ELEMENT ACCESS----------------------------------------//
 
-			reference operator[] (size_type n) { return *(this->_begin + n); }
+			reference operator[] (size_type n) { return *(_begin + n); }
 
 			const_reference operator[] (size_type n) const { return *(this->_begin + n); }
 
@@ -176,28 +174,28 @@ namespace ft{
 
 				if (n >= this->size())
 					throw std::out_of_range("out of range");
-				return *(this->_begin + n);
+				return (_begin[n]);
 			}
 
 			const_reference at (size_type n) const {
 
 				if (n >= this->size())
 					throw std::out_of_range("out of range");
-				return *(this->_begin + n);
+				return (_begin[n]);
 			}
 
 
-			reference front() { return *(this->_begin); }
+			reference front() { return *(_begin); }
 
-			const_reference front() const { return *(this->_begin); }
+			const_reference front() const { return *(_begin); }
 
-// 			reference back() { return *(this->_end - 1); }
+			reference back() { return (_begin[_size - 1]); }
 
-// 			const_reference back() const { return *(this->_end - 1); }
+			const_reference back() const { return (_begin[_size - 1]); }
 
-// 			value_type* data() { return (this->_begin); }
+			value_type* data() { return (_begin); }
 
-// 			const value_type* data() const { return (this->_begin); }
+			const value_type* data() const { return (_begin); }
 
 // //---------------------------Modifiers----------------------------------------//
 
@@ -246,17 +244,15 @@ namespace ft{
 // 				_end = new_end;
 // 			}
 
-// 			void push_back (const value_type& val) {
+			void push_back (const value_type& val) {
 
-// 				size_t temp = this->size();
-
-// 				if (!this->capacity())
-// 					_ft_realloc(1);
-// 				if (this->size() == this->capacity())
-// 					reserve(this->capacity() * 2);
-// 				_arr.construct(_begin + temp, val);
-// 				_end = _begin + temp + 1;
-// 			}
+				if (this->_capacity == 0)
+					reserve(1);
+				if (this->_size == this->_capacity)
+					reserve(this->_capacity * 2);
+				_arr.construct(_begin + _size, val);
+				_size++;
+			}
 
 
 		private:

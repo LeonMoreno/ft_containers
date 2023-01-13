@@ -16,10 +16,10 @@ int	main ()
 
 	// std::cout << "#### PushBack ###" << std::endl;
 
-	// for (int i = 0; i < 100000; i++)
-	// 	vec.push_back(i);
+	for (int i = 0; i < 1000000; i++)
+		vec.push_back(i);
 
-	vec.reserve(8);
+	// vec.reserve(8);
 	std::cout << "sizxe = " << vec.size() << std::endl;
 	std::cout << "capaci = " << vec.capacity() << std::endl;
 
