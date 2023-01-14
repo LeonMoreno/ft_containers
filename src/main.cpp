@@ -59,22 +59,25 @@ int	main()
 	std::cout << "sizee = " << vec.size() << std::endl;
 	std::cout << "LeoSIze = " << vec.sileo() << std::endl;
 	std::cout << "capaci = " << vec.capacity() << std::endl;
-	// ft_print_vec(vec);
+	ft_print_vec(vec);
 
-	for (int i = 0; i < 100000; i++)
-		vec.push_back(i);
+	// // for (int i = 0; i < 100000; i++)
+	// // 	vec.push_back(i);
 
-		// vec.push_back(98);
-		// vec.push_back(43);
-		// vec.push_back(100);
-		// vec.push_back(200);
+	// 	vec.push_back(98);
+	// 	vec.push_back(43);
+	// 	vec.push_back(100);
+	// 	vec.push_back(200);
 
 
+	vec.assign(3, 7);
 
 	std::cout << "size = " << vec.size() << std::endl;
 	std::cout << "LeoSIze = " << vec.sileo() << std::endl;
+
+	std::cout << "CapLeo = " << vec.capleo() << std::endl;
 	std::cout << "capaci = " << vec.capacity() << std::endl;
-	// ft_print_vec(vec);
+	ft_print_vec(vec);
 
 
 

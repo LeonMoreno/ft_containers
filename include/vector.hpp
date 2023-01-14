@@ -151,35 +151,30 @@ namespace ft{
 
 			size_type sileo() const { return (_size); }
 
+			size_type capleo() const { return (_cap); }
+
 
 //---------------------------Iterator from vector----------------------------------------//
 
 			iterator begin() { return (iterator(_begin)); }
-			iterator end() { return (iterator(_end)); }
+			iterator end() { return (iterator(_begin + _size)); }
 
 			const_iterator begin() const { return (const_iterator(_begin)); }
-			const_iterator end() const { return (const_iterator(_end)); }
+			const_iterator end() const { return (const_iterator(_begin + _size)); }
 
 //---------------------------CAPACITY----------------------------------------//
 
-			size_type size() const {
-
-				size_type si = 0;
-
-				for (pointer tmp = _begin; tmp != _end; tmp++)
-					si++;
-				return (si);
-			}
+			size_type size() const { return (_size); }
 
 			size_type max_size() const {
 				return (_arr.max_size());
 			}
 
 			bool empty() const {
-				return (this->size() == 0);
+				return (_size == 0);
 			}
 
-			size_type capacity() const { return (_capacity - _begin); }
+			size_type capacity() const { return (_cap); }
 
 			void reserve (size_type new_cap) {
 
@@ -263,35 +258,36 @@ namespace ft{
 				size_type		new_size = 0;
 				InputIterator	tmp = first;
 
-				for (pointer tmp = this->_begin; tmp != this->_end; tmp++)
-					this->_arr.destroy(tmp);
+				for (size_type i = 0; i < _size; i++)
+					_arr.destroy(&(_begin[i]));
 				while (tmp++ != last)
 					new_size++;
-				std::cout << "Nex size = " << new_size << std::endl;
-				if (new_size > this->capacity())
+				if (new_size > _cap)
 					_ft_realloc(new_size);
-				for (pointer tmp = _begin; tmp != _end; tmp++)
-					_arr.construct(tmp, *first++);
-				if (new_size < this->size())
+				for (size_type i = 0; i < new_size; i++)
+					_arr.construct(&(_begin[i]), first[i]);
+				if (new_size < _size)
 				{
 					size_t new_end = this->size();
 					for (size_t i = new_size; i < new_end; i++, _end--)
-						std::cout << "valor = " << *_end << std::endl;
 						this->_arr.destroy(_end);
 				}
+				_size = new_size;
 			}
 
 			void assign (size_type n, const value_type& val) {
 
-				for (pointer tmp = this->_begin; tmp != this->_end; tmp++)
-					this->_arr.destroy(tmp);
-				if (this->size() < n)
-					_ft_realloc(n);
-				pointer new_end = _begin;
+				// for (pointer tmp = this->_begin; tmp != this->_end; tmp++)
+				// 	this->_arr.destroy(tmp);
 
-				for (size_type i = 0; i < n; i++, new_end++)
-					_arr.construct(new_end, val);
-				_end = new_end;
+				for (size_type i = 0; i < _size; i++)
+					_arr.destroy(&(_begin[i]));
+				if (_size < n)
+					_ft_realloc(n);
+				for (size_type i = 0; i < n; i++)
+					_arr.construct(&(_begin[i]), val);
+				_end = _begin + n;
+				_size = n;
 			}
 
 			void push_back (const value_type& val) {
@@ -317,17 +313,28 @@ namespace ft{
 			void	_ft_realloc(size_type new_cap, value_type val = value_type()) {
 
 				pointer new_begin = _arr.allocate(new_cap);
-				pointer new_end = new_begin;
-				for (pointer tmp = _begin; tmp != _end; tmp++, new_end++)
-					_arr.construct(new_end, *tmp);
-				for (size_type i = this->size(); i < new_cap; i++, new_end++)
-					_arr.construct(new_end, val);
-				for (pointer tmp = _begin; tmp != _end; tmp++)
-					_arr.destroy(tmp);
-				this->_arr.deallocate(this->_begin, this->capacity());
+
+				// pointer new_end = new_begin;
+				// for (pointer tmp = _begin; tmp != _end; tmp++, new_end++)
+				// 	_arr.construct(new_end, *tmp);
+				// for (size_type i = this->size(); i < new_cap; i++, new_end++)
+				// 	_arr.construct(new_end, val);
+				// for (pointer tmp = _begin; tmp != _end; tmp++)
+				// 	_arr.destroy(tmp);
+				// this->_arr.deallocate(this->_begin, this->capacity());
+
+				for (size_type i = 0; i < _size; i++)
+					_arr.construct(&(new_begin[i]), _begin[i]);
+				for (size_type i = _size; i < new_cap; i++)
+					_arr.construct(&(new_begin[i]), val);
+				for (size_type i = 0; i < _size; i++)
+					_arr.destroy(&(_begin[i]));
+				_arr.deallocate(_begin, _cap);
+
 				this->_begin = new_begin;
-				this->_end = new_end;
+				this->_end = _begin + new_cap;
 				this->_capacity = _begin + new_cap;
+				_cap = new_cap;
 			}
 
 
