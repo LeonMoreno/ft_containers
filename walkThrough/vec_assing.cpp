@@ -12,7 +12,9 @@ int	main ()
 		std::cout << *it << " ";
 	std::cout << std::endl;
 
-	vec.assign(10, 7);
+	// vec.assign(10, 7);
+	std::vector<int>::iterator it = vec.begin();
+	vec.insert(it + 1, 69);
 
 	std::cout << "sizxe = " << vec.size() << std::endl;
 	std::cout << "capaci = " << vec.capacity() << std::endl;
