@@ -144,6 +144,11 @@ namespace ft {
 				return (vector_iterator<T1>(lhs.base() - n));
 	}
 
+	// Operator overload for insert pos - begin()
+	template<typename T1, typename T2>
+	size_t operator-(const vector_iterator<T1> &lhs, const vector_iterator<T2> &rhs) {
+				return (lhs.base() - rhs.base());
+	}
 
 } // namespace ft end
 

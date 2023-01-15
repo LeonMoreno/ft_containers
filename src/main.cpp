@@ -54,10 +54,11 @@ int	main()
 	// vec_construct();
 
 	int	arr[] = {89, 7, 100, 2, 1};
+	int	arr2[] = {100, 200, 300, 400, 500, 600, 700};
 	ft::vector<int> vec(arr, &arr[5]);
 	// ft::vector<int> vec;
+	ft::vector<int>::iterator pos = vec.begin();
 	std::cout << "sizee = " << vec.size() << std::endl;
-	std::cout << "LeoSIze = " << vec.sileo() << std::endl;
 	std::cout << "capaci = " << vec.capacity() << std::endl;
 	ft_print_vec(vec);
 
@@ -69,13 +70,14 @@ int	main()
 	// 	vec.push_back(100);
 	// 	vec.push_back(200);
 
+	// vec.insert(pos + 1, 7, 69);
+	vec.insert(pos + 1, arr2, &arr2[1]);
 
-	vec.assign(3, 7);
+
+
+	// vec.assign(3, 7);
 
 	std::cout << "size = " << vec.size() << std::endl;
-	std::cout << "LeoSIze = " << vec.sileo() << std::endl;
-
-	std::cout << "CapLeo = " << vec.capleo() << std::endl;
 	std::cout << "capaci = " << vec.capacity() << std::endl;
 	ft_print_vec(vec);
 

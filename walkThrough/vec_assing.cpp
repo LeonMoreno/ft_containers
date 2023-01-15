@@ -4,6 +4,7 @@
 int	main ()
 {
 	int	arr[] = {89, 7, 100, 2, 1};
+	int	arr2[] = {100, 200, 300, 400, 500, 600, 700};
 	std::vector<int> vec(arr, &arr[5]);
 	std::cout << "sizxe = " << vec.size() << std::endl;
 	std::cout << "capaci = " << vec.capacity() << std::endl;
@@ -14,7 +15,7 @@ int	main ()
 
 	// vec.assign(10, 7);
 	std::vector<int>::iterator it = vec.begin();
-	vec.insert(it + 1, 69);
+	vec.insert(it + 1, arr2, &arr2[7]);
 
 	std::cout << "sizxe = " << vec.size() << std::endl;
 	std::cout << "capaci = " << vec.capacity() << std::endl;

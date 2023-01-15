@@ -126,21 +126,25 @@ namespace ft{
 
 			size_type capacity() const { return (_cap); }
 
-			void reserve (size_type new_cap) {
+			/**
+			 * @brief Requests that the vector capacity be at least enough to contain n elements.
+			 *
+			 * @param new_cap: new capacity
+			 */
+			void reserve (size_type n) {
 
 				pointer new_begin = nullptr;
-				if (new_cap > _arr.max_size())
-					throw std::length_error("Reserve: new_cap too big");
-				else if (new_cap < _cap)
-					return;
-				try {
-					new_begin = _arr.allocate(new_cap);
-				}
-				catch (std::bad_alloc &e) {
-					throw e;
-				}
 
-				pointer new_end = new_begin;
+				if (n > _arr.max_size())
+					throw std::length_error("Reserve: n too big");
+				else if (n < _cap)
+					return;
+				// try {
+					new_begin = _arr.allocate(n);
+				// }
+				// catch (std::bad_alloc &e) {
+				// 	throw e;
+				// }
 
 				for (size_type i = 0; i < _size; i++)
 					_arr.construct(&(new_begin[i]), _begin[i]);
@@ -150,8 +154,8 @@ namespace ft{
 				_arr.deallocate(_begin, _cap);
 
 				_begin = new_begin;
-				_cap = new_cap;
-				}
+				_cap = n;
+			}
 
 //---------------------------ELEMENT ACCESS----------------------------------------//
 
@@ -243,15 +247,68 @@ namespace ft{
 				_size--;
 			}
 
-			// iterator insert (iterator position, const value_type& val) {
+			iterator insert (iterator position, const value_type& val) {
 
-			// 	pointer	new_begin;
+				size_type	pos = position - begin();
 
-			// 	if (_size + 1 > _cap)
-			// 		new_begin = _arr.allocate(_size + 1);
-			// 	for (size_type i = 0; i < position; i++)
+				if (pos > _size)
+					throw std::out_of_range("out of range");
+				if (_cap == 0)
+					reserve(1);
+				if (_size == _cap)
+					reserve(_cap * 2);
+				for (size_type i = _size; i > pos; i--)
+					_arr.construct(&(_begin[i]), *(_begin + (i - 1)));
+				_arr.construct(&(_begin[pos]), val);
+				_size++;
+				return (iterator(&(_begin[pos])));
+			}
 
-			// }
+			void insert (iterator position, size_type n, const value_type& val) {
+
+				size_type	pos = position - begin();
+
+				if (_cap == 0)
+					reserve(n);
+				if (pos > _size)
+					throw std::out_of_range("out of range");
+				if (_size + n >= _cap)
+					reserve(_size + n);
+				for (size_type i = (_size + n) - 1; i > n; i--)
+					_arr.construct(&(_begin[i]), *((_begin + (i - n))));
+				for (size_type i = pos; i <= n; i++)
+					_arr.construct(&(_begin[i]), val);
+				_size = _size + n;
+			}
+
+			template <class InputIterator>
+			void insert (iterator position, InputIterator first, InputIterator last,
+			 typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0) {
+
+				size_type		pos = position - begin();
+				size_type		n = last - first;
+
+				 if (first == last)
+					return ;
+				if (_size + n >= _cap) {
+					if (_cap == 0)
+						reserve(n);
+					else {
+						if (_size + n > _cap * 2)
+							reserve(_size + n);
+						else
+							reserve(_cap * 2);
+					}
+				}
+				for (size_type i = (_size + n) - 1; i > n; i--) {
+					_arr.construct(&(_begin[i]), *((_begin + (i - n))));
+					_arr.destroy(&_begin[i - n]);
+				}
+				for (size_type i = pos; i <= n; i++)
+					_arr.construct(&(_begin[i]), *first++);
+				_size = _size + n;
+			}
+
 
 			void clear() {
 
@@ -259,7 +316,6 @@ namespace ft{
 					_arr.destroy(&(_begin[i]));
 				_size = 0;
 			}
-
 
 		private:
 			allocator_type	_arr;
