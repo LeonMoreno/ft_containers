@@ -309,12 +309,36 @@ namespace ft{
 				_size = _size + n;
 			}
 
-
 			void clear() {
 
 				for (size_type i = 0; i < _size; i++)
 					_arr.destroy(&(_begin[i]));
 				_size = 0;
+			}
+
+			iterator erase (iterator position) {
+
+				size_type pos = position - begin();
+
+				for (size_type i = pos; i < _size; i++) {
+					_arr.construct(&(_begin[i]), _begin[i + 1]);
+				}
+				_size--;
+				return (iterator(&_begin[pos]));
+			}
+
+			iterator erase (iterator first, iterator last) {
+
+				size_type size_range = last - first;
+				size_type start = first - begin();
+
+				for (size_type i = start + size_range; i < _size; i++) {
+					_arr.construct(&(_begin[start++]), _begin[i]);
+					_arr.destroy(&_begin[i]);
+				}
+
+				_size = _size - size_range;
+				return (first);
 			}
 
 		private:

@@ -53,9 +53,9 @@ int	main()
 	// usleep(520000);
 	// vec_construct();
 
-	int	arr[] = {89, 7, 100, 2, 1};
-	int	arr2[] = {100, 200, 300, 400, 500, 600, 700};
-	ft::vector<int> vec(arr, &arr[5]);
+	int	arr[] = {89, 7, 100, 2, 1, 43, 28, 109};
+	// int	arr2[] = {100, 200, 300, 400, 500, 600, 700};
+	ft::vector<int> vec(arr, &arr[8]);
 	// ft::vector<int> vec;
 	ft::vector<int>::iterator pos = vec.begin();
 	std::cout << "sizee = " << vec.size() << std::endl;
@@ -71,7 +71,9 @@ int	main()
 	// 	vec.push_back(200);
 
 	// vec.insert(pos + 1, 7, 69);
-	vec.insert(pos + 1, arr2, &arr2[1]);
+	// vec.insert(pos + 1, arr2, &arr2[1]);
+	// vec.erase(pos + 2);
+	vec.erase(pos + 1, pos + 2);
 
 
 
