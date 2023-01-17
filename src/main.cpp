@@ -49,9 +49,18 @@ void	vec_construct(void)
 
 int	main()
 {
-	std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
-	usleep(520000);
-	vec_construct();
+	// std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
+	// usleep(520000);
+	// vec_construct();
 
+	int	arr[] = {54, 65, 32, 8};
+	std::vector<int> vec(arr, &arr[4]);
+
+	int	arr2[] = {54, 65, 32, 9, 7};
+	std::vector<int> vec2(arr2, &arr2[5]);
+
+	bool lexi = std::lexicographical_compare(vec.begin(), vec.end(), vec2.begin(), vec2.end());
+
+	std::cout << "Lexi = " << lexi << std::endl;
 	return (0);
 }

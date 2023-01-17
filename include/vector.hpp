@@ -2,6 +2,7 @@
 # define VECTOR_HPP
 
 #include "vector_iterator.hpp" //
+#include "reverse_vector_iterator.hpp"
 #include "utils.hpp" //
 #include <memory> //
 #include <iostream> //
@@ -124,11 +125,11 @@ namespace ft{
 
 			const_iterator end() const { return (const_iterator(_begin + _size)); }
 
-			reverse_iterator rbegin() { return (reverse_iterator((_begin + _size) - 1)); }
-			reverse_iterator rend() { return (reverse_iterator((_begin))); }
+			reverse_iterator rbegin() { return (reverse_iterator((this->begin() + _size) - 1)); }
+			reverse_iterator rend() { return (reverse_iterator((this->begin()))); }
 
-			const_reverse_iterator rbegin() const { return (const_reverse_iterator((_begin + _size) - 1)); }
-			const_reverse_iterator rend() const { return (const_reverse_iterator((_begin))); }
+			const_reverse_iterator rbegin() const { return (const_reverse_iterator((this->begin() + _size) - 1)); }
+			const_reverse_iterator rend() const { return (const_reverse_iterator((this->begin()))); }
 
 
 

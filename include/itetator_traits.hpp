@@ -14,14 +14,14 @@ namespace ft {
 	 *  we can use them to route the execution through various overloads of a function.
 	 *	https://www.fluentcpp.com/2018/04/27/tag-dispatching/
 	 */
-	// ///  Marking input iterators.
-	// struct input_iterator_tag {};
-	// /// Forward iterators support a superset of input iterator operations.
-	// struct forward_iterator_tag : public input_iterator_tag {};
-	// /// Bidirectional iterators support a superset of forward iterator oper.
-	// struct bidirectional_iterator_tag : public forward_iterator_tag {};
-	// /// Random-access iterators support a superset of bidirectional iterator oper.
-	// struct random_access_iterator_tag : public bidirectional_iterator_tag {};
+	///  Marking input iterators.
+	struct input_iterator_tag {};
+	/// Forward iterators support a superset of input iterator operations.
+	struct forward_iterator_tag : public input_iterator_tag {};
+	/// Bidirectional iterators support a superset of forward iterator oper.
+	struct bidirectional_iterator_tag : public forward_iterator_tag {};
+	/// Random-access iterators support a superset of bidirectional iterator oper.
+	struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 
 	/**
 	 * @brief the C++ standard library provides a special template structure to define the iterator traits
