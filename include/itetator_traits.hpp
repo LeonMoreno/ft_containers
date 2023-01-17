@@ -14,15 +14,14 @@ namespace ft {
 	 *  we can use them to route the execution through various overloads of a function.
 	 *	https://www.fluentcpp.com/2018/04/27/tag-dispatching/
 	 */
-	///  Marking input iterators.
-	struct input_iterator_tag {};
-	/// Forward iterators support a superset of input iterator operations.
-	struct forward_iterator_tag : public input_iterator_tag {};
-	/// Bidirectional iterators support a superset of forward iterator oper.
-	struct bidirectional_iterator_tag : public forward_iterator_tag {};
-	/// Random-access iterators support a superset of bidirectional iterator oper.
-	struct random_access_iterator_tag : public bidirectional_iterator_tag {};
-
+	// ///  Marking input iterators.
+	// struct input_iterator_tag {};
+	// /// Forward iterators support a superset of input iterator operations.
+	// struct forward_iterator_tag : public input_iterator_tag {};
+	// /// Bidirectional iterators support a superset of forward iterator oper.
+	// struct bidirectional_iterator_tag : public forward_iterator_tag {};
+	// /// Random-access iterators support a superset of bidirectional iterator oper.
+	// struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 
 	/**
 	 * @brief the C++ standard library provides a special template structure to define the iterator traits
@@ -45,24 +44,24 @@ namespace ft {
 
 	// spezialization pointer
 	template <typename T>
-	struct iterator_traits<T*> {
-		typedef		T								value_type;
-		typedef		std::ptrdiff_t					difference_type;
-		// typedef		random_access_iterator_tag	iterator_category;
-		typedef		std::random_access_iterator_tag	iterator_category; // pilas std::
-		typedef		T* 								pointer;
-		typedef		T&								reference;
+	struct iterator_traits<T*>
+	{
+		typedef std::random_access_iterator_tag		iterator_category;
+		typedef T									value_type;
+		typedef T* 									pointer;
+		typedef T&									reference;
+		typedef std::ptrdiff_t						difference_type;
 	};
 
 	// spezialization const pointer
 	template <typename T>
-	struct iterator_traits<const T*> {
-		typedef			T								value_type;
-		typedef			std::ptrdiff_t					difference_type;
-		// typedef			random_access_iterator_tag	iterator_category;
-		typedef			std::random_access_iterator_tag	iterator_category; // pilas std::
-		typedef const T* 								pointer;
-		typedef	const T& 								reference;
+	struct iterator_traits<const T*>
+	{
+		typedef std::random_access_iterator_tag		iterator_category;
+		typedef T									value_type;
+		typedef const T* 							pointer;
+		typedef	const T& 							reference;
+		typedef std::ptrdiff_t						difference_type;
 	};
 
 } // end namespace ft

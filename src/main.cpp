@@ -49,43 +49,9 @@ void	vec_construct(void)
 
 int	main()
 {
-	// std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
-	// usleep(520000);
-	// vec_construct();
-
-	int	arr[] = {89, 7, 100, 2, 1, 43, 28, 109};
-	// int	arr2[] = {100, 200, 300, 400, 500, 600, 700};
-	ft::vector<int> vec(arr, &arr[8]);
-	// ft::vector<int> vec;
-	ft::vector<int>::iterator pos = vec.begin();
-	std::cout << "sizee = " << vec.size() << std::endl;
-	std::cout << "capaci = " << vec.capacity() << std::endl;
-	ft_print_vec(vec);
-
-	// // for (int i = 0; i < 100000; i++)
-	// // 	vec.push_back(i);
-
-	// 	vec.push_back(98);
-	// 	vec.push_back(43);
-	// 	vec.push_back(100);
-	// 	vec.push_back(200);
-
-	// vec.insert(pos + 1, 7, 69);
-	// vec.insert(pos + 1, arr2, &arr2[1]);
-	// vec.erase(pos + 2);
-	vec.erase(pos + 1, pos + 2);
-
-
-
-	// vec.assign(3, 7);
-
-	std::cout << "size = " << vec.size() << std::endl;
-	std::cout << "capaci = " << vec.capacity() << std::endl;
-	ft_print_vec(vec);
-
-
-
-
+	std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
+	usleep(520000);
+	vec_construct();
 
 	return (0);
 }

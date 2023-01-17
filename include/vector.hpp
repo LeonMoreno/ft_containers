@@ -13,21 +13,27 @@ namespace ft{
 		public:
 
 //---------------------------Member Types---------------------------------------//
-			typedef 					T										value_type;
-			typedef 					Alloc									allocator_type;
+			typedef 					T											value_type;
+			typedef 					Alloc										allocator_type;
 
 			// typename lo exige gcc en linux.
-			typedef typename 			allocator_type::reference				reference;
-			typedef typename 			allocator_type::const_reference 		const_reference;
+			typedef typename 			allocator_type::reference					reference;
+			typedef typename 			allocator_type::const_reference 			const_reference;
 
-			typedef typename			allocator_type::pointer					pointer;
-			typedef const typename		allocator_type::const_pointer			const_pointer;
+			typedef typename			allocator_type::pointer						pointer;
+			typedef const typename		allocator_type::const_pointer				const_pointer;
 
-			typedef 					ft::vector_iterator <pointer>			iterator;
-			typedef 					ft::vector_iterator <const_pointer>		const_iterator;
+			// typedef 					vector_iterator <pointer>				iterator;
+			// typedef 					vector_iterator <const_pointer>			const_iterator;
 
-			typedef						std::ptrdiff_t							difference_type;
-			typedef 					std::size_t								size_type;
+			typedef 					ft::vector_iterator<value_type>					iterator;
+			typedef 					ft::vector_iterator<const value_type>				const_iterator;
+
+			typedef						ft::reverse_vector_iterator <iterator>		reverse_iterator;
+			typedef						ft::reverse_vector_iterator <const_iterator>	const_reverse_iterator;
+
+			typedef						std::ptrdiff_t								difference_type;
+			typedef 					std::size_t									size_type;
 
 //---------------------------constructor & Destructor---------------------------------------//
 			// default constructor
@@ -85,11 +91,15 @@ namespace ft{
 
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
 
-			vector& operator= (const vector& rhs) {
-				if (_begin != rhs.begin())
+			vector& operator=(const vector& rhs) {
+				if (this->begin() != rhs.begin())
 				{
 					_arr = rhs._arr;
-					// assign(x.begin(), x.end()); // PILAS !!!! FALTA AUN
+					_size = rhs._size;
+					_cap = rhs._cap;
+					for (size_type range = 0; range < _size; range++)
+						_arr.construct(&(_begin[range]), rhs._begin[range]);
+					// assign(rhs._begin, rhs.end()); // PILAS !!!! FALTA AUN
 				}
 				return (*this);
 			}
@@ -97,7 +107,7 @@ namespace ft{
 //-------------------------------Getters and Setters-----------------------------------------------//
 
 			// Get Alloc
-			allocator_type get_arrator(void) const { return _arr; }  // NO SE
+			allocator_type get_allocator(void) const { return _arr; }  // NO SE
 
 			size_type sileo() const { return (_size); }
 
@@ -106,11 +116,21 @@ namespace ft{
 
 //---------------------------Iterator from vector----------------------------------------//
 
-			iterator begin() { return (iterator(_begin)); }
+			iterator begin(void) { return (iterator(_begin)); }
+
+			const_iterator begin(void) const { return (const_iterator(_begin)); }
+
 			iterator end() { return (iterator(_begin + _size)); }
 
-			const_iterator begin() const { return (const_iterator(_begin)); }
 			const_iterator end() const { return (const_iterator(_begin + _size)); }
+
+			reverse_iterator rbegin() { return (reverse_iterator((_begin + _size) - 1)); }
+			reverse_iterator rend() { return (reverse_iterator((_begin))); }
+
+			const_reverse_iterator rbegin() const { return (const_reverse_iterator((_begin + _size) - 1)); }
+			const_reverse_iterator rend() const { return (const_reverse_iterator((_begin))); }
+
+
 
 //---------------------------CAPACITY----------------------------------------//
 
@@ -128,8 +148,8 @@ namespace ft{
 
 			/**
 			 * @brief Requests that the vector capacity be at least enough to contain n elements.
-			 *
-			 * @param new_cap: new capacity
+			 *	https://cplusplus.com/reference/vector/vector/resize/ -- throw exceptions on failure
+			 * @param n: new capacity
 			 */
 			void reserve (size_type n) {
 
@@ -139,12 +159,12 @@ namespace ft{
 					throw std::length_error("Reserve: n too big");
 				else if (n < _cap)
 					return;
-				// try {
+				try {
 					new_begin = _arr.allocate(n);
-				// }
-				// catch (std::bad_alloc &e) {
-				// 	throw e;
-				// }
+				}
+				catch (std::bad_alloc &e) {
+					throw e;
+				}
 
 				for (size_type i = 0; i < _size; i++)
 					_arr.construct(&(new_begin[i]), _begin[i]);
@@ -156,6 +176,29 @@ namespace ft{
 				_begin = new_begin;
 				_cap = n;
 			}
+
+			/**
+			 * @brief Resizes the container so that it contains n elements.
+			 *
+			 * @param n: New container size
+			 * @param val: Object whose content is copied to the added elements in case that n is greater than the current container size.
+			 */
+			void resize (size_type n, value_type val = value_type()) {
+
+				if (n < _size) {
+					for (size_type range = n; range < _size; range++)
+						_arr.destroy(&(_begin[range]));
+					_size = n;
+				}
+				else if (n > _size) {
+					if (n > _cap)
+						reserve(_cap * 2);
+					for (size_type range = _size; range < n; range++)
+						_arr.construct(&(_begin[range]), val);
+						_size = n;
+				}
+			}
+
 
 //---------------------------ELEMENT ACCESS----------------------------------------//
 
@@ -192,7 +235,9 @@ namespace ft{
 //---------------------------Modifiers----------------------------------------//
 
 			/**
-			 * @brief assing range version
+			 * @brief Assigns new contents to the vector, replacing its current contents,
+			 * 	and modifying its size accordingly.
+
 			 *
 			 * @tparam InputIterator
 			 * @param first
@@ -341,6 +386,27 @@ namespace ft{
 				return (first);
 			}
 
+			void swap (vector& x) {
+
+				pointer			temp_begin = _begin;
+				size_type		temp_size = _size;
+				size_type		temp_cap = _cap;
+				allocator_type	temp_allo = _arr;
+
+				_begin = x._begin;
+				x._begin = temp_begin;
+
+				_size = x._size;
+				x._size = temp_size;
+
+				_cap = x._cap;
+				x._cap = temp_cap;
+
+				_arr = x._arr;
+				x._arr = temp_allo;
+			}
+
+
 		private:
 			allocator_type	_arr;
 			pointer			_begin;
@@ -364,6 +430,28 @@ namespace ft{
 			}
 
 	};
+
+	/* *******************************************************************************/
+	/* 								Non-member function overloads)				 */
+	/* *******************************************************************************/
+
+//---------------------------relational operators (vector)--------------------------------//
+
+	template< class T, class Alloc >
+	bool operator==( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ) {
+
+		if (lhs.size() != rhs.size())
+			return (false);
+		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+	}
+
+	template <class T, class Alloc>
+	bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
+
+		return (!(lhs == rhs));
+	}
+
+
 
 
 } // namespace ft end
