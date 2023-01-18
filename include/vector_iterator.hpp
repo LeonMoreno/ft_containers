@@ -12,7 +12,7 @@ namespace ft {
 			/*---------------VECTOR ITERATOR TYPEDEFS (iterator traits - las propiedades del iterator)-------- */
 
 			typedef	vector_iterator<T>				iterator;
-			typedef ft::random_access_iterator_tag	iterator_category;
+			typedef std::random_access_iterator_tag	iterator_category;
 			typedef T								value_type;
 			typedef T*								pointer;
 			typedef T&								reference;

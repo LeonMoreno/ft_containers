@@ -14,14 +14,13 @@ namespace ft {
 	 *  we can use them to route the execution through various overloads of a function.
 	 *	https://www.fluentcpp.com/2018/04/27/tag-dispatching/
 	 */
-	///  Marking input iterators.
-	struct input_iterator_tag {};
-	/// Forward iterators support a superset of input iterator operations.
-	struct forward_iterator_tag : public input_iterator_tag {};
-	/// Bidirectional iterators support a superset of forward iterator oper.
-	struct bidirectional_iterator_tag : public forward_iterator_tag {};
-	/// Random-access iterators support a superset of bidirectional iterator oper.
-	struct random_access_iterator_tag : public bidirectional_iterator_tag {};
+	struct input_iterator_tag { };
+
+	struct forward_iterator_tag : public input_iterator_tag { };
+
+	struct bidirectional_iterator_tag : public forward_iterator_tag { };
+
+	struct random_access_iterator_tag : public bidirectional_iterator_tag { };
 
 	/**
 	 * @brief the C++ standard library provides a special template structure to define the iterator traits
@@ -29,39 +28,41 @@ namespace ft {
 	 *  It is used as a common interface for all the type definitions an iterator should have
 	 * 	(the category, the type of the elements, and so on):
 	 *	https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits
+	 *	https://en.cppreference.com/w/cpp/iterator/iterator_traits -- A la final aqui esta todo
 	 */
 
 	// generic
-	template <typename T>
+	template <class Iter>
 	struct iterator_traits
 	{
-		typedef	typename	T::value_type			value_type;
-		typedef	typename	T::difference_type		difference_type;
-		typedef typename	T::iterator_category	iterator_category;
-		typedef	typename	T::pointer				pointer;
-		typedef	typename	T::reference			reference;
+		typedef	typename	Iter::difference_type		difference_type;
+		typedef	typename	Iter::value_type			value_type;
+		typedef	typename	Iter::pointer				pointer;
+		typedef	typename	Iter::reference				reference;
+		typedef typename	Iter::iterator_category		iterator_category;
 	};
 
 	// spezialization pointer
+	// which makes it possible to use all iterator-based algorithms with raw pointers.
 	template <typename T>
 	struct iterator_traits<T*>
 	{
-		typedef std::random_access_iterator_tag		iterator_category;
+		typedef std::ptrdiff_t						difference_type;
 		typedef T									value_type;
 		typedef T* 									pointer;
 		typedef T&									reference;
-		typedef std::ptrdiff_t						difference_type;
+		typedef ft::random_access_iterator_tag		iterator_category;
 	};
 
 	// spezialization const pointer
 	template <typename T>
 	struct iterator_traits<const T*>
 	{
-		typedef std::random_access_iterator_tag		iterator_category;
+		typedef std::ptrdiff_t						difference_type;
 		typedef T									value_type;
 		typedef const T* 							pointer;
 		typedef	const T& 							reference;
-		typedef std::ptrdiff_t						difference_type;
+		typedef ft::random_access_iterator_tag		iterator_category;
 	};
 
 } // end namespace ft

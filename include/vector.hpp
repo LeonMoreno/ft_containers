@@ -327,38 +327,85 @@ namespace ft{
 				_size = _size + n;
 			}
 
+			// template <class InputIterator>
+			// void insert (iterator position, InputIterator first, InputIterator last,
+			//  typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0) {
+
+			// 	size_type		pos = position - begin();
+			// 	size_type		n = last - first;
+
+			// 	std::cout << "pos " << pos << " n = " << n << std::endl;
+
+
+			// 	 if (first == last)
+			// 		return ;
+			// 	if (_cap == 0)
+			// 		reserve(n);
+			// 	if (_size + n >= _cap) {
+			// 		if (_size + n > _cap * 2)
+			// 			_ft_realloc(_size + n);
+			// 		else
+			// 			reserve(_cap * 2);
+			// 	}
+			// 	for (size_type i = (_size + n - 1); i >= n + pos; i--) {
+			// 		_arr.construct(&(_begin[i]), *((_begin + (i - n))));
+			// 		_arr.destroy(&_begin[i - n]);
+			// 	}
+			// 	for (size_type i = pos; i < n + pos; i++)
+			// 		_arr.construct(&(_begin[i]), *first++);
+			// 	_size = _size + n;
+			// }
+
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last,
-			 typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0) {
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0) {
 
 				size_type		pos = position - begin();
 				size_type		n = last - first;
+				pointer			new_begin;
+				size_type		new_cap = 0;
 
-				 if (first == last)
-					return ;
 				if (_size + n >= _cap) {
-					if (_cap == 0)
-						reserve(n);
-					else {
-						if (_size + n > _cap * 2)
-							reserve(_size + n);
-						else
-							reserve(_cap * 2);
+					if (_size + n > _cap * 2)
+						new_cap = _size + n;
+					else
+						new_cap = _cap * 2;
+					new_begin = _arr.allocate(new_cap);
+					try {
+						for (size_type range = 0; range < pos; range++)
+							_arr.construct(&(new_begin[range]), _begin[range]);
+						for (size_type range = pos; range < n + pos; range++)
+							_arr.construct(&(new_begin[range]), *first++);
+						for (size_type range = pos; range < _size; range++)
+							_arr.construct(&(new_begin[range + n]), _begin[range]);
 					}
+					catch (...) {
+						for (size_type range = 0; range < new_cap; range++)
+							_arr.destroy(&new_begin[range]);
+						_arr.deallocate(new_begin, new_cap);
+						throw;
+					}
+					_arr.destroy(_begin);
+					_arr.deallocate(_begin, _cap);
+					_begin = new_begin;
+					_cap = new_cap;
 				}
-				for (size_type i = (_size + n) - 1; i > n; i--) {
-					_arr.construct(&(_begin[i]), *((_begin + (i - n))));
+				else {
+					for (size_type i = (_size + n - 1); i >= n + pos; i--) {
+						_arr.construct(&(_begin[i]), *((_begin + (i - n))));
 					_arr.destroy(&_begin[i - n]);
 				}
-				for (size_type i = pos; i <= n; i++)
-					_arr.construct(&(_begin[i]), *first++);
+					for (size_type i = pos; i < n + pos; i++)
+						_arr.construct(&(_begin[i]), *first++);
+				}
 				_size = _size + n;
-			}
+			 }
 
 			void clear() {
 
-				for (size_type i = 0; i < _size; i++)
-					_arr.destroy(&(_begin[i]));
+				// for (size_type i = 0; i < _size; i++)
+				// 	_arr.destroy(&(_begin[i]));
+				_arr.destroy(_begin);
 				_size = 0;
 			}
 
@@ -366,9 +413,8 @@ namespace ft{
 
 				size_type pos = position - begin();
 
-				for (size_type i = pos; i < _size; i++) {
+				for (size_type i = pos; i < _size; i++)
 					_arr.construct(&(_begin[i]), _begin[i + 1]);
-				}
 				_size--;
 				return (iterator(&_begin[pos]));
 			}
@@ -392,7 +438,7 @@ namespace ft{
 				pointer			temp_begin = _begin;
 				size_type		temp_size = _size;
 				size_type		temp_cap = _cap;
-				allocator_type	temp_allo = _arr;
+				allocator_type	temp_arr = _arr;
 
 				_begin = x._begin;
 				x._begin = temp_begin;
@@ -404,9 +450,8 @@ namespace ft{
 				x._cap = temp_cap;
 
 				_arr = x._arr;
-				x._arr = temp_allo;
+				x._arr = temp_arr;
 			}
-
 
 		private:
 			allocator_type	_arr;
@@ -446,16 +491,46 @@ namespace ft{
 		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
 	}
 
-	template <class T, class Alloc>
-	bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
+	template< class T, class Alloc >
+	bool operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
 
 		return (!(lhs == rhs));
 	}
 
+	template< class T, class Alloc >
+	bool operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+
+		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+	}
+
+	template <class T, class Alloc>
+	bool operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+
+		return (ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()));
+	}
 
 
+	template <class T, class Alloc>
+	bool operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return (!(rhs < lhs));
+	}
+
+
+	template <class T, class Alloc>
+	bool operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return (!(lhs < rhs));
+	}
 
 } // namespace ft end
+
+namespace std {
+
+	template< class T, class Alloc >
+	void swap(ft::vector<T,Alloc>& lhs, ft::vector<T,Alloc>& rhs ) {
+
+		lhs.swap(rhs);
+	}
+} // namespace std
 
 
 #endif

@@ -60,7 +60,7 @@ namespace ft {
 	}
 
 /*------------------------ lexicographical_compare------------------------------------ */
-
+// https://www.fluentcpp.com/2019/12/20/how-to-compare-cpp-containers/
 
 	template <class InputIterator1, class InputIterator2>
 	bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,

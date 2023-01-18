@@ -53,14 +53,25 @@ int	main()
 	// usleep(520000);
 	// vec_construct();
 
-	int	arr[] = {54, 65, 32, 8};
-	std::vector<int> vec(arr, &arr[4]);
+	int	arr[] = {100, 200, 300, 400};
+	ft::vector<int> vec(arr, &arr[4]);
+	std::cout << "size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+	ft_print_vec(vec);
 
-	int	arr2[] = {54, 65, 32, 9, 7};
-	std::vector<int> vec2(arr2, &arr2[5]);
+	std::cout << "push Back " << std::endl;
+	vec.push_back(500);
+	std::cout << "size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+	ft_print_vec(vec);
 
-	bool lexi = std::lexicographical_compare(vec.begin(), vec.end(), vec2.begin(), vec2.end());
 
-	std::cout << "Lexi = " << lexi << std::endl;
+
+
+	int	arr2[] = {54, 65, 98, 2, 7, 90, 900, 4, 874};
+	vec.insert(vec.begin() + 3, arr2, &arr2[9]);
+	std::cout << "size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+	ft_print_vec(vec);
+
+
+
 	return (0);
 }
