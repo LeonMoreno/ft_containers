@@ -18,20 +18,20 @@ namespace ft{
 			typedef 					Alloc											allocator_type;
 
 			// typename lo exige gcc en linux.
-			typedef typename 			allocator_type::reference						reference;
-			typedef typename 			allocator_type::const_reference 				const_reference;
+			typedef  			T&					reference;
+			typedef  			const T& 				const_reference;
 
-			typedef typename			allocator_type::pointer							pointer;
-			typedef const typename		allocator_type::const_pointer					const_pointer;
+			typedef 			T*							pointer;
+			typedef 		const T*					const_pointer;
 
-			typedef 					ft::vector_iterator <pointer>					iterator;
-			typedef 					ft::vector_iterator <const_pointer>				const_iterator;
+			typedef 					vector_iterator<pointer, vector<T, Alloc> >					iterator;
+			typedef 					vector_iterator <const_pointer, vector<T, Alloc> >				const_iterator;
 
 			// typedef 					ft::vector_iterator<value_type>					iterator;
 			// typedef 					ft::vector_iterator<const value_type>			const_iterator;
 
-			typedef						ft::reverse_vector_iterator <iterator>			reverse_iterator;
-			typedef						ft::reverse_vector_iterator <const_iterator>	const_reverse_iterator;
+			typedef						reverse_vector_iterator <iterator>			reverse_iterator;
+			typedef						reverse_vector_iterator <const_iterator>	const_reverse_iterator;
 
 			typedef						std::ptrdiff_t									difference_type;
 			typedef 					std::size_t										size_type;
@@ -87,7 +87,7 @@ namespace ft{
 				for(size_type i = 0; i < _size; i++)
 					_arr.destroy(&(_begin[i]));
 
-				this->_arr.deallocate(_begin, _size);
+				this->_arr.deallocate(_begin, _cap);
 			}
 
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
@@ -281,14 +281,16 @@ namespace ft{
 			void push_back (const value_type& val) {
 
 				if (_cap == 0)
-					reserve(1);
+					_ft_realloc(1);
 				if (_size == _cap)
-					reserve(_cap * 2);
+					_ft_realloc(_cap * 2);
 				_arr.construct(_begin + _size, val);
 				_size++;
 			}
 
 			void pop_back() {
+				if (!_size)
+					return ;
 				_arr.destroy(&(_begin[_size - 1]));
 				_size--;
 			}
