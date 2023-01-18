@@ -9,6 +9,8 @@
 
 namespace ft{
 
+//--------------------------Template parameters ---------------------------------------//
+
 	template <typename T, class Alloc = std::allocator<T> >
 	class vector {
 		public:
@@ -95,9 +97,7 @@ namespace ft{
 					_arr = rhs._arr;
 					_size = rhs._size;
 					_cap = rhs._cap;
-					for (size_type range = 0; range < _size; range++)
-						_arr.construct(&(_begin[range]), rhs._begin[range]);
-					// assign(rhs._begin, rhs.end()); // PILAS !!!! FALTA AUN
+					assign(rhs.begin(), rhs.end());
 				}
 				return (*this);
 			}
@@ -105,7 +105,7 @@ namespace ft{
 //-------------------------------Getters and Setters-----------------------------------------------//
 
 			// Get Alloc
-			allocator_type get_allocator(void) const { return _arr; }  // NO SE
+			allocator_type get_allocator(void) const { return _arr; }
 
 			size_type sileo() const { return (_size); }
 
@@ -114,18 +114,24 @@ namespace ft{
 
 //---------------------------Iterator from vector----------------------------------------//
 
+			// Return iterator to beginning
 			iterator begin(void) { return (iterator(_begin)); }
 
 			const_iterator begin(void) const { return (const_iterator(_begin)); }
 
+			// Return iterator to end
 			iterator end() { return (iterator(_begin + _size)); }
 
 			const_iterator end() const { return (const_iterator(_begin + _size)); }
 
+			// Returns a reverse iterator pointing to the last element in the vector
 			reverse_iterator rbegin() { return (reverse_iterator((this->begin() + _size) - 1)); }
-			reverse_iterator rend() { return (reverse_iterator((this->begin()))); }
 
 			const_reverse_iterator rbegin() const { return (const_reverse_iterator((this->begin() + _size) - 1)); }
+
+			// Returns a reverse iterator pointing to the theoretical element preceding the first element in the vector
+			reverse_iterator rend() { return (reverse_iterator((this->begin()))); }
+
 			const_reverse_iterator rend() const { return (const_reverse_iterator((this->begin()))); }
 
 
@@ -234,9 +240,7 @@ namespace ft{
 
 			/**
 			 * @brief Assigns new contents to the vector, replacing its current contents,
-			 * 	and modifying its size accordingly.
-
-			 *
+			 * 	and modifying its size accordingly. -- range
 			 * @tparam InputIterator
 			 * @param first
 			 * @param last
@@ -264,6 +268,7 @@ namespace ft{
 				_size = new_size;
 			}
 
+			// assing fill version - the new contents are n elements, each initialized to a copy of val.
 			void assign (size_type n, const value_type& val) {
 
 				for (size_type i = 0; i < _size; i++)
@@ -275,6 +280,7 @@ namespace ft{
 				_size = n;
 			}
 
+			// Add element at the end
 			void push_back (const value_type& val) {
 
 				if (_cap == 0)
@@ -285,11 +291,14 @@ namespace ft{
 				_size++;
 			}
 
+			// 	Delete last element
 			void pop_back() {
 				_arr.destroy(&(_begin[_size - 1]));
 				_size--;
 			}
 
+
+			// insert -- single element
 			iterator insert (iterator position, const value_type& val) {
 
 				size_type	pos = position - begin();
@@ -307,6 +316,7 @@ namespace ft{
 				return (iterator(&(_begin[pos])));
 			}
 
+			// insert -- fill -- end to begin
 			void insert (iterator position, size_type n, const value_type& val) {
 
 				size_type	pos = position - begin();
@@ -353,6 +363,8 @@ namespace ft{
 			// 	_size = _size + n;
 			// }
 
+
+			// insert range -- begin to end
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last,
 			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0) {
@@ -400,8 +412,6 @@ namespace ft{
 
 			void clear() {
 
-				// for (size_type i = 0; i < _size; i++)
-				// 	_arr.destroy(&(_begin[i]));
 				_arr.destroy(_begin);
 				_size = 0;
 			}
@@ -475,10 +485,10 @@ namespace ft{
 	};
 
 	/* *******************************************************************************/
-	/* 								Non-member function overloads)				 */
+	/* 								Non-member function 							 */
 	/* *******************************************************************************/
 
-//---------------------------relational operators (vector)--------------------------------//
+//---------------------------relational operators (vector (overloads)----------------//
 
 	template< class T, class Alloc >
 	bool operator==( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ) {
