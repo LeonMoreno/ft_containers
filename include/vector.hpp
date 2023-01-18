@@ -14,8 +14,8 @@ namespace ft{
 		public:
 
 //---------------------------Member Types---------------------------------------//
-			typedef 					T											value_type;
-			typedef 					Alloc										allocator_type;
+			typedef 					T												value_type;
+			typedef 					Alloc											allocator_type;
 
 			// typename lo exige gcc en linux.
 			typedef typename 			allocator_type::reference						reference;
@@ -24,8 +24,8 @@ namespace ft{
 			typedef typename			allocator_type::pointer							pointer;
 			typedef const typename		allocator_type::const_pointer					const_pointer;
 
-			typedef 					ft::vector_iterator <pointer>			iterator;
-			typedef 					ft::vector_iterator <const_pointer>		const_iterator;
+			typedef 					ft::vector_iterator <pointer>					iterator;
+			typedef 					ft::vector_iterator <const_pointer>				const_iterator;
 
 			// typedef 					ft::vector_iterator<value_type>					iterator;
 			// typedef 					ft::vector_iterator<const value_type>			const_iterator;

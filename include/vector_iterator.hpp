@@ -23,7 +23,7 @@ namespace ft {
 
 			vector_iterator(void) : _ptr(NULL) { } /* por si aca ??*/
 
-			explicit vector_iterator(pointer ptr) : _ptr(ptr) { } /* default constructor */
+			vector_iterator(pointer ptr) : _ptr(ptr) { } /* default constructor */
 
 			vector_iterator(const vector_iterator &copy) : _ptr(copy.base()) { } /* copy constructor */
 

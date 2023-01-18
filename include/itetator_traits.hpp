@@ -51,7 +51,7 @@ namespace ft {
 		typedef T									value_type;
 		typedef T* 									pointer;
 		typedef T&									reference;
-		typedef ft::random_access_iterator_tag		iterator_category;
+		typedef std::random_access_iterator_tag		iterator_category;
 	};
 
 	// spezialization const pointer
@@ -62,7 +62,7 @@ namespace ft {
 		typedef T									value_type;
 		typedef const T* 							pointer;
 		typedef	const T& 							reference;
-		typedef ft::random_access_iterator_tag		iterator_category;
+		typedef std::random_access_iterator_tag		iterator_category;
 	};
 
 } // end namespace ft

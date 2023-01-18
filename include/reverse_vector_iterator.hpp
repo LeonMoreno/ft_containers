@@ -20,7 +20,6 @@ namespace ft {
 			typedef typename ft::iterator_traits<T>::pointer			pointer;
 			typedef typename ft::iterator_traits<T>::reference			reference;
 
-
 			/*---------------Constructor and Destructors ----------------------------------------------------- */
 
 			reverse_vector_iterator(void) : _reverse_ptr() {  } /* por si aca ??*/
