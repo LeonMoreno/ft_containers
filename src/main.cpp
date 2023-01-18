@@ -49,27 +49,27 @@ void	vec_construct(void)
 
 int	main()
 {
-	// std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
-	// usleep(520000);
-	// vec_construct();
+	std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
+	usleep(520000);
+	vec_construct();
 
-	int	arr[] = {100, 200, 300, 400};
-	ft::vector<int> vec(arr, &arr[4]);
-	std::cout << "size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	ft_print_vec(vec);
+	// int	arr[] = {100, 200, 300, 400};
+	// ft::vector<int> vec(arr, &arr[4]);
+	// std::cout << "size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+	// ft_print_vec(vec);
 
-	std::cout << "push Back " << std::endl;
-	vec.push_back(500);
-	std::cout << "size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	ft_print_vec(vec);
-
-
+	// std::cout << "push Back " << std::endl;
+	// vec.push_back(500);
+	// std::cout << "size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+	// ft_print_vec(vec);
 
 
-	int	arr2[] = {54, 65, 98, 2, 7, 90, 900, 4, 874};
-	vec.insert(vec.begin() + 3, arr2, &arr2[9]);
-	std::cout << "size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	ft_print_vec(vec);
+
+
+	// int	arr2[] = {54, 65, 98, 2, 7, 90, 900, 4, 874};
+	// vec.insert(vec.begin() + 3, arr2, &arr2[9]);
+	// std::cout << "size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+	// ft_print_vec(vec);
 
 
 
