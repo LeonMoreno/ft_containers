@@ -18,23 +18,20 @@ namespace ft{
 			typedef 					Alloc										allocator_type;
 
 			// typename lo exige gcc en linux.
-			typedef typename 			allocator_type::reference					reference;
-			typedef typename 			allocator_type::const_reference 			const_reference;
+			typedef typename 			allocator_type::reference						reference;
+			typedef typename 			allocator_type::const_reference 				const_reference;
 
-			typedef typename			allocator_type::pointer						pointer;
-			typedef const typename		allocator_type::const_pointer				const_pointer;
-
-			// typedef 					vector_iterator <pointer>				iterator;
-			// typedef 					vector_iterator <const_pointer>			const_iterator;
+			typedef typename			allocator_type::pointer							pointer;
+			typedef const typename		allocator_type::const_pointer					const_pointer;
 
 			typedef 					ft::vector_iterator<value_type>					iterator;
-			typedef 					ft::vector_iterator<const value_type>				const_iterator;
+			typedef 					ft::vector_iterator<const value_type>			const_iterator;
 
-			typedef						ft::reverse_vector_iterator <iterator>		reverse_iterator;
+			typedef						ft::reverse_vector_iterator <iterator>			reverse_iterator;
 			typedef						ft::reverse_vector_iterator <const_iterator>	const_reverse_iterator;
 
-			typedef						std::ptrdiff_t								difference_type;
-			typedef 					std::size_t									size_type;
+			typedef						std::ptrdiff_t									difference_type;
+			typedef 					std::size_t										size_type;
 
 //---------------------------constructor & Destructor---------------------------------------//
 			// default constructor
