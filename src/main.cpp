@@ -55,15 +55,22 @@ int	main()
 	// vec_construct();
 
 	ft::stack<int> leo;
+	ft::stack<int> ap;
 
 	leo.push(7);
 	leo.push(9);
 	leo.push(20);
 
+	ap.push(100);
+	ap.push(101);
+	ap.push(103);
+
+
 	std::cout << leo.top() << std::endl;
 	leo.pop();
 	std::cout << leo.top() << std::endl;
 
+	// std::cout << "operator " << ap == leo << std::endl;
 
 
 

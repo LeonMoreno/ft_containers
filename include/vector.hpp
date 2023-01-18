@@ -83,10 +83,12 @@ namespace ft{
 
 			~vector(void) {
 
-				for(size_type i = 0; i < _size; i++)
-					_arr.destroy(&(_begin[i]));
+				// if (_begin) {
+				// 	for(size_type i = 0; i < _size; i++)
+				// 		_arr.destroy(&(_begin[i]));
+				// }
 
-				this->_arr.deallocate(_begin, _size);
+				this->_arr.deallocate(_begin, _cap);
 			}
 
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
@@ -284,15 +286,18 @@ namespace ft{
 			void push_back (const value_type& val) {
 
 				if (_cap == 0)
-					reserve(1);
+					_ft_realloc(1);
 				if (_size == _cap)
-					reserve(_cap * 2);
+					_ft_realloc(_cap * 2);
 				_arr.construct(_begin + _size, val);
 				_size++;
 			}
 
 			// 	Delete last element
 			void pop_back() {
+
+				if (!_size)
+					return ;
 				_arr.destroy(&(_begin[_size - 1]));
 				_size--;
 			}
