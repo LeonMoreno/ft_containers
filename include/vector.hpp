@@ -11,7 +11,7 @@ namespace ft{
 
 //--------------------------Template parameters ---------------------------------------//
 
-	template <typename T, class Alloc = std::allocator<T> >
+	template <typename T, typename Alloc = std::allocator<T> >
 	class vector {
 		public:
 
@@ -416,6 +416,7 @@ namespace ft{
 				_size = 0;
 			}
 
+			// Removes from the vector single element (position)
 			iterator erase (iterator position) {
 
 				size_type pos = position - begin();
@@ -426,6 +427,7 @@ namespace ft{
 				return (iterator(&_begin[pos]));
 			}
 
+			// Removes from the vector either a range of elements ([first,last)).
 			iterator erase (iterator first, iterator last) {
 
 				size_type size_range = last - first;
