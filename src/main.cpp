@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <vector>
 #include <iterator>
+#include <cstdio> // (stdout)
 
 void	ft_print_vec(ft::vector<int> &vec)
 {
@@ -28,9 +29,10 @@ void	vec_construct(void)
 	ft::vector<int> v_02(5, 7);
 	ft_print_vec(v_02);
 
-	std::cout << BLU << "\t Init Range constructor with iterator vector v_03(v_02.begin() + 1, v_02.end() - 1)" << RESET << std::endl;
-	ft::vector<int> v_03(v_02.begin() +1, v_02.end() - 1);
-	ft_print_vec(v_03);
+	// std::cout << BLU << "\t Init Range constructor with iterator vector v_03(v_02.begin() + 1, v_02.end() - 1)" << RESET << std::endl;
+	// ft::vector<int> v_03((v_02.begin() +1), (v_02.end() - 1)); // PILAS ERROR EN LiNUX
+	// ft::vector<int> v_03(v_02.begin(), v_02.end());  // Ya se problema con los isintegral
+	// ft_print_vec(v_03);
 
 	std::cout << BLU << "\t Init Range constructor with ptr_arry vector v_04(arr, &arr[5])" << RESET << std::endl;
 	int	arr[] = {89, 7, 100, 2, 1};

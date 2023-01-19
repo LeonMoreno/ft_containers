@@ -36,8 +36,9 @@ namespace ft{
 
 //---------------------------constructor & Destructor---------------------------------------//
 			// default constructor
+			// error: identifier ‘nullptr’ is a keyword in C++11 
 			explicit vector (const allocator_type& alloc = allocator_type())
-			: _arr(alloc), _begin(nullptr), _size(0), _cap(0)
+			: _arr(alloc), _begin(NULL), _size(0), _cap(0)
 			{ }
 
 			// fill constructor
@@ -52,8 +53,8 @@ namespace ft{
 			// range contruc
 			template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
-				typename std::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
-				: _arr(alloc), _begin(nullptr), _size(0), _cap(0) {
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
+				: _arr(alloc), _begin(NULL), _size(0), _cap(0) {
 
 				InputIterator tmp = first;
 
@@ -71,7 +72,7 @@ namespace ft{
 
 			// copy constructor
 			vector (const vector& src)
-			: _arr(src._arr), _begin(nullptr), _size(src._size), _cap(src._cap) {
+			: _arr(src._arr), _begin(NULL), _size(src._size), _cap(src._cap) {
 
 				_begin = _arr.allocate(_size);
 
@@ -158,7 +159,7 @@ namespace ft{
 			 */
 			void reserve (size_type n) {
 
-				pointer new_begin = nullptr;
+				pointer new_begin = NULL;
 
 				if (n > _arr.max_size())
 					throw std::length_error("Reserve: n too big");
@@ -201,7 +202,7 @@ namespace ft{
 						reserve(_cap * 2);
 					for (size_type range = _size; range < n; range++)
 						_arr.construct(&(_begin[range]), val);
-						_size = n;
+					_size = n;
 				}
 			}
 
