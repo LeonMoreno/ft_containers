@@ -7,10 +7,23 @@
 #include <iterator>
 #include <cstdio> // (stdout)
 
+#define _ratio 1
+
 void	ft_print_vec(ft::vector<int> &vec)
 {
 	std::cout << "The values in the vector are (via iterator): [ ";
 	for (ft::vector<int>::iterator it = vec.begin(); it != vec.end(); it++) {
+		fflush(stdout);
+		usleep(70000);
+		std::cout << *it << " ";
+	}
+	std::cout << "]" << std::endl << std::endl;
+}
+
+void	std_print_vec(std::vector<int> &vec)
+{
+	std::cout << "The values in the vector are (via iterator): [ ";
+	for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); it++) {
 		fflush(stdout);
 		usleep(70000);
 		std::cout << *it << " ";
@@ -55,24 +68,42 @@ int	main()
 	// std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
 	// usleep(520000);
 	// vec_construct();
+{
+	std::cout << std::endl << BYEL << "######################## STD::VECTOR ###############################" << RESET << std::endl;
+	std::vector<int> vec;
+	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
 
-	ft::stack<int> leo;
-	ft::stack<int> ap;
+	for (int i = 0; i < 4 * _ratio; i ++) {
+		vec.push_back(i);
+		// std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+	}
+	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+	vec.insert(vec.begin() + 2, 3, 7);
+	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+	std_print_vec(vec);
 
-	leo.push(7);
-	leo.push(9);
-	leo.push(20);
+}
 
-	ap.push(7);
-	ap.push(5);
-	ap.push(20);
+	std::cout << std::endl << BYEL << "######################## FT::VECTOR ###############################" << RESET << std::endl;
+{
+	std::cout << std::endl << BYEL << "######################## STD::VECTOR ###############################" << RESET << std::endl;
+	ft::vector<int> vec;
+	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+
+	for (int i = 0; i < 4 * _ratio; i ++) {
+		vec.push_back(i);
+		// std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+	}
+	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+	vec.insert(vec.begin() + 2, 3, 7);
+	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+	ft_print_vec(vec);
+
+}
 
 
-	// std::cout << leo.top() << std::endl;
-	// leo.pop();
-	// std::cout << leo.top() << std::endl;
 
-	std::cout << "operator " << (ap == leo) << std::endl;
+
 
 	return (0);
 }

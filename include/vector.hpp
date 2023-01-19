@@ -36,16 +36,17 @@ namespace ft{
 
 //---------------------------constructor & Destructor---------------------------------------//
 			// default constructor
-			// error: identifier ‘nullptr’ is a keyword in C++11 
+			// error: identifier ‘nullptr’ is a keyword in C++11
 			explicit vector (const allocator_type& alloc = allocator_type())
 			: _arr(alloc), _begin(NULL), _size(0), _cap(0)
-			{ }
+			{ std::cout << "Def constru" << std::endl; }
 
 			// fill constructor
 			explicit vector (size_type n, const value_type& val = value_type(),
 			const allocator_type& alloc = allocator_type()) :
 			_arr(alloc), _begin(_arr.allocate(n)), _size(n), _cap(n) {
 
+				std::cout << "Fill constru" << std::endl;
 				for (size_type i = 0; i < n; i++)
 					_arr.construct(&(_begin[i]), val);
 			}
@@ -56,6 +57,7 @@ namespace ft{
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
 				: _arr(alloc), _begin(NULL), _size(0), _cap(0) {
 
+				std::cout << "Range constru" << std::endl;
 				InputIterator tmp = first;
 
 				while (tmp != last)
@@ -74,6 +76,7 @@ namespace ft{
 			vector (const vector& src)
 			: _arr(src._arr), _begin(NULL), _size(src._size), _cap(src._cap) {
 
+				std::cout << "Copy constru" << std::endl;
 				_begin = _arr.allocate(_size);
 
 				for (size_type i = 0; i < _size; i++)
@@ -87,8 +90,14 @@ namespace ft{
 				// 	for(size_type i = 0; i < _size; i++)
 				// 		_arr.destroy(&(_begin[i]));
 				// }
+				std::cout << "Destructor size = " << _size << " _cap  = " << _cap << std::endl;
 
-				this->_arr.deallocate(_begin, _cap);
+				if (_begin != NULL && _cap > 0) {
+					std::cout << "Desc - Entre size = " << _size << std::endl;
+					for(size_type i = 0; i < _size; i++)
+						_arr.destroy(&(_begin[i]));
+					this->_arr.deallocate(_begin, _cap);
+				}
 			}
 
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
@@ -182,7 +191,7 @@ namespace ft{
 				_begin = new_begin;
 				_cap = n;
 			}
-			
+
 
 			/**
 			 * @brief Resizes the container so that it contains n elements.
@@ -290,7 +299,7 @@ namespace ft{
 				// 	_ft_realloc(1);
 				// if (_size == _cap)
 				// 	_ft_realloc(_cap * 2);
-				_ft_evalCap(_size + 1);
+				_ft_evalCap(1);
 				_arr.construct(&(_begin[_size]), val);
 				_size++;
 			}
@@ -299,6 +308,7 @@ namespace ft{
 			void pop_back() {
 				if (_size == 0)
 					return ;
+				// std::cout << "pop _size = " << _size << " cap = " << _cap << std::endl;
 				_arr.destroy(&(_begin[_size - 1]));
 				_size--;
 			}
@@ -311,10 +321,11 @@ namespace ft{
 
 				if (pos > _size)
 					throw std::out_of_range("out of range");
-				if (_cap == 0)
-					reserve(1);
-				if (_size == _cap)
-					reserve(_cap * 2);
+				// if (_cap == 0)
+				// 	reserve(1);
+				// if (_size == _cap)
+				// 	reserve(_cap * 2);
+				_ft_evalCap(1);
 				for (size_type i = _size; i > pos; i--)
 					_arr.construct(&(_begin[i]), *(_begin + (i - 1)));
 				_arr.construct(&(_begin[pos]), val);
@@ -327,12 +338,15 @@ namespace ft{
 
 				size_type	pos = position - begin();
 
-				if (_cap == 0)
-					reserve(n);
+				std::cout << "inser fiil = " << " pos = " << pos << std::endl;
+
+				// if (_cap == 0)
+				// 	reserve(n);
 				if (pos > _size)
 					throw std::out_of_range("out of range");
-				if (_size + n >= _cap)
-					reserve(_size + n);
+				// if (_size + n >= _cap)
+				// 	reserve(_size + n);
+				_ft_evalCap(n);
 				for (size_type i = (_size + n) - 1; i > n; i--)
 					_arr.construct(&(_begin[i]), *((_begin + (i - n))));
 				for (size_type i = pos; i <= n; i++)
@@ -497,19 +511,20 @@ namespace ft{
 				new_begin = _arr.allocate(newcap);
 				for (size_type range = 0; range < _size; range++)
 					_arr.construct(&(new_begin[range]), _begin[range]);
-				_arr.deallocate(_begin, _cap);
+				// if (_begin && _cap)
+					_arr.deallocate(_begin, _cap);
 				_begin = new_begin;
 				_cap = newcap;
 			}
 
-			void	_ft_evalCap(size_type newcap) {
+			void	_ft_evalCap(size_type new_cap) {
 
-				if (newcap <= _cap)
+				if (_size + new_cap <= _cap)
 					return ;
 				if (_size == 0)
 					_ft_reAlloc(1);
-				else if (newcap > (_size * 2))
-					_ft_reAlloc(newcap);
+				else if (_size + new_cap > _cap * 2)
+					_ft_reAlloc(_size + new_cap);
 				else
 					_ft_reAlloc(_cap * 2);
 			}
