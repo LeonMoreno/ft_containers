@@ -11,20 +11,19 @@ namespace ft {
 
 			/*---------------VECTOR ITERATOR TYPEDEFS (iterator traits - las propiedades del iterator)-------- */
 
-			typedef	vector_iterator<T>				iterator;
-			typedef ft::random_access_iterator_tag	iterator_category;
-			typedef T								value_type;
-			typedef T*								pointer;
-			typedef T&								reference;
-			typedef std::ptrdiff_t					difference_type;
-			typedef vector_iterator<const T>		const_iterator;
+			typedef	T													iterator_type;
+			typedef typename ft::iterator_traits<T>::value_type			value_type;
+			typedef typename ft::iterator_traits<T>::difference_type	difference_type;
+			typedef typename ft::iterator_traits<T>::iterator_category	iterator_category;
+			typedef typename ft::iterator_traits<T>::pointer			pointer;
+			typedef typename ft::iterator_traits<T>::reference			reference;
 
 
 			/*---------------Constructor and Destructors ----------------------------------------------------- */
 
 			vector_iterator(void) : _ptr(NULL) { } /* por si aca ??*/
 
-			explicit vector_iterator(pointer ptr) : _ptr(ptr) { } /* default constructor */
+			vector_iterator(pointer ptr) : _ptr(ptr) { } /* default constructor */
 
 			vector_iterator(const vector_iterator &copy) : _ptr(copy.base()) { } /* copy constructor */
 
@@ -43,16 +42,12 @@ namespace ft {
 
 			/*--------------- OPERADORES overload-------------------------------------------------------------------------- */
 
-			// convertion to const if needed
-			operator const_iterator() const {return const_iterator(_ptr);}
-
-
 			/* -- Can be dereferenced. deferencia para obtener su valor  */
 			reference operator*(void) const { return (*_ptr); }
 
 			pointer operator->(void) const { return (_ptr); }
 
-			reference operator[]( difference_type n ) const { return(*(_ptr + n)); }
+			reference operator[](const difference_type n ) const { return(*(_ptr + n)); }
 
 			vector_iterator  operator+( difference_type n ) const {
 				return (vector_iterator(_ptr + n));

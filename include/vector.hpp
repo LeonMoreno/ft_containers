@@ -16,24 +16,23 @@ namespace ft{
 		public:
 
 //---------------------------Member Types---------------------------------------//
-			typedef 					T											value_type;
-			typedef 					Alloc										allocator_type;
+			typedef T											value_type;
+			typedef Alloc										allocator_type;
 
-			// typename lo exige gcc en linux.
-			typedef typename 			allocator_type::reference						reference;
-			typedef typename 			allocator_type::const_reference 				const_reference;
+			typedef T&											reference;
+			typedef const T& 									const_reference;
 
-			typedef typename			allocator_type::pointer							pointer;
-			typedef const typename		allocator_type::const_pointer					const_pointer;
+			typedef T*											pointer;
+			typedef const T*									const_pointer;
 
-			typedef 					ft::vector_iterator<value_type>					iterator;
-			typedef 					ft::vector_iterator<const value_type>			const_iterator;
+			typedef vector_iterator<pointer>					iterator;
+			typedef vector_iterator <const_pointer>				const_iterator;
 
-			typedef						ft::reverse_vector_iterator <iterator>			reverse_iterator;
-			typedef						ft::reverse_vector_iterator <const_iterator>	const_reverse_iterator;
+			typedef	reverse_vector_iterator <iterator>			reverse_iterator;
+			typedef	reverse_vector_iterator <const_iterator>	const_reverse_iterator;
 
-			typedef						std::ptrdiff_t									difference_type;
-			typedef 					std::size_t										size_type;
+			typedef	std::ptrdiff_t								difference_type;
+			typedef std::size_t									size_type;
 
 //---------------------------constructor & Destructor---------------------------------------//
 			// default constructor
@@ -86,7 +85,7 @@ namespace ft{
 				for(size_type i = 0; i < _size; i++)
 					_arr.destroy(&(_begin[i]));
 
-				this->_arr.deallocate(_begin, _size);
+				this->_arr.deallocate(_begin, _cap);
 			}
 
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
@@ -284,15 +283,17 @@ namespace ft{
 			void push_back (const value_type& val) {
 
 				if (_cap == 0)
-					reserve(1);
+					_ft_realloc(1);
 				if (_size == _cap)
-					reserve(_cap * 2);
+					_ft_realloc(_cap * 2);
 				_arr.construct(_begin + _size, val);
 				_size++;
 			}
 
 			// 	Delete last element
 			void pop_back() {
+				if (!_size)
+					return ;
 				_arr.destroy(&(_begin[_size - 1]));
 				_size--;
 			}
@@ -481,7 +482,6 @@ namespace ft{
 				_begin = new_begin;
 				_cap = new_cap;
 			}
-
 	};
 
 	/* *******************************************************************************/
@@ -491,7 +491,7 @@ namespace ft{
 //---------------------------relational operators (vector (overloads)----------------//
 
 	template< class T, class Alloc >
-	bool operator==( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ) {
+	bool operator==( const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs ) {
 
 		if (lhs.size() != rhs.size())
 			return (false);
@@ -499,32 +499,32 @@ namespace ft{
 	}
 
 	template< class T, class Alloc >
-	bool operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	bool operator!=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 
 		return (!(lhs == rhs));
 	}
 
 	template< class T, class Alloc >
-	bool operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	bool operator<(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 
 		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 	}
 
 	template <class T, class Alloc>
-	bool operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	bool operator>(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 
 		return (ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()));
 	}
 
 
 	template <class T, class Alloc>
-	bool operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	bool operator<=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 		return (!(rhs < lhs));
 	}
 
 
 	template <class T, class Alloc>
-	bool operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	bool operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 		return (!(lhs < rhs));
 	}
 
@@ -533,7 +533,7 @@ namespace ft{
 namespace std {
 
 	template< class T, class Alloc >
-	void swap(ft::vector<T,Alloc>& lhs, ft::vector<T,Alloc>& rhs ) {
+	void swap(ft::vector<T, Alloc>& lhs, ft::vector<T, Alloc>& rhs ) {
 
 		lhs.swap(rhs);
 	}
