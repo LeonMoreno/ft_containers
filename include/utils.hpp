@@ -76,16 +76,6 @@ namespace ft {
 		return (first2!=last2);
 	}
 
-	//--------------COMPARE EQUALITY OF TYPES-------------------------
-
-
-	template<typename, typename>
-	struct are_same : public std::false_type {};
-
-	template<typename T>
-	struct are_same<T, T> : public std::true_type {};
-
-
 } // namespace ft end
 
 #endif

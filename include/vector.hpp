@@ -14,27 +14,23 @@ namespace ft{
 		public:
 
 //---------------------------Member Types---------------------------------------//
-			typedef 					T												value_type;
-			typedef 					Alloc											allocator_type;
+			typedef T											value_type;
+			typedef Alloc										allocator_type;
 
-			// typename lo exige gcc en linux.
-			typedef  			T&					reference;
-			typedef  			const T& 				const_reference;
+			typedef T&											reference;
+			typedef const T& 									const_reference;
 
-			typedef 			T*							pointer;
-			typedef 		const T*					const_pointer;
+			typedef T*											pointer;
+			typedef const T*									const_pointer;
 
-			typedef 					vector_iterator<pointer, vector<T, Alloc> >					iterator;
-			typedef 					vector_iterator <const_pointer, vector<T, Alloc> >				const_iterator;
+			typedef vector_iterator<pointer>					iterator;
+			typedef vector_iterator <const_pointer>				const_iterator;
 
-			// typedef 					ft::vector_iterator<value_type>					iterator;
-			// typedef 					ft::vector_iterator<const value_type>			const_iterator;
+			typedef	reverse_vector_iterator <iterator>			reverse_iterator;
+			typedef	reverse_vector_iterator <const_iterator>	const_reverse_iterator;
 
-			typedef						reverse_vector_iterator <iterator>			reverse_iterator;
-			typedef						reverse_vector_iterator <const_iterator>	const_reverse_iterator;
-
-			typedef						std::ptrdiff_t									difference_type;
-			typedef 					std::size_t										size_type;
+			typedef	std::ptrdiff_t								difference_type;
+			typedef std::size_t									size_type;
 
 //---------------------------constructor & Destructor---------------------------------------//
 			// default constructor
@@ -476,7 +472,6 @@ namespace ft{
 				_begin = new_begin;
 				_cap = new_cap;
 			}
-
 	};
 
 	/* *******************************************************************************/
@@ -486,7 +481,7 @@ namespace ft{
 //---------------------------relational operators (vector)--------------------------------//
 
 	template< class T, class Alloc >
-	bool operator==( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ) {
+	bool operator==( const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs ) {
 
 		if (lhs.size() != rhs.size())
 			return (false);
@@ -494,32 +489,32 @@ namespace ft{
 	}
 
 	template< class T, class Alloc >
-	bool operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	bool operator!=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 
 		return (!(lhs == rhs));
 	}
 
 	template< class T, class Alloc >
-	bool operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	bool operator<(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 
 		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 	}
 
 	template <class T, class Alloc>
-	bool operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	bool operator>(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 
 		return (ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()));
 	}
 
 
 	template <class T, class Alloc>
-	bool operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	bool operator<=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 		return (!(rhs < lhs));
 	}
 
 
 	template <class T, class Alloc>
-	bool operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	bool operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 		return (!(lhs < rhs));
 	}
 
@@ -528,7 +523,7 @@ namespace ft{
 namespace std {
 
 	template< class T, class Alloc >
-	void swap(ft::vector<T,Alloc>& lhs, ft::vector<T,Alloc>& rhs ) {
+	void swap(ft::vector<T, Alloc>& lhs, ft::vector<T, Alloc>& rhs ) {
 
 		lhs.swap(rhs);
 	}
