@@ -50,9 +50,9 @@ void	vec_construct(void)
 
 int	main()
 {
-	std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
-	usleep(520000);
-	vec_construct();
+	// std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
+	// usleep(520000);
+	// vec_construct();
 
 	ft::stack<int> leo;
 	ft::stack<int> ap;
@@ -61,16 +61,16 @@ int	main()
 	leo.push(9);
 	leo.push(20);
 
-	ap.push(100);
-	ap.push(101);
-	ap.push(103);
+	ap.push(7);
+	ap.push(5);
+	ap.push(20);
 
 
-	std::cout << leo.top() << std::endl;
-	leo.pop();
-	std::cout << leo.top() << std::endl;
+	// std::cout << leo.top() << std::endl;
+	// leo.pop();
+	// std::cout << leo.top() << std::endl;
 
-	// std::cout << "operator " << ap == leo << std::endl;
+	std::cout << "operator " << (ap == leo) << std::endl;
 
 	return (0);
 }

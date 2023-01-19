@@ -294,7 +294,7 @@ namespace ft{
 
 			// 	Delete last element
 			void pop_back() {
-				if (!_size)
+				if (_size == 0)
 					return ;
 				_arr.destroy(&(_begin[_size - 1]));
 				_size--;
