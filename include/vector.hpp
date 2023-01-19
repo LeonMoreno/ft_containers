@@ -174,13 +174,14 @@ namespace ft{
 				for (size_type i = 0; i < _size; i++)
 					_arr.construct(&(new_begin[i]), _begin[i]);
 
-				for (size_type i = 0; i < _size; i++)
-					_arr.destroy(&(_begin[i]));
+				// for (size_type i = 0; i < _size; i++)
+				// 	_arr.destroy(&(_begin[i]));
 				_arr.deallocate(_begin, _cap);
 
 				_begin = new_begin;
 				_cap = n;
 			}
+			
 
 			/**
 			 * @brief Resizes the container so that it contains n elements.
@@ -258,7 +259,7 @@ namespace ft{
 				while (tmp++ != last)
 					new_size++;
 				if (new_size > _cap)
-					_ft_realloc(new_size);
+					reserve(new_size);
 				for (size_type i = 0; i < new_size; i++)
 					_arr.construct(&(_begin[i]), first[i]);
 				if (new_size < _size)
@@ -275,7 +276,7 @@ namespace ft{
 				for (size_type i = 0; i < _size; i++)
 					_arr.destroy(&(_begin[i]));
 				if (_size < n)
-					_ft_realloc(n);
+					reserve(n);
 				for (size_type i = 0; i < n; i++)
 					_arr.construct(&(_begin[i]), val);
 				_size = n;
@@ -284,11 +285,12 @@ namespace ft{
 			// Add element at the end
 			void push_back (const value_type& val) {
 
-				if (_cap == 0)
-					_ft_realloc(1);
-				if (_size == _cap)
-					_ft_realloc(_cap * 2);
-				_arr.construct(_begin + _size, val);
+				// if (_cap == 0)
+				// 	_ft_realloc(1);
+				// if (_size == _cap)
+				// 	_ft_realloc(_cap * 2);
+				_ft_evalCap(_size + 1);
+				_arr.construct(&(_begin[_size]), val);
 				_size++;
 			}
 
@@ -485,6 +487,30 @@ namespace ft{
 
 				_begin = new_begin;
 				_cap = new_cap;
+			}
+
+			void	_ft_reAlloc(size_type newcap) {
+
+				pointer new_begin;
+
+				new_begin = _arr.allocate(newcap);
+				for (size_type range = 0; range < _size; range++)
+					_arr.construct(&(new_begin[range]), _begin[range]);
+				_arr.deallocate(_begin, _cap);
+				_begin = new_begin;
+				_cap = newcap;
+			}
+
+			void	_ft_evalCap(size_type newcap) {
+
+				if (newcap <= _cap)
+					return ;
+				if (_size == 0)
+					_ft_reAlloc(1);
+				else if (newcap > (_size * 2))
+					_ft_reAlloc(newcap);
+				else
+					_ft_reAlloc(_cap * 2);
 			}
 	};
 

@@ -132,10 +132,6 @@ namespace ft {
 		return ((lhs > rhs) || (lhs == rhs));
 	}
 
-
-
-
 } // end ft
-
 
 #endif
