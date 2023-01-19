@@ -39,14 +39,14 @@ namespace ft{
 			// error: identifier ‘nullptr’ is a keyword in C++11
 			explicit vector (const allocator_type& alloc = allocator_type())
 			: _arr(alloc), _begin(NULL), _size(0), _cap(0)
-			{ std::cout << "Def constru" << std::endl; }
+			{  }
 
 			// fill constructor
 			explicit vector (size_type n, const value_type& val = value_type(),
 			const allocator_type& alloc = allocator_type()) :
 			_arr(alloc), _begin(_arr.allocate(n)), _size(n), _cap(n) {
 
-				std::cout << "Fill constru" << std::endl;
+				// std::cout << "Fill constru" << std::endl;
 				for (size_type i = 0; i < n; i++)
 					_arr.construct(&(_begin[i]), val);
 			}
@@ -57,7 +57,7 @@ namespace ft{
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
 				: _arr(alloc), _begin(NULL), _size(0), _cap(0) {
 
-				std::cout << "Range constru" << std::endl;
+				// std::cout << "Range constru" << std::endl;
 				InputIterator tmp = first;
 
 				while (tmp != last)
@@ -76,7 +76,7 @@ namespace ft{
 			vector (const vector& src)
 			: _arr(src._arr), _begin(NULL), _size(src._size), _cap(src._cap) {
 
-				std::cout << "Copy constru" << std::endl;
+				// std::cout << "Copy constru" << std::endl;
 				_begin = _arr.allocate(_size);
 
 				for (size_type i = 0; i < _size; i++)
@@ -86,14 +86,10 @@ namespace ft{
 
 			~vector(void) {
 
-				// if (_begin) {
-				// 	for(size_type i = 0; i < _size; i++)
-				// 		_arr.destroy(&(_begin[i]));
-				// }
-				std::cout << "Destructor size = " << _size << " _cap  = " << _cap << std::endl;
+				// std::cout << "Destructor size = " << _size << " _cap  = " << _cap << std::endl;
 
-				if (_begin != NULL && _cap > 0) {
-					std::cout << "Desc - Entre size = " << _size << std::endl;
+				if (_begin != NULL) {
+					// std::cout << "Desc - Entre size = " << _size << std::endl;
 					for(size_type i = 0; i < _size; i++)
 						_arr.destroy(&(_begin[i]));
 					this->_arr.deallocate(_begin, _cap);
@@ -333,23 +329,17 @@ namespace ft{
 				return (iterator(&(_begin[pos])));
 			}
 
-			// insert -- fill -- end to begin
+			// insert -- fill -- end to begin // Probada
 			void insert (iterator position, size_type n, const value_type& val) {
 
 				size_type	pos = position - begin();
 
-				std::cout << "inser fiil = " << " pos = " << pos << std::endl;
-
-				// if (_cap == 0)
-				// 	reserve(n);
 				if (pos > _size)
 					throw std::out_of_range("out of range");
-				// if (_size + n >= _cap)
-				// 	reserve(_size + n);
 				_ft_evalCap(n);
-				for (size_type i = (_size + n) - 1; i > n; i--)
+				for (size_type i = ((_size + n) - 1); i >= pos + n; i--)
 					_arr.construct(&(_begin[i]), *((_begin + (i - n))));
-				for (size_type i = pos; i <= n; i++)
+				for (size_type i = pos; i < n + pos; i++)
 					_arr.construct(&(_begin[i]), val);
 				_size = _size + n;
 			}
@@ -422,7 +412,7 @@ namespace ft{
 				else {
 					for (size_type i = (_size + n - 1); i >= n + pos; i--) {
 						_arr.construct(&(_begin[i]), *((_begin + (i - n))));
-					_arr.destroy(&_begin[i - n]);
+						_arr.destroy(&_begin[i - n]);
 				}
 					for (size_type i = pos; i < n + pos; i++)
 						_arr.construct(&(_begin[i]), *first++);

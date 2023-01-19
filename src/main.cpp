@@ -65,41 +65,40 @@ void	vec_construct(void)
 
 int	main()
 {
-	// std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
-	// usleep(520000);
-	// vec_construct();
-{
-	std::cout << std::endl << BYEL << "######################## STD::VECTOR ###############################" << RESET << std::endl;
-	std::vector<int> vec;
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+	std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
+	usleep(520000);
+	vec_construct();
+// {
+// 	std::cout << std::endl << BYEL << "######################## STD::VECTOR ###############################" << RESET << std::endl;
+// 	std::vector<int> vec;
+// 	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
 
-	for (int i = 0; i < 4 * _ratio; i ++) {
-		vec.push_back(i);
-		// std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	}
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	vec.insert(vec.begin() + 2, 3, 7);
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	std_print_vec(vec);
+// 	for (int i = 0; i < 10 * _ratio; i ++) {
+// 		vec.push_back(i);
+// 		// std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+// 	}
+// 	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+// 	vec.insert(vec.begin(), 1, 7);
+// 	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+// 	std_print_vec(vec);
 
-}
+// }
 
-	std::cout << std::endl << BYEL << "######################## FT::VECTOR ###############################" << RESET << std::endl;
-{
-	std::cout << std::endl << BYEL << "######################## STD::VECTOR ###############################" << RESET << std::endl;
-	ft::vector<int> vec;
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+// 	std::cout << std::endl << BYEL << "######################## FT::VECTOR ###############################" << RESET << std::endl;
+// {
+// 	ft::vector<int> vec;
+// 	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
 
-	for (int i = 0; i < 4 * _ratio; i ++) {
-		vec.push_back(i);
-		// std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	}
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	vec.insert(vec.begin() + 2, 3, 7);
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	ft_print_vec(vec);
+// 	for (int i = 0; i < 10 * _ratio; i ++) {
+// 		vec.push_back(i);
+// 		// std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+// 	}
+// 	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+// 	vec.insert(vec.begin(), 1, 7);
+// 	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+// 	ft_print_vec(vec);
 
-}
+// }
 
 
 
