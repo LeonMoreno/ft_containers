@@ -55,21 +55,13 @@ namespace ft{
 			template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
-				: _arr(alloc), _begin(NULL), _size(0), _cap(0) {
+				: _arr(alloc), _begin(NULL), _size(last - first), _cap(_size) {
 
-				// std::cout << "Range constru" << std::endl;
-				InputIterator tmp = first;
-
-				while (tmp != last)
-				{
-					_size++;
-					tmp++;
-				}
+				// std::cout << "Range constru" << " cap = "<< _cap << std::endl;
 				_begin = _arr.allocate(_size);
 
 				for (size_type i = 0; i < _size; i++)
 					_arr.construct(&(_begin[i]), first[i]);
-				_cap = _size;
 			}
 
 			// copy constructor
@@ -83,13 +75,10 @@ namespace ft{
 					_arr.construct(&(_begin[i]), src._begin[i]);
 			}
 
-
 			~vector(void) {
 
 				// std::cout << "Destructor size = " << _size << " _cap  = " << _cap << std::endl;
-
 				if (_begin != NULL) {
-					// std::cout << "Desc - Entre size = " << _size << std::endl;
 					for(size_type i = 0; i < _size; i++)
 						_arr.destroy(&(_begin[i]));
 					this->_arr.deallocate(_begin, _cap);
@@ -114,11 +103,6 @@ namespace ft{
 			// Get Alloc
 			allocator_type get_allocator(void) const { return _arr; }
 
-			size_type sileo() const { return (_size); }
-
-			size_type capleo() const { return (_cap); }
-
-
 //---------------------------Iterator from vector----------------------------------------//
 
 			// Return iterator to beginning
@@ -140,8 +124,6 @@ namespace ft{
 			reverse_iterator rend() { return (reverse_iterator((this->begin()))); }
 
 			const_reverse_iterator rend() const { return (const_reverse_iterator((this->begin()))); }
-
-
 
 //---------------------------CAPACITY----------------------------------------//
 
@@ -193,22 +175,22 @@ namespace ft{
 			 * @brief Resizes the container so that it contains n elements.
 			 *
 			 * @param n: New container size
-			 * @param val: Object whose content is copied to the added elements in case that n is greater than the current container size.
+			 * @param val: Object whose content is copied to the added elements
+			 *  in case that n is greater than the current container size.
 			 */
 			void resize (size_type n, value_type val = value_type()) {
 
 				if (n < _size) {
 					for (size_type range = n; range < _size; range++)
 						_arr.destroy(&(_begin[range]));
-					_size = n;
 				}
 				else if (n > _size) {
 					if (n > _cap)
-						reserve(_cap * 2);
+						_ft_evalCap(n - _size);
 					for (size_type range = _size; range < n; range++)
 						_arr.construct(&(_begin[range]), val);
-					_size = n;
 				}
+				_size = n;
 			}
 
 
@@ -257,30 +239,24 @@ namespace ft{
 			void assign (InputIterator first, InputIterator last,
 			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) {
 
-				size_type		new_size = 0;
-				InputIterator	tmp = first;
+				size_type		new_size = last - first;
 
-				for (size_type i = 0; i < _size; i++)
-					_arr.destroy(&(_begin[i]));
-				while (tmp++ != last)
-					new_size++;
+				// for (size_type i = 0; i < _size; i++)
+				// 	_arr.destroy(&(_begin[i]));
+				clear();
 				if (new_size > _cap)
 					reserve(new_size);
 				for (size_type i = 0; i < new_size; i++)
 					_arr.construct(&(_begin[i]), first[i]);
-				if (new_size < _size)
-				{
-					for (size_t i = new_size; i < _size; i++)
-						this->_arr.destroy(&(_begin[i]));
-				}
 				_size = new_size;
 			}
 
 			// assing fill version - the new contents are n elements, each initialized to a copy of val.
 			void assign (size_type n, const value_type& val) {
 
-				for (size_type i = 0; i < _size; i++)
-					_arr.destroy(&(_begin[i]));
+				// for (size_type i = 0; i < _size; i++)
+				// 	_arr.destroy(&(_begin[i]));
+				clear();
 				if (_size < n)
 					reserve(n);
 				for (size_type i = 0; i < n; i++)
@@ -291,10 +267,6 @@ namespace ft{
 			// Add element at the end
 			void push_back (const value_type& val) {
 
-				// if (_cap == 0)
-				// 	_ft_realloc(1);
-				// if (_size == _cap)
-				// 	_ft_realloc(_cap * 2);
 				_ft_evalCap(1);
 				_arr.construct(&(_begin[_size]), val);
 				_size++;
@@ -302,13 +274,12 @@ namespace ft{
 
 			// 	Delete last element
 			void pop_back() {
-				if (_size == 0)
+				if (_begin == NULL || _size == 0)
 					return ;
 				// std::cout << "pop _size = " << _size << " cap = " << _cap << std::endl;
 				_arr.destroy(&(_begin[_size - 1]));
 				_size--;
 			}
-
 
 			// insert -- single element
 			iterator insert (iterator position, const value_type& val) {
@@ -317,10 +288,6 @@ namespace ft{
 
 				if (pos > _size)
 					throw std::out_of_range("out of range");
-				// if (_cap == 0)
-				// 	reserve(1);
-				// if (_size == _cap)
-				// 	reserve(_cap * 2);
 				_ft_evalCap(1);
 				for (size_type i = _size; i > pos; i--)
 					_arr.construct(&(_begin[i]), *(_begin + (i - 1)));
@@ -329,7 +296,7 @@ namespace ft{
 				return (iterator(&(_begin[pos])));
 			}
 
-			// insert -- fill -- end to begin // Probada
+			// insert -- fill  // Probada
 			void insert (iterator position, size_type n, const value_type& val) {
 
 				size_type	pos = position - begin();
@@ -374,7 +341,7 @@ namespace ft{
 			// }
 
 
-			// insert range -- begin to end
+			// insert range -- begin to end // falta hacer hard test
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last,
 			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0) {
@@ -501,7 +468,7 @@ namespace ft{
 				new_begin = _arr.allocate(newcap);
 				for (size_type range = 0; range < _size; range++)
 					_arr.construct(&(new_begin[range]), _begin[range]);
-				// if (_begin && _cap)
+				if (_begin != NULL)
 					_arr.deallocate(_begin, _cap);
 				_begin = new_begin;
 				_cap = newcap;
