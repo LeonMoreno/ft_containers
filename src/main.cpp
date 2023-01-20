@@ -6,8 +6,19 @@
 #include <vector>
 #include <iterator>
 #include <cstdio> // (stdout)
+#include <sys/time.h>
 
-#define _ratio 1
+#define _ratio 10000
+// volatile static time_t g_start2;
+
+
+time_t timer() {
+	struct timeval start = {};
+	gettimeofday(&start, nullptr);
+	time_t msecs_time = (start.tv_sec * 1000) + (start.tv_usec / 1000);
+	return msecs_time;
+}
+
 
 void	ft_print_vec(ft::vector<int> &vec)
 {
@@ -68,69 +79,54 @@ int	main()
 	// std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
 	// usleep(520000);
 	// vec_construct();
-	int	arr[] = {100, 200, 300, 400, 500, 600, 700, 800, 900, 100};
-{
-	std::cout << std::endl << BYEL << "######################## STD::VECTOR ###############################" << RESET << std::endl;
-	std::vector<int> vec;
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+	// int	arr[] = {100, 200, 300, 400, 500, 600, 700, 800, 900, 100};
+// {
+// 	std::cout << std::endl << BYEL << "######################## STD::VECTOR ###############################" << RESET << std::endl;
+// 	std::vector<int> vec;
+// 	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
 
-	for (int i = 0; i < 4 * _ratio; i ++) {
-		vec.push_back(i);
-		// std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	}
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	vec.resize(5, 7);
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	std_print_vec(vec);
-	vec.assign(arr, &(arr[5]));
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	std_print_vec(vec);
-	for (int i = 0; i < 1 * _ratio; i ++) {
-		vec.pop_back();
-		std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	}
-	std_print_vec(vec);
-	vec.insert(vec.end(), 7);
-	std_print_vec(vec);
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	vec.erase(vec.begin() + 1, vec.begin() + 3);
-	std_print_vec(vec);
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-
-
-}
-
-	std::cout << std::endl << BYEL << "######################## FT::VECTOR ###############################" << RESET << std::endl;
-{
-	ft::vector<int> vec;
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-
-	for (int i = 0; i < 4 * _ratio; i ++) {
-		vec.push_back(i);
-		// std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	}
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	vec.resize(5, 7);
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	ft_print_vec(vec);
-	vec.assign(arr, &(arr[5]));
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	ft_print_vec(vec);
-	for (int i = 0; i < 1 * _ratio; i ++) {
-		vec.pop_back();
-		std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	}
-	ft_print_vec(vec);
-	vec.insert(vec.end(), 7);
-	ft_print_vec(vec);
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
-	vec.erase(vec.begin() + 1, vec.begin() + 3);
-	ft_print_vec(vec);
-	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+// 	for (int i = 0; i < 4 * _ratio; i ++) {
+// 		vec.push_back(i);
+// 		// std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+// 	}
+// 	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+// 	vec.resize(5, 7);
+// 	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+// 	std_print_vec(vec);
+// 	vec.assign(arr, &(arr[5]));
+// 	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+// 	std_print_vec(vec);
+// 	for (int i = 0; i < 1 * _ratio; i ++) {
+// 		vec.pop_back();
+// 		std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+// 	}
+// 	std_print_vec(vec);
+// 	vec.insert(vec.end(), 7);
+// 	std_print_vec(vec);
+// 	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
+// 	vec.erase(vec.begin() + 1, vec.begin() + 3);
+// 	std_print_vec(vec);
+// 	std::cout << "pop _size = " << vec.size() << " cap = " << vec.capacity() << std::endl;
 
 
-}
+// }
 
+	// ft::stack<int> stk;
+
+	ft::vector<int> deque;
+	// for (int i = 0; i < 100 * _ratio; i++)
+	// 	deque.push_back(i);
+
+	// // for (int i = 100 * _ratio; i < 200 * _ratio; ++i)
+	// // 	stk.push(i);
+	// // g_start2 = timer();
+	// // ft::stack<int> stack(deque);
+	// // ft::stack<int> stack2(stk);
+	// // ft::stack<int> stack3;
+	// // stack3 = stack2;
+	ft::vector<int> vec2;
+
+	vec2 = deque;
 
 
 

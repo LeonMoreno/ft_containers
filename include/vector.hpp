@@ -88,11 +88,15 @@ namespace ft{
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
 
 			vector& operator=(const vector& rhs) {
-				if (this->begin() != rhs.begin())
+
+				if (_begin != NULL)
+					_arr.deallocate(_begin, _cap);
+
+				if (rhs._cap > 0)
 				{
-					_arr = rhs._arr;
 					_size = rhs._size;
 					_cap = rhs._cap;
+					_begin = _arr.allocate(_size);
 					assign(rhs.begin(), rhs.end());
 				}
 				return (*this);
@@ -158,18 +162,17 @@ namespace ft{
 				catch (std::bad_alloc &e) {
 					throw e;
 				}
-
 				for (size_type i = 0; i < _size; i++)
 					_arr.construct(&(new_begin[i]), _begin[i]);
 
-				// for (size_type i = 0; i < _size; i++)
-				// 	_arr.destroy(&(_begin[i]));
-				_arr.deallocate(_begin, _cap);
-
+				if (_begin != NULL) {
+					for (size_type i = 0; i < _size; i++)
+						_arr.destroy(&(_begin[i]));
+					_arr.deallocate(_begin, _cap);
+				}
 				_begin = new_begin;
 				_cap = n;
 			}
-
 
 			/**
 			 * @brief Resizes the container so that it contains n elements.
@@ -241,8 +244,6 @@ namespace ft{
 
 				size_type		new_size = last - first;
 
-				// for (size_type i = 0; i < _size; i++)
-				// 	_arr.destroy(&(_begin[i]));
 				clear();
 				if (new_size > _cap)
 					reserve(new_size);
@@ -254,8 +255,6 @@ namespace ft{
 			// assing fill version - the new contents are n elements, each initialized to a copy of val.
 			void assign (size_type n, const value_type& val) {
 
-				// for (size_type i = 0; i < _size; i++)
-				// 	_arr.destroy(&(_begin[i]));
 				clear();
 				if (_size < n)
 					reserve(n);
@@ -276,7 +275,6 @@ namespace ft{
 			void pop_back() {
 				if (_begin == NULL || _size == 0)
 					return ;
-				// std::cout << "pop _size = " << _size << " cap = " << _cap << std::endl;
 				_arr.destroy(&(_begin[_size - 1]));
 				_size--;
 			}
@@ -371,8 +369,10 @@ namespace ft{
 						_arr.deallocate(new_begin, new_cap);
 						throw;
 					}
-					_arr.destroy(_begin);
-					_arr.deallocate(_begin, _cap);
+					if (_begin != NULL) {
+						_arr.destroy(_begin);
+						_arr.deallocate(_begin, _cap);
+					}
 					_begin = new_begin;
 					_cap = new_cap;
 				}
@@ -389,8 +389,12 @@ namespace ft{
 
 			void clear() {
 
-				_arr.destroy(_begin);
-				_size = 0;
+				if (_begin == NULL)
+				 	return ;
+				if (_size > 0) {
+					_arr.destroy(_begin);
+					_size = 0;
+				}
 			}
 
 			// Removes from the vector single element (position)
@@ -445,45 +449,16 @@ namespace ft{
 			size_type		_size;
 			size_type		_cap;
 
-			void	_ft_realloc(size_type new_cap, value_type val = value_type()) {
-
-				pointer new_begin = _arr.allocate(new_cap);
-
-				for (size_type i = 0; i < _size; i++)
-					_arr.construct(&(new_begin[i]), _begin[i]);
-				for (size_type i = _size; i < new_cap; i++)
-					_arr.construct(&(new_begin[i]), val);
-				for (size_type i = 0; i < _size; i++)
-					_arr.destroy(&(_begin[i]));
-				_arr.deallocate(_begin, _cap);
-
-				_begin = new_begin;
-				_cap = new_cap;
-			}
-
-			void	_ft_reAlloc(size_type newcap) {
-
-				pointer new_begin;
-
-				new_begin = _arr.allocate(newcap);
-				for (size_type range = 0; range < _size; range++)
-					_arr.construct(&(new_begin[range]), _begin[range]);
-				if (_begin != NULL)
-					_arr.deallocate(_begin, _cap);
-				_begin = new_begin;
-				_cap = newcap;
-			}
-
 			void	_ft_evalCap(size_type new_cap) {
 
 				if (_size + new_cap <= _cap)
 					return ;
 				if (_size == 0)
-					_ft_reAlloc(1);
+					reserve(1);
 				else if (_size + new_cap > _cap * 2)
-					_ft_reAlloc(_size + new_cap);
+					reserve(_size + new_cap);
 				else
-					_ft_reAlloc(_cap * 2);
+					reserve(_cap * 2);
 			}
 	};
 
