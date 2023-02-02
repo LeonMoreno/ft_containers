@@ -76,9 +76,9 @@ void	vec_construct(void)
 
 int	main()
 {
-	// std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
-	// usleep(520000);
-	// vec_construct();
+	std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
+	usleep(520000);
+	vec_construct();
 	// int	arr[] = {100, 200, 300, 400, 500, 600, 700, 800, 900, 100};
 // {
 // 	std::cout << std::endl << BYEL << "######################## STD::VECTOR ###############################" << RESET << std::endl;
@@ -113,7 +113,7 @@ int	main()
 
 	// ft::stack<int> stk;
 
-	ft::vector<int> deque;
+	// ft::vector<int> deque;
 	// for (int i = 0; i < 100 * _ratio; i++)
 	// 	deque.push_back(i);
 
@@ -124,9 +124,9 @@ int	main()
 	// // ft::stack<int> stack2(stk);
 	// // ft::stack<int> stack3;
 	// // stack3 = stack2;
-	ft::vector<int> vec2;
+	// ft::vector<int> vec2;
 
-	vec2 = deque;
+	// vec2 = deque;
 
 
 
