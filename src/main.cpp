@@ -4,6 +4,7 @@
 #include "colors.hpp"
 #include <unistd.h>
 #include <vector>
+#include "map.hpp"
 #include <iterator>
 #include <cstdio> // (stdout)
 #include <sys/time.h>
@@ -76,9 +77,11 @@ void	vec_construct(void)
 
 int	main()
 {
-	std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
-	usleep(520000);
-	vec_construct();
+	// std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
+	// usleep(520000);
+	// vec_construct();
+
+	ft::map<int, int> leo;
 
 	return (0);
 }
