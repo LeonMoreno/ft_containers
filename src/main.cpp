@@ -90,9 +90,16 @@ int	main()
 
 	ft::pair<char, int> pr1('A', 7);
 	ft::pair<char, int> pr2(pr1);
+	ft::pair<char, int> pr3;
+	ft::pair<char, int> foo;
+
+	pr3 = pr2;
+	foo = ft::make_pair('L', 169);
 
 	std::cout << "pr1 1er = " << pr1.first << " 2do = " << pr1.second << std::endl;
-	std::cout << "pr1 1er = " << pr2.first << " 2do = " << pr2.second << std::endl;
+	std::cout << "pr2 1er = " << pr2.first << " 2do = " << pr2.second << std::endl;
+	std::cout << "pr3 1er = " << pr3.first << " 2do = " << pr3.second << std::endl;
+	std::cout << "foo 1er = " << foo.first << " 2do = " << foo.second << std::endl;
 
 	return (0);
 }
