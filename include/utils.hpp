@@ -121,6 +121,10 @@ namespace ft {
 			typedef T1	first_type;
 			typedef T2	second_type;
 
+		// private: // Creo que no es privado !!
+			first_type	first;
+			second_type	second;
+
 			// def constructor
 			pair() : first(0), second(0) { std::cout << "default pair\n"; }
 
@@ -138,11 +142,37 @@ namespace ft {
 
 				return (*this);
 			}
-
-		// private: // Creo que no es privado !!
-			first_type	first;
-			second_type	second;
 	};
+//---------------------------Non-Member Functions ft::pair----------------------------//
+	template <class T1, class T2>
+	bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) {
+		return ((lhs.first == rhs.first) && (lhs.second == rhs.second));
+	}
+
+	template <class T1, class T2>
+	bool operator!= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) {
+		return (!(lhs == rhs));
+	}
+
+	template <class T1, class T2>
+	bool operator< (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) {
+		return ((lhs.first < rhs.first) && (lhs.second < rhs.second));
+	}
+
+	template <class T1, class T2>
+	bool operator<= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) {
+		return ((lhs.first <= rhs.first) && (lhs.second <= rhs.second));
+	}
+
+	template <class T1, class T2>
+	bool operator> (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) {
+		return (rhs < lhs);
+	}
+
+	template <class T1, class T2>
+	bool operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) {
+		return ((lhs.first >= rhs.first) && (lhs.second >=rhs.second));
+	}
 
 /*------------------------ ft::make_pair ------------------------------------ */
 // https://cplusplus.com/reference/utility/pair/
