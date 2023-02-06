@@ -6,7 +6,7 @@
 # define UTILS_HPP
 
 #include <iostream>
-#include <type_traits>
+// #include <type_traits> // C++11
 
 namespace ft {
 
@@ -54,10 +54,10 @@ namespace ft {
 	template<>
 	struct is_integral<char> { static const bool value = true;};
 
-	template<>
-	struct is_integral<char16_t>{ static const bool value = true;};
-	template<>
-	struct is_integral<char32_t>{ static const bool value = true;};
+	// template<>
+	// struct is_integral<char16_t>{ static const bool value = true;};
+	// template<>
+	// struct is_integral<char32_t>{ static const bool value = true;};
 	template<>
 	struct is_integral<wchar_t> { static const bool value = true;};
 	template<>
@@ -130,7 +130,7 @@ namespace ft {
 				this->first = pr.first;
 				this->second = pr.second;
 
-				return (*this);
+				// return (*this);
 			};
 
 			// init constructor

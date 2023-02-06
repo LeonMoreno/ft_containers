@@ -7,19 +7,19 @@
 #include "map.hpp"
 #include <iterator>
 #include <cstdio> // (stdout)
-#include <sys/time.h>
+// #include <sys/time.h>
 #include <map>
 
 #define _ratio 10000
 // volatile static time_t g_start2;
 
 
-time_t timer() {
-	struct timeval start = {};
-	gettimeofday(&start, nullptr);
-	time_t msecs_time = (start.tv_sec * 1000) + (start.tv_usec / 1000);
-	return msecs_time;
-}
+// time_t timer() {
+// 	struct timeval start = {};
+// 	gettimeofday(&start, nullptr);
+// 	time_t msecs_time = (start.tv_sec * 1000) + (start.tv_usec / 1000);
+// 	return msecs_time;
+// }
 
 
 void	ft_print_vec(ft::vector<int> &vec)
