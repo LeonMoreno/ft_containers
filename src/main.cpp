@@ -8,6 +8,7 @@
 #include <iterator>
 #include <cstdio> // (stdout)
 #include <sys/time.h>
+#include <map>
 
 #define _ratio 10000
 // volatile static time_t g_start2;
@@ -81,7 +82,17 @@ int	main()
 	// usleep(520000);
 	// vec_construct();
 
-	ft::map<int, int> leo;
+	// ft::map<int, int> leo;
+	// std::map<std::string, int> mp;
+
+	// mp["leo"] = 9;
+	// mp.insert(std::pair<std::string, int>("ap", 2));
+
+	ft::pair<char, int> pr1('A', 7);
+	ft::pair<char, int> pr2(pr1);
+
+	std::cout << "pr1 1er = " << pr1.first << " 2do = " << pr1.second << std::endl;
+	std::cout << "pr1 1er = " << pr2.first << " 2do = " << pr2.second << std::endl;
 
 	return (0);
 }

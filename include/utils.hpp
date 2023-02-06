@@ -111,6 +111,37 @@ namespace ft {
 		return (first2!=last2);
 	}
 
+/*------------------------ ft::pair ------------------------------------ */
+// https://cplusplus.com/reference/utility/pair/
+
+	template <class T1, class T2>
+	class pair {
+		public:
+
+			typedef T1	first_type;
+			typedef T2	second_type;
+
+			// def constructor
+			pair() : first(0), second(0) { std::cout << "default pair\n"; }
+
+			// copy constructor
+			template<class U, class V>
+			pair (const pair<U,V>& pr) {
+				this->first = pr.first;
+				this->second = pr.second;
+
+				return (*this);
+			};
+
+			// init constructor
+			pair (const first_type& a, const second_type& b) : first(a), second(b) { }
+
+		// private:
+			first_type	first;
+			second_type	second;
+
+	};
+
 } // namespace ft end
 
 #endif
