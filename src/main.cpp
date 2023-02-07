@@ -82,22 +82,10 @@ int	main()
 	// usleep(520000);
 	// vec_construct();
 
-	// ft::map<int, int> leo;
-	// std::map<std::string, int> mp;
+	ft::map<int, int> leo;
 
-	// mp["leo"] = 9;
-	// mp.insert(std::pair<std::string, int>("ap", 2));
 
-	ft::pair<char, int> pr1('A', 7);
-	ft::pair<char, int> pr2(pr1);
-	ft::pair<char, int> foo;
 
-	foo = ft::make_pair('0', 8);
-
-	std::cout << "pr1 1er = " << pr1.first << " 2do = " << pr1.second << std::endl;
-	std::cout << "pr2 1er = " << pr2.first << " 2do = " << pr2.second << std::endl;
-
-	std::cout << "relation ope " << (pr2 >= foo) << std::endl;
 
 	return (0);
 }

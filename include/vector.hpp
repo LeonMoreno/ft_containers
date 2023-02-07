@@ -10,7 +10,7 @@
 namespace ft{
 
 //--------------------------Template parameters ---------------------------------------//
-
+	
 	template <typename T, typename Alloc = std::allocator<T> >
 	class vector {
 		public:
