@@ -126,14 +126,14 @@ namespace ft {
 			second_type	second;
 
 			// def constructor
-			pair() : first(T1()), second(T2()) { std::cout << "default constru pair\n"; }
+			pair() : first(T1()), second(T2()) { } //std::cout << "default constru pair\n"; }
 
 			// copy constructor
 			template<class U, class V>
 			pair (const pair<U,V>& pr) : first(pr.first), second(pr.second) { }
 
 			// init constructor
-			pair (const first_type& a, const second_type& b) : first(a), second(b) { std::cout << "INIT constru pair\n"; }
+			pair (const first_type& a, const second_type& b) : first(a), second(b) {  } //std::cout << "INIT constru pair\n"; }
 
 			// COPY ASSIGNMENT OPERATOR
 			pair& operator= (const pair& pr) {

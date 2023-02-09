@@ -11,12 +11,13 @@ namespace ft {
 
 		T		pair;
 
-		BTree() : left(NULL), right(NULL), pair(NULL) { std::cout << "BTree Constr Def " << std::endl; }
-		BTree(T& new_pair) : left(NULL), right(NULL), pair(new_pair) { std::cout << "BTree Constr INT " << std::endl; }
-		~BTree() { std::cout <<  "BTree Destructor " << std::endl; }
+		BTree() : left(NULL), right(NULL), pair(NULL) {  } //std::cout << "BTree Constr Def " << std::endl; }
+		BTree(T& new_pair) : left(NULL), right(NULL), pair(new_pair) { } // std::cout << "BTree Constr INT " << std::endl; }
+		~BTree() {  }// std::cout <<  "BTree Destructor " << std::endl; }
 	};
 }
 
 #include	"BasicOperations.tpp"
+#include	"TraverseTree.tpp"
 
 #endif

@@ -84,7 +84,13 @@ int	main()
 
 	ft::map<int, int> leo;
 
-	leo.insert( ft::pair<int, int>(98, 100) );
+	leo.insert( ft::pair<int, int>(54, 100) );
+	leo.insert( ft::pair<int, int>(15, 100) );
+	leo.insert( ft::pair<int, int>(56, 100) );
+	leo.insert( ft::pair<int, int>(42, 100) );
+	leo.TraverseTree();
+	std::cout << std::endl;
+
 
 
 

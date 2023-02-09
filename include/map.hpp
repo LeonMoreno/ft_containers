@@ -74,7 +74,7 @@ namespace ft
 
 
 
-		~map() { std::cout << "Destructor MAP " << std::endl; }
+		~map() {  }//std::cout << "Destructor MAP " << std::endl; }
 
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
 
@@ -90,8 +90,12 @@ namespace ft
 
 		// ft::pair<iterator,bool> insert (const value_type& val) {
 		void	insert ( const value_type& val) {
-			// (void) val;
+
 			BTree_InsertNode(&_root, val, value_compare(_compare), _alloc);
+		}
+
+		void	TraverseTree() {
+			BTree_TraversePreOrder(_root);
 		}
 
 		private:

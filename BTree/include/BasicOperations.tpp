@@ -14,26 +14,24 @@ ft::BTree<T>	*BTree_CreatNode(T pair, Alloc alloc) {
 }
 
 template <class T, class Compare, class Alloc>
-void	InsertHelp(ft::BTree<T> **root, T pair, Compare compare, Alloc alloc) {
+void	InsertHelp(ft::BTree<T> *root, T pair, Compare compare, Alloc alloc) {
 
-	if(!*root)
+
+	if(!root)
 		return ;
-	if (compare((*root)->pair, pair)) {
-		std::cout << "Es menor\n";
-		InsertHelp((&(*root)->left), pair, compare, alloc);
-		if ((*root)->left == NULL)
-			(*root)->left = BTree_CreatNode(pair, alloc);
+	if (compare(root->pair, pair)) {
+		std::cout << "Es menor y Pair es " << pair.first << std::endl;
+		InsertHelp((root->right), pair, compare, alloc);
+		if (root->right == NULL)
+			(root->right = BTree_CreatNode(pair, alloc));
 	}
-	// else {
-	// 	std::cout << "Es Mayo\n";
-	// 	InsertHelp((&(*root)->right), pair, compare, alloc);
-	// 	if ((*root)->right == NULL)
-	// 		(*root)->right = BTree_CreatNode(pair, alloc);
-	// }
-
-
+	else {
+		std::cout << "Es Mayor y Pair es " << pair.first << std::endl;
+		InsertHelp((root->left), pair, compare, alloc);
+		if (root->left == NULL)
+			root->left = BTree_CreatNode(pair, alloc);
+	}
 }
-
 
 template <class T, class Compare, class Alloc>
 void	BTree_InsertNode(ft::BTree<T> **root, T pair, Compare compare, Alloc alloc) {
@@ -42,7 +40,8 @@ void	BTree_InsertNode(ft::BTree<T> **root, T pair, Compare compare, Alloc alloc)
 		*root = BTree_CreatNode(pair, alloc);
 		return ;
 	}
-	InsertHelp(root, pair, compare, alloc);
+
+	InsertHelp(*root, pair, compare, alloc);
 }
 
 
