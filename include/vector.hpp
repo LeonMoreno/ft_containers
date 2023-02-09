@@ -10,7 +10,7 @@
 namespace ft{
 
 //--------------------------Template parameters ---------------------------------------//
-	
+
 	template <typename T, typename Alloc = std::allocator<T> >
 	class vector {
 		public:
@@ -34,6 +34,7 @@ namespace ft{
 			typedef	std::ptrdiff_t								difference_type;
 			typedef std::size_t									size_type;
 
+/****************** 			MEMBER functions 							******************/
 //---------------------------constructor & Destructor---------------------------------------//
 			// default constructor
 			// error: identifier ‘nullptr’ is a keyword in C++11
@@ -444,10 +445,6 @@ namespace ft{
 			}
 
 		private:
-			allocator_type	_arr;
-			pointer			_begin;
-			size_type		_size;
-			size_type		_cap;
 
 			void	_ft_evalCap(size_type new_cap) {
 
@@ -460,6 +457,11 @@ namespace ft{
 				else
 					reserve(_cap * 2);
 			}
+/****************** 			MEMBER Attributes			******************/
+			allocator_type	_arr;
+			pointer			_begin;
+			size_type		_size;
+			size_type		_cap;
 	};
 
 	/* *******************************************************************************/

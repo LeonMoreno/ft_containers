@@ -2,17 +2,24 @@
 # define MAP_HPP
 
 #include <functional>
+#include "utils.hpp"
+#include "../BTree/include/BTree.hpp"
 
 
 namespace ft
 {
-	template< class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> >
-	> //class map;
+
+//--------------------------Template parameters ---------------------------------------//
+	template< class Key,
+	 		class T,
+			class Compare = std::less<Key>,
+			// class Alloc = std::allocator< ft::pair<const Key, T> > >
+			class Alloc = std::allocator< ft::BTree< ft::pair<const Key, T> > > >
 	class map
 	{
 		public:
+//---------------------------member types -- Definitions---------------------------------//
 
-		/* member types -- Definitions */
 
 		/*  Each element in a map is uniquely identified by its key value.
 		 Each element in a map is uniquely identified by its key value. */
@@ -40,26 +47,81 @@ namespace ft
 		// typedef	reverse_vector_iterator <iterator>				reverse_iterator;
 		// typedef	reverse_vector_iterator <const_iterator>		const_reverse_iterator;
 
-		// map(/* args */) { std::cout << "def constructor" << std::endl; }
-		// explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) {
+		class value_compare
+			{
+				friend class map;
 
-		// }
+				protected:
+				Compare comp;
+				value_compare (Compare c) : comp(c) {}
 
+				public:
+
+				bool operator() (const value_type& x, const value_type& y) const
+				{
+					return comp(x.first, y.first);
+				}
+			};
+
+
+
+//---------------------------constructor & Destructor---------------------------------------//
+
+		// default constructor
 		explicit map (	const key_compare& comp = key_compare(),
 					const allocator_type& alloc = allocator_type()):
-			_size(0),
-			_compare(comp),
-			_node(alloc) {}
+			_size(0), _compare(comp), _alloc(alloc), _root(NULL) { }
 
 
 
-		~map() { std::cout << " destructor " << std::endl; }
+		~map() { std::cout << "Destructor MAP " << std::endl; }
+
+//---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
+
+//-------------------------------Getters and Setters-----------------------------------------------//
+
+//---------------------------Iterator from MAP----------------------------------------//
+
+//---------------------------CAPACITY----------------------------------------//
+
+//---------------------------ELEMENT ACCESS----------------------------------------//
+
+//---------------------------Modifiers----------------------------------------//
+
+		// ft::pair<iterator,bool> insert (const value_type& val) {
+		void	insert ( const value_type& val) {
+			// (void) val;
+			BTree_InsertNode(&_root, val, value_compare(_compare), _alloc);
+		}
 
 		private:
 
+		/* Si decido hacer allocation de pair */
+		// value_type*	_alloc_pair (const value_type& val) {
+
+		// 	value_type *new_pair = _alloc.allocate(1);
+		// 	_alloc.construct(new_pair, val);
+		// 	return (new_pair);
+		// }
+
+//---------------------------Observers----------------------------------------//
+
+		key_compare key_comp() const {
+			return (key_compare(key_compare()));
+		}
+
+		value_compare value_comp() const {
+
+		}
+
+
+
+/****************** 			MEMBER Attributes			******************/
 			size_type				_size;
 			key_compare				_compare;
-			allocator_type			_node;
+			allocator_type			_alloc;
+			ft::BTree<value_type>	*_root;
+			// node_allocator_type		_node_alloc;
 
 	};
 

@@ -31,11 +31,14 @@ int	main(void) {
 	std::allocator< ft::BTree<std::pair<int, int> > > alloc;
 
 	ft::BTree<std::pair<int, int> > *root = NULL;
-	std::pair<int, int> *b = new std::pair<int, int>(32, 8);
+
+	std::pair<int, int> b(32, 8);
 
 	BTree_InsertNode(&root, b, compare, alloc );
+	BTree_InsertNode(&root, std::pair<int, int>(43, 4), compare, alloc );
 
-	std::cout << root->node->second << std::endl;
+
+	std::cout << root->pair.second << std::endl;
 
 	return (0);
 }

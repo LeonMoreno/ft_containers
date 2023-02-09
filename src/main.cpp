@@ -84,6 +84,7 @@ int	main()
 
 	ft::map<int, int> leo;
 
+	leo.insert( ft::pair<int, int>(98, 100) );
 
 
 
