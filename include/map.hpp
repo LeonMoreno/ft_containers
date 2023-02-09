@@ -94,8 +94,12 @@ namespace ft
 			BTree_InsertNode(&_root, val, value_compare(_compare), _alloc);
 		}
 
-		void	TraverseTree() {
+		void	TraverseTreePre() {
 			BTree_TraversePreOrder(_root);
+		}
+
+		void	TraverseTreeIn() {
+			BTree_TraverseInOrder(_root);
 		}
 
 		private:

@@ -17,6 +17,7 @@ namespace ft {
 	};
 }
 
+#include	"Utils.tpp"
 #include	"BasicOperations.tpp"
 #include	"TraverseTree.tpp"
 

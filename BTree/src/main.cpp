@@ -36,9 +36,15 @@ int	main(void) {
 
 	BTree_InsertNode(&root, b, compare, alloc );
 	BTree_InsertNode(&root, std::pair<int, int>(43, 4), compare, alloc );
+	BTree_InsertNode(&root, std::pair<int, int>(54, 4), compare, alloc );
+	BTree_InsertNode(&root, std::pair<int, int>(7, 4), compare, alloc );
+	BTree_InsertNode(&root, std::pair<int, int>(43, 4), compare, alloc );
+	BTree_InsertNode(&root, std::pair<int, int>(7, 4), compare, alloc );
 
 
-	std::cout << root->pair.second << std::endl;
+	BTree_TraverseInOrder(root);
+	std::cout << std::endl;
+
 
 	return (0);
 }
