@@ -1,39 +1,35 @@
-#include <functional>
 #include <iostream>
+#include <functional>
 
-template <typename T1, class T>
-class value_compare {
-
+template <class T2>
+class Compare {
 	public:
-		std::less<T1> comp;
+		std::less<int> cmp;
 
-		value_compare (void) : comp(std::less<T1>()) { std::cout << "Const Def\n" ; }
+		Compare () : cmp(std::less<int>())  { }
 
-		bool operator() (const T& x, const T& y) const {
-			return comp(x.first, y.first);
+		bool operator() (const T2& x, const T2& y) const {
+			return cmp(x.first, y.first);
 		}
 };
 
+void	ensayo(Compare<std::pair<int, int> >& com) {
+
+	std::pair<int, int> *a = new std::pair<int, int>(8, 99);
+	std::pair<int, int> *b = new std::pair<int, int>(7, 99);
+
+	if (com(*a, *b))
+		std::cout << "a es menor \n";
+	else
+		std::cout << "a es mayor\n";
+
+}
 
 int	main(void) {
 
-	std::pair<int, int> *a = new std::pair<int, int>(7, 3);
-	std::pair<int, int> *b= new std::pair<int, int>(15, 3);
+	Compare<std::pair<int, int> > com;
 
-	value_compare<int, std::pair<int, int> > compara;
-
-	if (compara(*a, *b))
-		std::cout << "a es Menor q" << std::endl;
-	else
-		std::cout << "a es Mayor q" << std::endl;
-
-	// int a = 7;
-	// int b = 15;
-
-	// if (std::less<int>()(a, b))
-	// 	std::cout << "a es Menor q" << std::endl;
-	// else
-	// 	std::cout << "a es mayor q" << std::endl;
+	ensayo(com);
 
 
 
