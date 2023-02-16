@@ -95,8 +95,11 @@ int	main()
 	leo.TraverseTreeIn();
 	std::cout << std::endl;
 
+	ft::map<int, int>::iterator	it;
 
+	it = leo.end();
 
+	// std::cout << it.base()->pair.first << std::endl;
 
 	return (0);
 }

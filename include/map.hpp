@@ -3,6 +3,7 @@
 
 #include <functional>
 #include "utils.hpp"
+#include "map_iterator.hpp"
 #include "../BTree/include/BTree.hpp"
 
 
@@ -41,8 +42,8 @@ namespace ft
 		typedef typename Alloc::pointer						pointer;
 		typedef typename Alloc::const_pointer				const_pointer;
 
-		// typedef std::bidirectional_iterator_tag<value_type>		iterator;
-		// typedef const std::bidirectional_iterator_tag	<const value_type>	const_iterator;
+		typedef ft::map_iterator<value_type>				iterator;
+		typedef ft::map_iterator<value_type>				const_iterator;
 
 		// typedef	reverse_vector_iterator <iterator>				reverse_iterator;
 		// typedef	reverse_vector_iterator <const_iterator>		const_reverse_iterator;
@@ -81,6 +82,22 @@ namespace ft
 //-------------------------------Getters and Setters-----------------------------------------------//
 
 //---------------------------Iterator from MAP----------------------------------------//
+iterator begin() {
+	return (iterator(BTree_beginInOrder(_root)));
+}
+
+iterator end() {
+	// BTree_endInOrder(_root);
+
+	std::cout << "aqui = " << BTree_endInOrder(_root)->pair.first << std::endl;
+
+	return (iterator(_root));
+	// return (iterator(BTree_endInOrder(_root)));
+}
+
+
+// }
+
 
 //---------------------------CAPACITY----------------------------------------//
 

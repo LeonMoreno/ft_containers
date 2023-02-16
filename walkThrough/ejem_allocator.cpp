@@ -31,20 +31,22 @@ void	alloInt()
 	std::allocator<int>::pointer	ptr; // pointer to int de tipo allocator
 	std::allocator<int>::pointer	start;
 
-	ptr = myAlloc.allocate(5); // Aqui me agarro 5 espacios para almacenar int (malloc)
+	ptr = myAlloc.allocate(5); // Aqui reservo 5 espacios para almacenar int (malloc)
 	start = ptr;
 	for (int i = 0; i < 5; i++, ptr++)
-		myAlloc.construct(ptr, 7); 		// Coloco en essos espacios los ints que quiera --> Lleno de info mis cajas
+		myAlloc.construct(ptr, 7); 		// Coloco en essos espacios los ints que quiera --> constructor
 
 	ptr = start;
 	for (int i = 0; i < 5; i++, ptr++)
 		std::cout << *ptr << std::endl;		// Accedo a la info
 	std::cout << myAlloc.max_size() << std::endl; // maxima capacidad de myAlloc
 	// std::cout << &ptr << std::endl;
-	for (int i = 0; i < 5; i++, ptr++) // Destruyo info
+	for (int i = 0; i < 5; i++, ptr++) // Destruyo info // Llamo destructor
 		myAlloc.destroy(ptr);
 
 	myAlloc.deallocate(start, 5); // Free
+
+	std::cout << "start " << *start << std::endl;		// Accedo a la info // Aun si he liberado y destruido la info, puedo acceder. // valgrind Invalid read of size 4
 }
 /* La palabra clave typename es un especificador de tipo.
 Indica justamente eso, que el identificador que la acompaña es un tipo (aunque no se haya definido todavía).
@@ -80,8 +82,8 @@ class alloClass {
 
 int	main()
 {
-	// alloInt();
-	alloClass<int> obj(8);
+	alloInt();
+	// alloClass<int> obj(8);
 	// alloString();
 	return (0);
 }
