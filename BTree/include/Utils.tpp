@@ -6,7 +6,7 @@
 template <class T, class Compare>
 bool	is_equal(ft::BTree<T> *root, T pair, Compare compe) {
 
-	if ((compe(root->pair, pair) == false) && (compe(pair, root->pair) == false))
+	if ((compe(*root->pair, pair) == false) && (compe(pair, *root->pair) == false))
 		return (true);
 	return (false);
 }
@@ -30,8 +30,6 @@ ft::BTree<T>* inorderSuccessor(ft::BTree<T> *root, int p) {
 
 }
 
-
-
 template <class T, class Compare>
 ft::BTree<T>* BTree_find(ft::BTree<T>* root, T to_find, Compare compe) {
 
@@ -44,6 +42,14 @@ ft::BTree<T>* BTree_find(ft::BTree<T>* root, T to_find, Compare compe) {
 		root = root->right;
 	}
 	return (NULL);
+}
+
+template <class T>
+bool	is_sentinel(ft::BTree<T>* root) {
+
+	if (!root->pair && !root->left && !root->right)
+		return (true);
+	return (false);
 }
 
 #endif

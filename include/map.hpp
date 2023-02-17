@@ -14,8 +14,8 @@ namespace ft
 	template< class Key,
 	 		class T,
 			class Compare = std::less<Key>,
-			// class Alloc = std::allocator< ft::pair<const Key, T> > >
-			class Alloc = std::allocator< ft::BTree< ft::pair<const Key, T> > > >
+			class Alloc = std::allocator< ft::pair<const Key, T> > >
+			// class Alloc = std::allocator< ft::BTree< ft::pair<const Key, T> > > >
 	class map
 	{
 		public:
@@ -92,8 +92,20 @@ namespace ft
 			return (iterator(BTree_beginInOrder(_root)));
 		}
 
+		/**
+		 * @brief  Returns an iterator referring to
+		 * the past-the-end element in the map container.
+		 *	ENvio al constructor de Iterator un ptr a ft::BTree<T>
+		 *	Dejo asi en tres pasos para acordarme bien que es un PTR.
+		 * @return iterator
+		 */
 		iterator end() {
-			return (iterator(BTree_endInOrder(_root)));
+
+			ft::BTree<value_type>* ptr = NULL;
+
+			ptr = BTree_endInOrder(_root);
+
+			return (iterator(ptr));
 		}
 
 
@@ -109,7 +121,13 @@ namespace ft
 		// ft::pair<iterator,bool> insert (const value_type& val) {
 		void	insert ( const value_type& val) {
 
-			BTree_InsertNode(&_root, val, value_compare(_compare), _alloc);
+			iterator it;
+
+			it = this->find(val.first);
+			if (it != this->end())
+				std::cout << "Entre por aqui" << std::endl;
+
+			BTree_InsertNode(&_root, _alloc_pair(val), value_compare(_compare), _node_alloc);
 			_size++;
 		}
 
@@ -131,10 +149,12 @@ namespace ft
 
 		 iterator find (const key_type& k) {
 
-			ft::BTree<value_type>* to_find;
-			to_find = BTree_find<value_type>(_root, ft::make_pair(k, 1), value_compare(_compare));
-			if (to_find)
-				return (iterator(to_find));
+			ft::BTree<value_type>* ptr_to_find = NULL;
+
+			ptr_to_find = BTree_find<value_type>(_root, ft::make_pair(k, 1), value_compare(_compare));
+
+			if (ptr_to_find)
+				return (iterator(ptr_to_find));
 			return(iterator(this->end()));
 		 }
 
@@ -144,26 +164,29 @@ namespace ft
 			return (key_compare(key_compare()));
 		}
 
-		value_compare value_comp() const {
+		// value_compare value_comp() const {
 
-		}
+		// }
 
 		private:
 
-		/* Si decido hacer allocation de pair */
-		// value_type*	_alloc_pair (const value_type& val) {
+		typedef typename Alloc::template rebind< ft::BTree<value_type> >::other		node_alloc_type;
 
-		// 	value_type *new_pair = _alloc.allocate(1);
-		// 	_alloc.construct(new_pair, val);
-		// 	return (new_pair);
-		// }
+
+		/* Si decido hacer allocation de pair */
+		value_type*	_alloc_pair (const value_type& val) {
+
+			value_type *new_pair = _alloc.allocate(1);
+			_alloc.construct(new_pair, val);
+			return (new_pair);
+		}
 
 /****************** 			MEMBER Attributes			******************/
 			size_type				_size;
 			key_compare				_compare;
 			allocator_type			_alloc;
 			ft::BTree<value_type>	*_root;
-			// node_allocator_type		_node_alloc;
+			node_alloc_type			_node_alloc;
 
 	};
 

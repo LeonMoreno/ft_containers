@@ -9,10 +9,10 @@ namespace ft {
 		BTree	*left;
 		BTree	*right;
 
-		T		pair;
+		T		*pair;
 
-		BTree() : left(NULL), right(NULL), pair(NULL) {  } //std::cout << "BTree Constr Def " << std::endl; }
-		BTree(T& new_pair) : left(NULL), right(NULL), pair(new_pair) { } // std::cout << "BTree Constr INT " << std::endl; }
+		BTree() : left(NULL), right(NULL), pair(NULL) {    } // std::cout << "BTree Constr Def " << std::endl; }
+		BTree(T *new_pair) : left(NULL), right(NULL), pair(new_pair) { } // std::cout << "BTree Constr INT " << std::endl; }
 		~BTree() {  }// std::cout <<  "BTree Destructor " << std::endl; }
 	};
 }

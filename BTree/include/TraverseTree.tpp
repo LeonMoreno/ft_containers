@@ -8,7 +8,7 @@ void	BTree_TraversePreOrder(ft::BTree<T> *root) {
 
 	if (!root)
 		return ;
-	std::cout << root->pair.first << ' ';
+	std::cout << root->pair->first << ' ';
 	BTree_TraversePreOrder(root->left);
 	BTree_TraversePreOrder(root->right);
 }
@@ -19,7 +19,8 @@ void	BTree_TraverseInOrder(ft::BTree<T> *root) {
 	if (!root)
 		return ;
 	BTree_TraverseInOrder(root->left);
-	std::cout << root->pair.first << ' ';
+	if (root->left)
+		std::cout << root->pair->first << ' ';
 	BTree_TraverseInOrder(root->right);
 }
 
@@ -42,7 +43,7 @@ ft::BTree<T>* BTree_beginInOrder(ft::BTree<T> *root) {
 template <class T>
 ft::BTree<T>* help_end(ft::BTree<T> *root)
 {
-	if (!(root->left))
+	if (!root->left && !root->right)
 		return (root->right);
 	return (help_end(root->right));
 }
@@ -50,10 +51,11 @@ ft::BTree<T>* help_end(ft::BTree<T> *root)
 
 template <class T>
 ft::BTree<T>* BTree_endInOrder(ft::BTree<T> *root) {
+
 	if (!root)
 		return (NULL);
-	BTree_endInOrder(root->left);
-	return (help_end(root->right));
+
+	return (help_end(root));
 }
 
 #endif

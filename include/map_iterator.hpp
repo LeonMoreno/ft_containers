@@ -25,10 +25,22 @@ namespace ft {
 			// typedef std::ptrdiff_t					difference_type;
 
 			//---------------MAP ITERATOR CONSTRUCTORS-----------------------------------------------
-			map_iterator() : _node_ptr(NULL) { std::cout << "ITE_MAP def constr\n"; }
-			explicit map_iterator (node_pointer ptr) : _node_ptr(ptr) { std::cout << "ITE_MAP INI constr\n"; }
+			map_iterator() : _node_ptr(NULL) {  }// std::cout << "ITE_MAP def constr\n"; }
+			explicit map_iterator (node_pointer ptr) : _node_ptr(ptr) {
+				// std::cout << "ITE_MAP INI constr ptr = " << ptr << std::endl;
+				}
 
 			~map_iterator () { }
+
+			//relational operators overload
+			bool operator==(const iterator& right_hand_side)
+			{
+				return this->_node_ptr == right_hand_side._node_ptr;
+			}
+			bool operator!=(const iterator& right_hand_side)
+			{
+				return this->_node_ptr != right_hand_side._node_ptr;
+			}
 
 
 			//---------------MAP ITERATOR OPERATOR OVERLOADS----------------------------------------
@@ -36,6 +48,7 @@ namespace ft {
 			//---------------PRIVATE HELPER FUNCIONS----------------------------------------
 
 			node_pointer base() const {return (_node_ptr); }
+			node_pointer get_node(void) { return (this->_node_ptr); }
 
 
 			//---------------MAP ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> DIFFERENT ITERATOR TYPE----------------------------------------
