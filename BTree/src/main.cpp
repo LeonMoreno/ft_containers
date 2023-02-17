@@ -57,12 +57,12 @@ int	main(void) {
 	BTree_TraverseInOrder(root);
 	std::cout << std::endl;
 
-	// ft::BTree<std::pair<int, int> > *succesor = inorderSuccessor(root, 35);
+	ft::BTree<std::pair<int, int> > *succesor = inorderSuccessor(root, 93);
 
 	// std::cout << "INMain root = " << root << std::endl;
 
-	// if (succesor != NULL)
-	// 	std::cout << "successor " << succesor->pair.first << std::endl;
+	if (succesor != NULL)
+		std::cout << "successor " << succesor->pair->first << std::endl;
 	// BTree_deleteNode(root, 41, alloc);
 	// BTree_TraverseInOrder(root);
 	// std::cout << std::endl;

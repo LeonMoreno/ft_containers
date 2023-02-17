@@ -118,17 +118,14 @@ namespace ft
 
 //---------------------------Modifiers----------------------------------------//
 
-		// ft::pair<iterator,bool> insert (const value_type& val) {
-		void	insert ( const value_type& val) {
+		ft::pair<iterator,bool> insert (const value_type& val) {
 
-			iterator it;
-
-			it = this->find(val.first);
+			iterator it = this->find(val.first);
 			if (it != this->end())
-				std::cout << "Entre por aqui" << std::endl;
-
+				return(ft::make_pair(it, false));
 			BTree_InsertNode(&_root, _alloc_pair(val), value_compare(_compare), _node_alloc);
 			_size++;
+			return (make_pair(it, true));
 		}
 
 		size_type erase (const key_type& k) {
