@@ -76,11 +76,37 @@ void	vec_construct(void)
 	usleep(500000);
 }
 
+void	map_test() {
+
+	std::map<int, int> leo;
+
+	leo.insert( std::pair<int, int>(54, 100) );
+	leo.insert( std::pair<int, int>(15, 100) );
+	leo.insert( std::pair<int, int>(56, 100) );
+	leo.insert( std::pair<int, int>(42, 100) );
+	leo.insert( std::pair<int, int>(54, 100) );
+	leo.insert( std::pair<int, int>(15, 100) );
+
+	std::map<int, int>::iterator	it;
+
+	it = leo.end();
+
+	std::cout << "end " << it->first << std::endl;
+
+	it--;
+
+	std::cout << "end " << it->first << std::endl;
+
+
+}
+
+
 int	main()
 {
 	// std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
 	// usleep(520000);
 	// vec_construct();
+	// map_test();
 
 	ft::map<int, int> leo;
 
@@ -90,16 +116,25 @@ int	main()
 	leo.insert( ft::pair<int, int>(42, 100) );
 	leo.insert( ft::pair<int, int>(54, 100) );
 	leo.insert( ft::pair<int, int>(15, 100) );
-	leo.TraverseTreePre();
-	std::cout << std::endl;
+
 	leo.TraverseTreeIn();
 	std::cout << std::endl;
 
-	ft::map<int, int>::iterator	it;
 
-	it = leo.end();
+	leo.TraverseTreeIn();
+	std::cout << std::endl;
 
-	// std::cout << it.base()->pair.first << std::endl;
+	leo.find(7);
+
+	// ft::map<int, int>::iterator	it;
+
+	// it = leo.end();
+
+	// std::cout << it.base() << std::endl;
+
+
+
+
 
 	return (0);
 }

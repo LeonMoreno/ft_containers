@@ -63,7 +63,7 @@ int	main(void) {
 	BTree_TraverseInOrder(root);
 	std::cout << std::endl;
 
-	std::cout << "End_Main = " << BTree_endInOrder(root)->pair.first << std::endl;
+	// std::cout << "End_Main = " <<	 BTree_endInOrder(root)->pair.first << std::endl;
 
 	return (0);
 }

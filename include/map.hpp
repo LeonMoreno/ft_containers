@@ -69,9 +69,15 @@ namespace ft
 //---------------------------constructor & Destructor---------------------------------------//
 
 		// default constructor
-		explicit map (	const key_compare& comp = key_compare(),
+		explicit map (const key_compare& comp = key_compare(),
 					const allocator_type& alloc = allocator_type()):
 			_size(0), _compare(comp), _alloc(alloc), _root(NULL) { }
+
+		// template <class InputIterator>
+		// map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(),
+		// 	const allocator_type& alloc = allocator_type()) {
+
+		// 	}
 
 
 
@@ -81,19 +87,14 @@ namespace ft
 
 //-------------------------------Getters and Setters-----------------------------------------------//
 
-//---------------------------Iterator from MAP----------------------------------------//
-iterator begin() {
-	return (iterator(BTree_beginInOrder(_root)));
-}
+//---------------------------Iterator----------------------------------------//
+		iterator begin() {
+			return (iterator(BTree_beginInOrder(_root)));
+		}
 
-iterator end() {
-	// BTree_endInOrder(_root);
-
-	std::cout << "aqui = " << BTree_endInOrder(_root)->pair.first << std::endl;
-
-	return (iterator(_root));
-	// return (iterator(BTree_endInOrder(_root)));
-}
+		iterator end() {
+			return (iterator(BTree_endInOrder(_root)));
+		}
 
 
 // }
@@ -109,6 +110,13 @@ iterator end() {
 		void	insert ( const value_type& val) {
 
 			BTree_InsertNode(&_root, val, value_compare(_compare), _alloc);
+			_size++;
+		}
+
+		size_type erase (const key_type& k) {
+			BTree_deleteNode<value_type>(_root, k, _alloc);
+			_size--;
+			return(1);
 		}
 
 		void	TraverseTreePre() {
@@ -119,15 +127,16 @@ iterator end() {
 			BTree_TraverseInOrder(_root);
 		}
 
-		private:
+//---------------------------Operations----------------------------------------//
 
-		/* Si decido hacer allocation de pair */
-		// value_type*	_alloc_pair (const value_type& val) {
+		 iterator find (const key_type& k) {
 
-		// 	value_type *new_pair = _alloc.allocate(1);
-		// 	_alloc.construct(new_pair, val);
-		// 	return (new_pair);
-		// }
+			ft::BTree<value_type>* to_find;
+			to_find = BTree_find<value_type>(_root, ft::make_pair(k, 1), value_compare(_compare));
+			if (to_find)
+				return (iterator(to_find));
+			return(iterator(this->end()));
+		 }
 
 //---------------------------Observers----------------------------------------//
 
@@ -139,7 +148,15 @@ iterator end() {
 
 		}
 
+		private:
 
+		/* Si decido hacer allocation de pair */
+		// value_type*	_alloc_pair (const value_type& val) {
+
+		// 	value_type *new_pair = _alloc.allocate(1);
+		// 	_alloc.construct(new_pair, val);
+		// 	return (new_pair);
+		// }
 
 /****************** 			MEMBER Attributes			******************/
 			size_type				_size;

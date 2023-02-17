@@ -43,7 +43,7 @@ template <class T>
 ft::BTree<T>* help_end(ft::BTree<T> *root)
 {
 	if (!(root->left))
-		return (root);
+		return (root->right);
 	return (help_end(root->right));
 }
 

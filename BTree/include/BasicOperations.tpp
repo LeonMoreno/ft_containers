@@ -19,7 +19,7 @@ void	InsertHelp(ft::BTree<T> *root, T pair, Compare compare, Alloc alloc) {
 
 	if(!root)
 		return ;
-	if (!is_equal(root, pair, compare))
+	if (is_equal(root, pair, compare))
 		return ;
 	if (compare(root->pair, pair)) {
 		// std::cout << "Es menor y Pair es " << pair.first << std::endl;
