@@ -101,17 +101,10 @@ void	map_test() {
 	for(it = leo.begin(); it != leo.end(); it++)
 		std::cout << it->first << std::endl;
 
-	it = leo.begin();
-	it++;
-	it++;
-	it++;
-	it++;
+	std::cout << "in std::map size leo = " << leo.size() << std::endl;
+	std::cout << "max_size leo = " << leo.max_size() << std::endl;
+	std::cout << "empty leo = " << leo.empty() << std::endl;
 
-
-	std::cout << "it = " << it->first << std::endl;
-
-	it--;
-	std::cout << "it = " << it->first << std::endl;
 
 
 
@@ -123,7 +116,7 @@ int	main()
 	// std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
 	// usleep(520000);
 	// vec_construct();
-	// map_test();
+	map_test();
 
 	ft::map<int, int> leo;
 
@@ -160,16 +153,29 @@ int	main()
 	for(; it != leo.end(); it++)
 		std::cout << it->first << std::endl;
 
-	ft::map<int, int> andy(leo.begin(), leo.find(93));
+	// ft::map<int, int> andy(leo.begin(), leo.find(93));
 
-	// andy.insert(ft::pair<int, int>(16, 4));
+	// // andy.insert(ft::pair<int, int>(16, 4));
 
-	it = andy.begin();
+	// it = andy.begin();
 
 
 
-	for(it = andy.begin(); it != andy.end(); it++)
-		std::cout << it->first << std::endl;
+	// for(it = andy.begin(); it != andy.end(); it++)
+	// 	std::cout << it->first << std::endl;
+
+	// ft::map<int, int> leo2(andy);
+
+	// for(it = leo2.begin(); it != leo2.end(); it++)
+	// 	std::cout << it->first << std::endl;
+
+	std::cout << "size leo = " << leo.size() << std::endl;
+	std::cout << "max_size leo = " << leo.max_size() << std::endl;
+	std::cout << "empty leo = " << leo.empty() << std::endl;
+
+	leo[ 89 ] = 32;
+
+
 
 	return (0);
 }

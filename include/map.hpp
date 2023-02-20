@@ -24,29 +24,31 @@ namespace ft
 
 		/*  Each element in a map is uniquely identified by its key value.
 		 Each element in a map is uniquely identified by its key value. */
-		typedef Key											key_type;
+		typedef Key												key_type;
 
 		/* Each element in a map stores some data as its mapped value.
 		 Aliased as member type map::mapped_type.*/
-		typedef T											mapped_type;
+		typedef T												mapped_type;
 
-		typedef ft::pair<const Key, T>						value_type;
-		typedef std::size_t									size_type;
-		typedef std::ptrdiff_t								difference_type;
-		typedef Compare										key_compare;
-		typedef Alloc										allocator_type;
+		// typedef ft::pair<const Key, T>						value_type;
+		typedef ft::pair<const key_type, mapped_type>			value_type;
+		typedef Compare											key_compare;
+		typedef Alloc											allocator_type;
 
-		typedef value_type&									reference;
-		typedef const value_type&							const_reference;
+		typedef typename allocator_type::reference				reference;
+		typedef typename allocator_type::const_reference		const_reference;
 
-		typedef typename Alloc::pointer						pointer;
-		typedef typename Alloc::const_pointer				const_pointer;
+		typedef typename Alloc::pointer							pointer;
+		typedef typename Alloc::const_pointer					const_pointer;
 
-		typedef ft::map_iterator<value_type>				iterator;
-		typedef ft::map_iterator<value_type>				const_iterator;
+		typedef ft::map_iterator<value_type>					iterator;
+		typedef ft::map_iterator<value_type>					const_iterator;
 
-		// typedef	reverse_vector_iterator <iterator>				reverse_iterator;
-		// typedef	reverse_vector_iterator <const_iterator>		const_reverse_iterator;
+		typedef std::size_t										size_type;
+		typedef std::ptrdiff_t									difference_type;
+
+		typedef	ft::reverse_vector_iterator<iterator>			reverse_iterator;
+		typedef	ft::reverse_vector_iterator<const_iterator>		const_reverse_iterator;
 
 		class value_compare
 			{
@@ -71,22 +73,35 @@ namespace ft
 		// default constructor -- Constructs an empty container, with no elements.
 		explicit map (const key_compare& comp = key_compare(),
 					const allocator_type& alloc = allocator_type()):
-			_size(0), _compare(comp), _alloc(alloc), _root(NULL) { }
+			_size(0), _compare(comp), _alloc(alloc), _root(NULL),  _node_alloc(node_alloc_type()) { }
 
 		//  -- range
 		template <class InputIterator>
 		map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(),
 			const allocator_type& alloc = allocator_type()):
-			_size(0), _compare(comp), _alloc(alloc), _root(NULL) {
-				std::cout << " construct range inssert" << std::endl;
+			_size(0), _compare(comp), _alloc(alloc), _root(NULL),
+			_node_alloc(node_alloc_type()) {
+				// std::cout << " construct range inssert" << std::endl;
 				this->insert(first, last);
 			}
 
+		// -- copy constructor
+		map (const map& x) : _size(0), _compare(x.key_comp()), _alloc(x.get_allocator()), _root(NULL) {
+			// std::cout << " construct copy" << std::endl;
 
+			*this = x;
+		}
 
 		~map() {  }//std::cout << "Destructor MAP " << std::endl; }
 
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
+		// map& operator= (const map& other)
+		// 	{
+		// 		this->clear();
+		// 		this->insert(other.begin(), other.end());
+		// 		return (*this);
+		// 	}
+
 
 //-------------------------------Getters and Setters-----------------------------------------------//
 
@@ -95,9 +110,9 @@ namespace ft
 			return (iterator(BTree_beginInOrder(_root)));
 		}
 
-		iterator prcedente(ft::BTree<value_type>* node) {
-			return (iterator(precedenteNode(_root, node)));
-		}
+		// iterator prcedente(ft::BTree<value_type>* node) {
+		// 	return (iterator(precedenteNode(_root, node)));
+		// }
 
 		/**
 		 * @brief  Returns an iterator referring to
@@ -115,13 +130,46 @@ namespace ft
 			return (iterator(ptr));
 		}
 
+		reverse_iterator rbegin() {
+			return reverse_iterator(--this->end());
+		}
+
+		reverse_iterator rend(void) {
+				return reverse_iterator(--this->begin());
+		}
+
 
 // }
 
 
 //---------------------------CAPACITY----------------------------------------//
 
+	size_type size() const {
+		return (_size);
+	}
+
+	bool empty() const {
+		if (_size == 0)
+			return (true);
+		return (false);
+	}
+
+	size_type max_size() const {
+		return (_alloc.max_size());
+	}
+
+
+
+
 //---------------------------ELEMENT ACCESS----------------------------------------//
+
+mapped_type& operator[] (const key_type& k) {
+
+	iterator it = this->find(k.first);
+	if (it != this->end())
+		return
+	return (it);
+}
 
 //---------------------------Modifiers----------------------------------------//
 
@@ -140,7 +188,7 @@ namespace ft
 				return(ft::make_pair(it, false));
 			BTree_InsertNode(&_root, _alloc_pair(val), value_compare(_compare), _node_alloc);
 			_size++;
-			return (make_pair(it, true));
+			return (ft::make_pair(it, true));
 		}
 
 		// with hint (2)
@@ -210,6 +258,14 @@ namespace ft
 		// value_compare value_comp() const {
 
 		// }
+
+//---------------------------Allocator----------------------------------------//
+
+		allocator_type get_allocator() const {
+			return (_alloc);
+		}
+
+
 
 		private:
 
