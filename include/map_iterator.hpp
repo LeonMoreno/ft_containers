@@ -33,30 +33,58 @@ namespace ft {
 
 			~map_iterator () { }
 
+			//---------------MAP ITERATOR OPERATOR OVERLOADS----------------------------------------
+
 			//relational operators overload
 			bool operator==(const iterator& right_hand_side)
 			{
 				return this->_node_ptr == right_hand_side._node_ptr;
 			}
+
 			bool operator!=(const iterator& right_hand_side)
 			{
 				return this->_node_ptr != right_hand_side._node_ptr;
 			}
 
+			// increment and decrement operators overload
+			map_iterator operator++(void) {
 
-			//---------------MAP ITERATOR OPERATOR OVERLOADS----------------------------------------
+				node_pointer root = findRoot(_node_ptr);
 
-			// map_iterator operator--(void) {
-			// 	node_pointer precedent;
+				if (BTree_endInOrder(root) == _node_ptr->right) {
+					_node_ptr = _node_ptr->right;
+					return (*this);
+				}
+				_node_ptr = inorderSuccessor(root, _node_ptr->pair->first);
 
-			// 	precedent = ()
-			// 	return(*this);
-			// }
+				return(*this);
+			}
+
+			map_iterator operator++(int) {
+
+				node_pointer root = findRoot(_node_ptr);
+
+				if (BTree_endInOrder(root) == _node_ptr->right) {
+					_node_ptr = _node_ptr->right;
+					return (*this);
+				}
+				_node_ptr = inorderSuccessor(root, _node_ptr->pair->first);
+
+				return(*this);
+			}
+
+			//dereference operator
+			reference operator*(void) const {
+				return *(this->_node_ptr->pair);
+			}
+
+			pointer operator->(void) {
+				return (this->_node_ptr->pair);
+			}
 
 
 			//---------------PRIVATE HELPER FUNCIONS----------------------------------------
 
-			node_pointer base() const {return (_node_ptr); }
 			node_pointer get_node(void) { return (this->_node_ptr); }
 
 

@@ -68,16 +68,19 @@ namespace ft
 
 //---------------------------constructor & Destructor---------------------------------------//
 
-		// default constructor
+		// default constructor -- Constructs an empty container, with no elements.
 		explicit map (const key_compare& comp = key_compare(),
 					const allocator_type& alloc = allocator_type()):
 			_size(0), _compare(comp), _alloc(alloc), _root(NULL) { }
 
-		// template <class InputIterator>
-		// map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(),
-		// 	const allocator_type& alloc = allocator_type()) {
-
-		// 	}
+		//  -- range
+		template <class InputIterator>
+		map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(),
+			const allocator_type& alloc = allocator_type()):
+			_size(0), _compare(comp), _alloc(alloc), _root(NULL) {
+				std::cout << " construct range inssert" << std::endl;
+				this->insert(first, last);
+			}
 
 
 
@@ -122,7 +125,15 @@ namespace ft
 
 //---------------------------Modifiers----------------------------------------//
 
-		ft::pair<iterator,bool> insert (const value_type& val) {
+
+
+		/**
+		 * @brief  single element (1)
+		 *
+		 * @param val
+		 * @return ft::pair<iterator,bool>
+		 */
+		ft::pair<iterator, bool> insert (const value_type& val) {
 
 			iterator it = this->find(val.first);
 			if (it != this->end())
@@ -130,6 +141,19 @@ namespace ft
 			BTree_InsertNode(&_root, _alloc_pair(val), value_compare(_compare), _node_alloc);
 			_size++;
 			return (make_pair(it, true));
+		}
+
+		// with hint (2)
+		// iterator insert (iterator position, const value_type& val);
+
+		// range
+		template <class InputIterator>
+		void insert (InputIterator first, InputIterator last) {
+
+			while (first != last) {
+				this->insert(*first);
+				++first;
+			}
 		}
 
 		size_type erase (const key_type& k) {

@@ -37,7 +37,7 @@ ft::BTree<T>* BTree_beginInOrder(ft::BTree<T> *root) {
 
 	if (!root)
 		return (NULL);
-	return (help_begin(root->left));
+	return (help_begin(root));
 }
 
 template <class T>
