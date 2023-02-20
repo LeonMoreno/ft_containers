@@ -3,6 +3,7 @@
 
 #include "itetator_traits.hpp"
 #include "../BTree/include/BTree.hpp"
+#include "map.hpp"
 
 
 namespace ft {
@@ -44,6 +45,14 @@ namespace ft {
 
 
 			//---------------MAP ITERATOR OPERATOR OVERLOADS----------------------------------------
+
+			// map_iterator operator--(void) {
+			// 	node_pointer precedent;
+
+			// 	precedent = ()
+			// 	return(*this);
+			// }
+
 
 			//---------------PRIVATE HELPER FUNCIONS----------------------------------------
 

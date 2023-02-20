@@ -92,6 +92,10 @@ namespace ft
 			return (iterator(BTree_beginInOrder(_root)));
 		}
 
+		iterator prcedente(ft::BTree<value_type>* node) {
+			return (iterator(precedenteNode(_root, node)));
+		}
+
 		/**
 		 * @brief  Returns an iterator referring to
 		 * the past-the-end element in the map container.
@@ -154,6 +158,24 @@ namespace ft
 				return (iterator(ptr_to_find));
 			return(iterator(this->end()));
 		 }
+
+		 iterator upper_bound (const key_type& key)
+			{
+				ft::BTree<value_type>* upper;
+
+				upper = inorderSuccessor(_root, key);
+				// ft::btree<value_type> *node = btree_begin(this->_root);
+				// value_type boundary_pair = ft::make_pair(key, mapped_type());
+
+				// while(node != end_node)
+				// {
+				// 	if (this->value_comp()(boundary_pair, *node->item))
+				// 		return iterator(node);
+				// 	else
+				// 		node = btree_next(node);
+				// }
+				return (iterator(upper));
+			}
 
 //---------------------------Observers----------------------------------------//
 

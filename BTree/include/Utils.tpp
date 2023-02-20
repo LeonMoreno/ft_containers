@@ -26,7 +26,6 @@ ft::BTree<T>* inorderSuccessor(ft::BTree<T> *root, int p) {
 	ft::BTree<T>* successor = NULL;
 
 	while (root != NULL && !is_sentinel(root)) {
-
 		if (p >= root->pair->first)
 			root = root->right;
 		else {
@@ -35,7 +34,18 @@ ft::BTree<T>* inorderSuccessor(ft::BTree<T> *root, int p) {
 		}
 	}
 	return (successor);
+}
 
+template <class T>
+ft::BTree<T>* precedenteNode(ft::BTree<T>* root, ft::BTree<T>* node) {
+
+	while(root != NULL && !is_sentinel(root)) {
+
+		if (root->right == node)
+			return (root);
+		root = root->right;
+	}
+	return (NULL);
 }
 
 template <class T, class Compare>
