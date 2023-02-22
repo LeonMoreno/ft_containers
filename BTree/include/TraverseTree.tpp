@@ -20,7 +20,7 @@ void	BTree_TraverseInOrder(ft::BTree<T> *root) {
 		return ;
 	BTree_TraverseInOrder(root->left);
 	if (!is_sentinel(root))
-		std::cout << root->pair->first << ' ';
+		std::cout << root->pair->first << " bf = " << root->bf << std::endl;
 	BTree_TraverseInOrder(root->right);
 }
 
@@ -56,6 +56,26 @@ ft::BTree<T>* BTree_endInOrder(ft::BTree<T> *root) {
 		return (NULL);
 
 	return (help_end(root));
+}
+
+template  <class T>
+void	BTree_Print(ft::BTree<T>* root, std::string inde, bool last) {
+
+	if (root != nullptr && !is_sentinel(root)) {
+		std::cout << inde;
+		if (last) {
+			std::cout << "R----";
+			inde += "     ";
+		} else {
+			std::cout << "L----";
+			inde += "|    ";
+		}
+
+		std::cout << root->pair->first << "( BF = " << root->bf << ")" << std::endl;
+
+		BTree_Print(root->left, inde, false);
+		BTree_Print(root->right, inde, true);
+	}
 }
 
 #endif

@@ -163,13 +163,13 @@ namespace ft
 
 //---------------------------ELEMENT ACCESS----------------------------------------//
 
-mapped_type& operator[] (const key_type& k) {
+// mapped_type& operator[] (const key_type& k) {
 
-	iterator it = this->find(k.first);
-	if (it != this->end())
-		return
-	return (it);
-}
+// 	iterator it = this->find(k.first);
+// 	if (it != this->end())
+// 		return
+// 	return (it);
+// }
 
 //---------------------------Modifiers----------------------------------------//
 
@@ -258,6 +258,10 @@ mapped_type& operator[] (const key_type& k) {
 		// value_compare value_comp() const {
 
 		// }
+
+		void prinBTree() {
+			BTree_Print(_root, "", false);
+		}
 
 //---------------------------Allocator----------------------------------------//
 

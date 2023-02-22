@@ -4,6 +4,7 @@
 # define BASICS_TPP
 
 #include "BTree.hpp"
+#include "Height.tpp"
 
 template <class T, class Alloc>
 ft::BTree<T>	*Creat_SentinelNode(ft::BTree<T>* root, Alloc alloc) {
@@ -20,9 +21,9 @@ ft::BTree<T>	*BTree_CreatRoot(T *pair, Alloc alloc) {
 	ft::BTree<T> *new_node = alloc.allocate(1);
 	alloc.construct(new_node, ft::BTree<T>(pair));
 	new_node->parent = NULL;
+	new_node->bf = 0;
 	new_node->left = Creat_SentinelNode<T>(new_node, alloc);
 	new_node->right = Creat_SentinelNode<T>(new_node, alloc);
-
 	return (new_node);
 }
 
@@ -46,30 +47,48 @@ void	InsertHelp(ft::BTree<T> *root, T* pair, Compare compare, Alloc alloc) {
 	if (is_equal(root, *pair, compare))
 		return ;
 	if (compare(*root->pair, *pair)) {
-		// std::cout << "Es menor y Pair es " << pair->first << std::endl;
+		// std::cout << "root = " << root->pair->first << " Es menor y Pair es " << pair->first << std::endl;
 		InsertHelp((root->right), pair, compare, alloc);
 		if (is_sentinel(root->right)) {
-			(root->right = BTree_CreatNode(root, pair, alloc));
-
+			root->right = BTree_CreatNode(root, pair, alloc);
+			updateBalance(root->right);
 		}
 	}
 	else {
 		// std::cout << "Es Mayor y Pair es " << pair->first << std::endl;
 		InsertHelp((root->left), pair, compare, alloc);
-		if (is_sentinel(root->left))
+		if (is_sentinel(root->left)) {
 			root->left = BTree_CreatNode(root, pair, alloc);
+			updateBalance(root->left);
+		}
 	}
+
 }
+
+template <class T>
+void	updateRoot(ft::BTree<T>** root) {
+
+	if ((*root)->parent == NULL)
+		return ;
+
+	std::cout << "root = " << (*root)->pair->first << std::endl;
+	std::cout << "root pare = " << (*root)->parent << std::endl;
+
+	*root = (*root)->parent;
+}
+
 
 template <class T, class Compare, class Alloc>
 void	BTree_InsertNode(ft::BTree<T> **root, T* pair, Compare compare, Alloc alloc) {
 
 	if (*root == NULL) {
 		*root = BTree_CreatRoot(pair, alloc);
+
 		return ;
 	}
 
 	InsertHelp(*root, pair, compare, alloc);
+	updateRoot(root);
 }
 
 template <class T, class Alloc>
