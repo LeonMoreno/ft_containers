@@ -23,19 +23,36 @@ int	main(void) {
 
 	std::cout << " ** MAIN **" << std::endl;
 
-	int	arr [] = { 43, 54, 98, 7 };
-	int	*ptr = NULL;
-	std::cout << "main -- contenido PTR = " << ptr << std::endl;
-	std::cout << "main -- ADRR PTR = " << &ptr << std::endl;
-	std::cout << "main -- ADRR ARR = " << arr << std::endl;
+	int	arr [] = { 'a', 'b', 'c', 'c' };
 
-	ptr = arr;
+	// std::cout << "main -- contenido PTR = " << ptr << std::endl;
+	// std::cout << "main -- ADRR PTR = " << &ptr << std::endl;
+	// std::cout << "main -- ADRR ARR = " << arr << std::endl;
 
-	std::cout << "main -- PTR = ARR = " << ptr << std::endl;
+	// ptr = arr;
+
+	// std::cout << "main -- PTR = ARR = " << ptr << std::endl;
 
 	for (int i = 0; i < 4; i++)
 		std::cout << arr[i] << std::endl;
-	ft_ensayo(&ptr);
+	// ft_ensayo(&ptr);
+
+	std::cout << "arr[0] " << arr << std::endl;
+	std::cout << "arr[0] " << &arr[0] << std::endl;
+
+
+
+	int	*ptr1 = arr + (0 * sizeof(int));
+
+	std::cout << "ptr_0 " << ptr1 << std::endl;
+
+	int	*ptr2  = arr + 1;
+
+	std::cout << "ptr_2 " << ptr2 << std::endl;
+
+
+
+
 	return (0);
 }
 
