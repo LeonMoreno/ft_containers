@@ -8,8 +8,8 @@ template <class T>
 void	CheckRebalance(ft::BTree<T>* node) {
 	std::cout << "Pa rebalanceo" << node->pair->first << std::endl;
 
-	if (node->bf > 1 && node->right->bf > 0)
-		rebalance_LL(node);
+	// if (node->bf > 1 && node->right->bf > 0)
+	// 	rebalance_LL(node);
 }
 
 

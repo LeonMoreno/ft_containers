@@ -91,6 +91,30 @@ ft::BTree<T>* BTree_find(ft::BTree<T>* root, T to_find, Compare compe) {
 	return (NULL);
 }
 
+template <class T, class Alloc>
+void	free_sentinel(ft::BTree<T>* sentinel, Alloc alloc) {
 
+	alloc.destroy(sentinel);
+	alloc.deallocate(sentinel, 1);
+	// std::cout << "dealloc sentinel = " << sentinel << std::endl;
+}
+
+template <class T, class Alloc1, class Alloc2>
+void	BTree_PostOrder_free(ft::BTree<T>* root, Alloc1 node_alloc, Alloc2 pair_alloc) {
+
+	if (!root)
+		return ;
+	BTree_PostOrder_free(root->left, node_alloc, pair_alloc);
+	BTree_PostOrder_free(root->right, node_alloc, pair_alloc);
+	// node_alloc.deallocate(root->left, 1);
+	// node_alloc.deallocate(root->right, 1);
+	if (root->pair) {
+		pair_alloc.destroy(root->pair);
+		pair_alloc.deallocate(root->pair, 1);
+	}
+	node_alloc.destroy(root);
+	node_alloc.deallocate(root, 1);
+	// std::cout << " Deallocat node " << root << std::endl;
+}
 
 #endif

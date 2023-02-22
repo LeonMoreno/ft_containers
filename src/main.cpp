@@ -135,9 +135,9 @@ int	main()
 
 
 	// leo.insert( ft::make_pair(50, 100) );
-	leo.insert( ft::pair<int, int>(30, 100) );
-	leo.insert( ft::pair<int, int>(60, 100) );
-	leo.insert( ft::pair<int, int>(70, 100) );
+	// leo.insert( ft::pair<int, int>(30, 100) );
+	// leo.insert( ft::pair<int, int>(60, 100) );
+	// leo.insert( ft::pair<int, int>(90, 100) );
 	// leo.insert( ft::pair<int, int>(80, 100) );
 	// leo.insert( ft::pair<int, int>(90, 100) );
 	// leo.insert( ft::pair<int, int>(100, 100) );
@@ -145,27 +145,27 @@ int	main()
 	// leo.insert( ft::pair<int, int>(70, 100) );
 	// leo.insert( ft::pair<int, int>(42, 100) );
 
-	// leo.insert(ft::pair<int, int>(98, 98) );
-	// leo.insert(ft::pair<int, int>(38, 4) );
-	// leo.insert(ft::pair<int, int>(74, 4) );
-	// leo.insert(ft::pair<int, int>(93, 4) );
-	// leo.insert(ft::pair<int, int>(25, 4) );
-	// leo.insert(ft::pair<int, int>(31, 4) );
-	// leo.insert(ft::pair<int, int>(37, 4) );
-	// leo.insert(ft::pair<int, int>(40, 4) );
-	// leo.insert(ft::pair<int, int>(92, 4) );
-	// leo.insert(ft::pair<int, int>(101, 4) );
-	// leo.insert(ft::pair<int, int>(75, 4) );
-	// leo.insert(ft::pair<int, int>(34, 4) );
-	// leo.insert(ft::pair<int, int>(41, 4) );
-	// leo.insert(ft::pair<int, int>(99, 4) );
-	// leo.insert(ft::pair<int, int>(105, 4) );
+	leo.insert(ft::pair<int, int>(98, 98) );
+	leo.insert(ft::pair<int, int>(38, 4) );
+	leo.insert(ft::pair<int, int>(74, 4) );
+	leo.insert(ft::pair<int, int>(93, 4) );
+	leo.insert(ft::pair<int, int>(25, 4) );
+	leo.insert(ft::pair<int, int>(31, 4) );
+	leo.insert(ft::pair<int, int>(37, 4) );
+	leo.insert(ft::pair<int, int>(40, 4) );
+	leo.insert(ft::pair<int, int>(92, 4) );
+	leo.insert(ft::pair<int, int>(101, 4) );
+	leo.insert(ft::pair<int, int>(75, 4) );
+	leo.insert(ft::pair<int, int>(34, 4) );
+	leo.insert(ft::pair<int, int>(41, 4) );
+	leo.insert(ft::pair<int, int>(99, 4) );
+	leo.insert(ft::pair<int, int>(105, 4) );
 
 
 	leo.TraverseTreeIn();
 	std::cout << std::endl;
 
-	leo.prinBTree();
+	// leo.prinBTree();
 
 	// ft::map<int, int>::iterator it = leo.begin();
 

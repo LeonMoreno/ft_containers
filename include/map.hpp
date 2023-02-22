@@ -92,7 +92,12 @@ namespace ft
 			*this = x;
 		}
 
-		~map() {  }//std::cout << "Destructor MAP " << std::endl; }
+		~map() {
+
+			BTree_PostOrder_free(_root, _node_alloc, _alloc);
+
+
+		}//std::cout << "Destructor MAP " << std::endl; }
 
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
 		// map& operator= (const map& other)

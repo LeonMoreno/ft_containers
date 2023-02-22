@@ -8,7 +8,8 @@ void	BTree_TraversePreOrder(ft::BTree<T> *root) {
 
 	if (!root)
 		return ;
-	std::cout << root->pair->first << ' ';
+	if (!is_sentinel(root))
+		std::cout << root->pair->first << ' ';
 	BTree_TraversePreOrder(root->left);
 	BTree_TraversePreOrder(root->right);
 }
@@ -61,7 +62,7 @@ ft::BTree<T>* BTree_endInOrder(ft::BTree<T> *root) {
 template  <class T>
 void	BTree_Print(ft::BTree<T>* root, std::string inde, bool last) {
 
-	if (root != nullptr && !is_sentinel(root)) {
+	if (root != NULL) {
 		std::cout << inde;
 		if (last) {
 			std::cout << "R----";
@@ -71,7 +72,12 @@ void	BTree_Print(ft::BTree<T>* root, std::string inde, bool last) {
 			inde += "|    ";
 		}
 
-		std::cout << root->pair->first << "( BF = " << root->bf << ")" << std::endl;
+		if (!is_sentinel(root))
+			std::cout << root->pair->first << "( BF = " << root->bf << ")" << std::endl;
+		else
+			std::cout << root << "( is_sentinel )" << std::endl;
+
+
 
 		BTree_Print(root->left, inde, false);
 		BTree_Print(root->right, inde, true);

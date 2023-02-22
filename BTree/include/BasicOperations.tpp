@@ -50,6 +50,7 @@ void	InsertHelp(ft::BTree<T> *root, T* pair, Compare compare, Alloc alloc) {
 		// std::cout << "root = " << root->pair->first << " Es menor y Pair es " << pair->first << std::endl;
 		InsertHelp((root->right), pair, compare, alloc);
 		if (is_sentinel(root->right)) {
+			free_sentinel(root->right, alloc);
 			root->right = BTree_CreatNode(root, pair, alloc);
 			updateBalance(root->right);
 		}
@@ -58,6 +59,7 @@ void	InsertHelp(ft::BTree<T> *root, T* pair, Compare compare, Alloc alloc) {
 		// std::cout << "Es Mayor y Pair es " << pair->first << std::endl;
 		InsertHelp((root->left), pair, compare, alloc);
 		if (is_sentinel(root->left)) {
+			free_sentinel(root->left, alloc);
 			root->left = BTree_CreatNode(root, pair, alloc);
 			updateBalance(root->left);
 		}
