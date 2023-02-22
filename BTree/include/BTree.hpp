@@ -6,13 +6,15 @@ namespace ft {
 	template <typename T>
 	struct BTree
 	{
+		BTree	*parent;
 		BTree	*left;
 		BTree	*right;
 
-		T		pair;
+		T		*pair;
+		int		bf; // balance factor
 
-		BTree() : left(NULL), right(NULL), pair(NULL) {  } //std::cout << "BTree Constr Def " << std::endl; }
-		BTree(T& new_pair) : left(NULL), right(NULL), pair(new_pair) { } // std::cout << "BTree Constr INT " << std::endl; }
+		BTree() : parent(NULL), left(NULL), right(NULL), pair(NULL), bf(0) {    } // std::cout << "BTree Constr Def " << std::endl; }
+		BTree(T *new_pair) : parent(NULL), left(NULL), right(NULL), pair(new_pair), bf(0) { } // std::cout << "BTree Constr INT " << std::endl; }
 		~BTree() {  }// std::cout <<  "BTree Destructor " << std::endl; }
 	};
 }

@@ -31,7 +31,10 @@ int	main(void) {
 
 	ensayo(com);
 
+	std::pair<int, int> a = std::make_pair<int, int>(42, 1000);
+	std::pair<int, int> b = std::make_pair<int, int>(45, 65);
 
+	std::cout << std::less<std::pair<int, int> >()(a, b) << std::endl;
 
 	return (0);
 
