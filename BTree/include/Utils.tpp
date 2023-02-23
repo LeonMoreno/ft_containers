@@ -106,8 +106,6 @@ void	BTree_PostOrder_free(ft::BTree<T>* root, Alloc1 node_alloc, Alloc2 pair_all
 		return ;
 	BTree_PostOrder_free(root->left, node_alloc, pair_alloc);
 	BTree_PostOrder_free(root->right, node_alloc, pair_alloc);
-	// node_alloc.deallocate(root->left, 1);
-	// node_alloc.deallocate(root->right, 1);
 	if (root->pair) {
 		pair_alloc.destroy(root->pair);
 		pair_alloc.deallocate(root->pair, 1);

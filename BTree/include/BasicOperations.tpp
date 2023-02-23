@@ -52,7 +52,10 @@ void	InsertHelp(ft::BTree<T> *root, T* pair, Compare compare, Alloc alloc) {
 		if (is_sentinel(root->right)) {
 			free_sentinel(root->right, alloc);
 			root->right = BTree_CreatNode(root, pair, alloc);
-			updateBalance(root->right);
+			updateBalance(root->right, alloc);
+			std::cout << "LLego a Inset dere "  << root->right << std::endl;
+
+			return ;
 		}
 	}
 	else {
@@ -61,9 +64,12 @@ void	InsertHelp(ft::BTree<T> *root, T* pair, Compare compare, Alloc alloc) {
 		if (is_sentinel(root->left)) {
 			free_sentinel(root->left, alloc);
 			root->left = BTree_CreatNode(root, pair, alloc);
-			updateBalance(root->left);
+			updateBalance(root->left, alloc);
+			std::cout << "LLego a Inset inz"  << std::endl;
+			return ;
 		}
 	}
+	std::cout << "Hasta Abajo de inserHelp root = "  << root << std::endl;
 
 }
 
@@ -73,8 +79,8 @@ void	updateRoot(ft::BTree<T>** root) {
 	if ((*root)->parent == NULL)
 		return ;
 
-	std::cout << "root = " << (*root)->pair->first << std::endl;
-	std::cout << "root pare = " << (*root)->parent << std::endl;
+	// std::cout << "root = " << (*root)->pair->first << std::endl;
+	// std::cout << "root pare = " << (*root)->parent << std::endl;
 
 	*root = (*root)->parent;
 }
@@ -90,7 +96,8 @@ void	BTree_InsertNode(ft::BTree<T> **root, T* pair, Compare compare, Alloc alloc
 	}
 
 	InsertHelp(*root, pair, compare, alloc);
-	updateRoot(root);
+	std::cout << "LLego a InsertNOde"  << std::endl;
+	// updateRoot(root);
 }
 
 template <class T, class Alloc>

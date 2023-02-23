@@ -39,30 +39,37 @@ int	main(void) {
 
 	ft::BTree<std::pair<int, int> > *root = NULL;
 
-	BTree_InsertNode(&root, new_pair(98, 98), compare, alloc );
-	BTree_InsertNode(&root, new_pair(38, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(74, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(93, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(25, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(31, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(37, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(40, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(92, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(101, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(75, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(34, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(41, 4), compare, alloc );
+	BTree_InsertNode(&root, new_pair(30, 98), compare, alloc );
+	std::cout << "LLego a MAIN 1"  << std::endl;
+	BTree_InsertNode(&root, new_pair(60, 4), compare, alloc );
+	std::cout << "LLego a MAIN 2"  << std::endl;
+	BTree_InsertNode(&root, new_pair(90, 4), compare, alloc );
+	std::cout << "LLego a MAIN 3"  << std::endl;
+
+	// BTree_InsertNode(&root, new_pair(31, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(93, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(25, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(31, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(37, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(40, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(92, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(101, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(75, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(34, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(41, 4), compare, alloc );
+
+	// BTree_Print(root, "", false);
 
 
-	BTree_TraverseInOrder(root);
-	std::cout << std::endl;
+	// BTree_TraverseInOrder(root);
+	// std::cout << std::endl;
 
-	ft::BTree<std::pair<int, int> > *succesor = inorderSuccessor(root, 93);
+	// ft::BTree<std::pair<int, int> > *succesor = inorderSuccessor(root, 93);
 
 	// std::cout << "INMain root = " << root << std::endl;
 
-	if (succesor != NULL)
-		std::cout << "successor " << succesor->pair->first << std::endl;
+	// if (succesor != NULL)
+	// 	std::cout << "successor " << succesor->pair->first << std::endl;
 	// BTree_deleteNode(root, 41, alloc);
 	// BTree_TraverseInOrder(root);
 	// std::cout << std::endl;

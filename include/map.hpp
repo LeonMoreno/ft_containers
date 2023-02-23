@@ -188,9 +188,11 @@ namespace ft
 		 */
 		ft::pair<iterator, bool> insert (const value_type& val) {
 
-			iterator it = this->find(val.first);
-			if (it != this->end())
-				return(ft::make_pair(it, false));
+			iterator it;
+
+			// iterator it = this->find(val.first);
+			// if (it != this->end())
+			// 	return(ft::make_pair(it, false));
 			BTree_InsertNode(&_root, _alloc_pair(val), value_compare(_compare), _node_alloc);
 			_size++;
 			return (ft::make_pair(it, true));
