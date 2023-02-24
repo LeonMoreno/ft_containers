@@ -46,20 +46,20 @@ int	main(void) {
 	// BTree_InsertNode(&root, new_pair(90, 4), compare, alloc );
 
 
-	BTree_InsertNode(&root, new_pair(98, 98), compare, alloc );
-	BTree_InsertNode(&root, new_pair(38, 4) , compare, alloc);
-	BTree_InsertNode(&root, new_pair(74, 4) , compare, alloc);
-	BTree_InsertNode(&root, new_pair(105, 4) , compare, alloc);
-	BTree_InsertNode(&root, new_pair(25, 4) , compare, alloc);
-	BTree_InsertNode(&root, new_pair(31, 4) , compare, alloc);
-	BTree_InsertNode(&root, new_pair(37, 4) , compare, alloc);
-	BTree_InsertNode(&root, new_pair(76, 4) , compare, alloc);
-	BTree_InsertNode(&root, new_pair(71, 4) , compare, alloc);
-	BTree_InsertNode(&root, new_pair(101, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(100, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(99, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(107, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(180, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(98, 98), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(38, 4) , compare, alloc);
+	// BTree_InsertNode(&root, new_pair(74, 4) , compare, alloc);
+	// BTree_InsertNode(&root, new_pair(105, 4) , compare, alloc);
+	// BTree_InsertNode(&root, new_pair(25, 4) , compare, alloc);
+	// BTree_InsertNode(&root, new_pair(31, 4) , compare, alloc);
+	// BTree_InsertNode(&root, new_pair(37, 4) , compare, alloc);
+	// BTree_InsertNode(&root, new_pair(76, 4) , compare, alloc);
+	// BTree_InsertNode(&root, new_pair(71, 4) , compare, alloc);
+	// BTree_InsertNode(&root, new_pair(101, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(100, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(99, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(107, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(180, 4), compare, alloc );
 
 
 

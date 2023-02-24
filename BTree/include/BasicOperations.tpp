@@ -28,41 +28,31 @@ ft::BTree<T>	*BTree_CreatRoot(T *pair, Alloc alloc) {
 }
 
 template <class T, class Alloc>
-ft::BTree<T>	*BTree_CreatNode(ft::BTree<T>* root, ft::BTree<T>* side, T *pair, Alloc alloc) {
+ft::BTree<T>	*BTree_CreatNode(ft::BTree<T>* root, T *pair, Alloc alloc) {
 
-	free_sentinel(side, alloc);
+	free_sentinel(root, alloc);
 	ft::BTree<T> *new_node = alloc.allocate(1);
-	alloc.construct(new_node, ft::BTree<T>(pair));
-	new_node->parent = root;
+	alloc.construct(root, ft::BTree<T>(pair));
 	new_node->left = Creat_SentinelNode<T>(new_node, alloc);
 	new_node->right = Creat_SentinelNode<T>(new_node, alloc);
 	return (new_node);
 }
 
 template <class T, class Compare, class Alloc>
-void	InsertHelp(ft::BTree<T> **root, T* pair, Compare compare, Alloc alloc) {
+void	InsertHelp(ft::BTree<T> *root, ft::BTree<T>* parent, T* pair, Compare compare, Alloc alloc) {
 
-	if(!(*root) || is_sentinel(*root))
-		return ;
+	if(is_sentinel(root)) {
+			BTree_CreatNode(root, pair, alloc);
+			root->parent = parent;
+			// updateBalance(root, (*root)->left);
+			return ;
+	}
 
-	if (is_equal(*root, *pair, compare))
+	if (is_equal(root, *pair, compare))
 		return ;
-	if (compare(*(*root)->pair, *pair)) {
-		// std::cout << "root = " << (*root)->pair->first << " Es menor y Pair es " << pair->first << std::endl;
-		InsertHelp((&(*root)->right), pair, compare, alloc);
-		if (is_sentinel((*root)->right)) {
-			BTree_CreatNode(*root, (*root)->right, pair, alloc);
-			// updateBalance(root, (*root)->left);
-		}
-	}
-	else {
-		// std::cout << "Es Mayor y Pair es " << pair->first << std::endl;
-		InsertHelp((&(*root)->left), pair, compare, alloc);
-		if (is_sentinel((*root)->left)) {
-			BTree_CreatNode(*root, (*root)->left, pair, alloc);
-			// updateBalance(root, (*root)->left);
-		}
-	}
+	if (compare(*root->pair, *pair))
+		return (InsertHelp(root->right, root, pair, compare, alloc));
+	return (InsertHelp(root->left, root, pair, compare, alloc));
 }
 
 // template <class T>
@@ -88,8 +78,10 @@ void	BTree_InsertNode(ft::BTree<T> **root, T* pair, Compare compare, Alloc alloc
 
 		return ;
 	}
-
-	InsertHelp(root, pair, compare, alloc);
+	if (compare(*(*root)->pair, *pair))
+		InsertHelp((*root)->right, *root, pair, compare, alloc);
+	else
+		InsertHelp((*root)->left, *root, pair, compare, alloc);
 	// updateRoot(root);
 }
 
