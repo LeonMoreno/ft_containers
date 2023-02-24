@@ -11,42 +11,34 @@
 // }
 
 template <class T>
-void	rebalance_LL(ft::BTree<T>* node) {
+void	rebalance_LL(ft::BTree<T>** root, ft::BTree<T>* node) {
 
 	std::cout << "Rebalance node = " << node->pair->first << std::endl;
+	std::cout << "Rebalance root = " << (*root)->pair->first << std::endl;
 
-	// ft::BTree<T>* temp;
+	ft::BTree<T>* temp = node->right;
 
-	// temp = node->right;
+	node->right = temp->left;
+	if (temp->left != NULL) {
+		temp->left->parent = node;
+	}
 
-	// node->right = temp->left;
+	temp->left = node;
 
-	// temp->left = node;
+	if (node->parent == NULL)
+		(*root) = temp;
+	else if (node == node->parent->left)
+		node->parent->left = temp;
+	else if (node == node->parent->right)
+		node->parent->right = temp;
 
-
-	// if (temp->left != NULL) {
-	// 	temp->left->parent = node;
-	// }
-
-	// if (node->parent == NULL)
-	// 	std::cout << "aqui fue\n";
-	// else if (node == node->parent->left) {
-	// 	std::cout << "por este else\n";
-	// 	node->parent->left = temp;
-	// }
-	// else if (node == node->parent->right) {
-	// 	std::cout << "por este OTRO\n";
-
-	// 	node->parent->right = temp;
-	// }
-
-	// temp->parent = node->parent;
-	// node->parent = temp;
+	temp->parent = node->parent;
+	node->parent = temp;
 
 
 	// // update the balance factor
-	// node->bf = node->bf - 1 - std::max(0, temp->bf);
-	// temp->bf = temp->bf - 1 + std::min(0, node->bf);
+	node->bf = node->bf - 1 - std::max(0, temp->bf);
+	temp->bf = temp->bf - 1 + std::min(0, node->bf);
 }
 
 

@@ -39,13 +39,13 @@ ft::BTree<T>	*BTree_CreatNode(ft::BTree<T>* root, T *pair, Alloc alloc) {
 }
 
 template <class T, class Compare, class Alloc>
-void	InsertHelp(ft::BTree<T>* _root, ft::BTree<T> *root,
+void	InsertHelp(ft::BTree<T>** _root, ft::BTree<T> *root,
 	ft::BTree<T>* parent, T* pair, Compare compare, Alloc alloc) {
 
 	if(is_sentinel(root)) {
 			BTree_CreatNode(root, pair, alloc);
 			root->parent = parent;
-			// updateBalance(_root, root,);
+			updateBalance(_root, root);
 			return ;
 	}
 
@@ -64,7 +64,7 @@ void	BTree_InsertNode(ft::BTree<T> **root, T* pair, Compare compare, Alloc alloc
 
 		return ;
 	}
-	InsertHelp(*root, *root, *root, pair, compare, alloc);
+	InsertHelp(root, *root, *root, pair, compare, alloc);
 }
 
 template <class T, class Alloc>
