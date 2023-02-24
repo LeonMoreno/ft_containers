@@ -19,7 +19,6 @@ void	BTree_TraverseInOrder(ft::BTree<T> *root) {
 
 	if (!root)
 		return ;
-	std::cout << " aqui llego root = " << root << std::endl;
 
 	BTree_TraverseInOrder(root->left);
 	if (!is_sentinel(root))
