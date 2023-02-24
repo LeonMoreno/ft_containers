@@ -6,6 +6,8 @@
 template <class T>
 bool	is_sentinel(ft::BTree<T>* root) {
 
+	if (!root)
+		return (false);
 	if (!root->pair && !root->left && !root->right)
 		return (true);
 	return (false);

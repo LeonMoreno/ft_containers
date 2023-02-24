@@ -28,8 +28,9 @@ ft::BTree<T>	*BTree_CreatRoot(T *pair, Alloc alloc) {
 }
 
 template <class T, class Alloc>
-ft::BTree<T>	*BTree_CreatNode(ft::BTree<T>* root, T *pair, Alloc alloc) {
+ft::BTree<T>	*BTree_CreatNode(ft::BTree<T>* root, ft::BTree<T>* side, T *pair, Alloc alloc) {
 
+	free_sentinel(side, alloc);
 	ft::BTree<T> *new_node = alloc.allocate(1);
 	alloc.construct(new_node, ft::BTree<T>(pair));
 	new_node->parent = root;
@@ -39,51 +40,44 @@ ft::BTree<T>	*BTree_CreatNode(ft::BTree<T>* root, T *pair, Alloc alloc) {
 }
 
 template <class T, class Compare, class Alloc>
-void	InsertHelp(ft::BTree<T> *root, T* pair, Compare compare, Alloc alloc) {
+void	InsertHelp(ft::BTree<T> **root, T* pair, Compare compare, Alloc alloc) {
 
-	if(!root || is_sentinel(root))
+	if(!(*root) || is_sentinel(*root))
 		return ;
 
-	if (is_equal(root, *pair, compare))
+	if (is_equal(*root, *pair, compare))
 		return ;
-	if (compare(*root->pair, *pair)) {
-		// std::cout << "root = " << root->pair->first << " Es menor y Pair es " << pair->first << std::endl;
-		InsertHelp((root->right), pair, compare, alloc);
-		if (is_sentinel(root->right)) {
-			free_sentinel(root->right, alloc);
-			root->right = BTree_CreatNode(root, pair, alloc);
-			updateBalance(root->right, alloc);
-			std::cout << "LLego a Inset dere "  << root->right << std::endl;
-
-			return ;
+	if (compare(*(*root)->pair, *pair)) {
+		// std::cout << "root = " << (*root)->pair->first << " Es menor y Pair es " << pair->first << std::endl;
+		InsertHelp((&(*root)->right), pair, compare, alloc);
+		if (is_sentinel((*root)->right)) {
+			BTree_CreatNode(*root, (*root)->right, pair, alloc);
+			// updateBalance(root, (*root)->left);
 		}
 	}
 	else {
 		// std::cout << "Es Mayor y Pair es " << pair->first << std::endl;
-		InsertHelp((root->left), pair, compare, alloc);
-		if (is_sentinel(root->left)) {
-			free_sentinel(root->left, alloc);
-			root->left = BTree_CreatNode(root, pair, alloc);
-			updateBalance(root->left, alloc);
-			std::cout << "LLego a Inset inz"  << std::endl;
-			return ;
+		InsertHelp((&(*root)->left), pair, compare, alloc);
+		if (is_sentinel((*root)->left)) {
+			BTree_CreatNode(*root, (*root)->left, pair, alloc);
+			// updateBalance(root, (*root)->left);
 		}
 	}
-	std::cout << "Hasta Abajo de inserHelp root = "  << root << std::endl;
-
 }
 
-template <class T>
-void	updateRoot(ft::BTree<T>** root) {
+// template <class T>
+// void	updateRoot(ft::BTree<T>** root) {
 
-	if ((*root)->parent == NULL)
-		return ;
+// 	if ((*root)->parent == NULL) {
+// 		std::cout << "NU_root = " << (*root)->pair->first << std::endl;
+// 		return ;
+// 	}
 
-	// std::cout << "root = " << (*root)->pair->first << std::endl;
-	// std::cout << "root pare = " << (*root)->parent << std::endl;
+// 	// std::cout << "root = " << (*root)->pair->first << std::endl;
+// 	// std::cout << "root pare = " << (*root)->parent << std::endl;
 
-	*root = (*root)->parent;
-}
+// 	*root = (*root)->parent;
+// }
 
 
 template <class T, class Compare, class Alloc>
@@ -95,8 +89,7 @@ void	BTree_InsertNode(ft::BTree<T> **root, T* pair, Compare compare, Alloc alloc
 		return ;
 	}
 
-	InsertHelp(*root, pair, compare, alloc);
-	std::cout << "LLego a InsertNOde"  << std::endl;
+	InsertHelp(root, pair, compare, alloc);
 	// updateRoot(root);
 }
 

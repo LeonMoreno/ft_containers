@@ -10,48 +10,39 @@
 
 // }
 
-template <class T, class Alloc>
-void	rebalance_LL(ft::BTree<T>* node, Alloc alloc) {
-	(void) alloc;
+template <class T>
+void	rebalance_LL(ft::BTree<T>* node) {
 
-	std::cout << "Rotacion Para node " << node->pair->first << std::endl;
-
-	std::cout << "node rig = " << node->right << std::endl;
+	std::cout << "Rebalance node = " << node->pair->first << std::endl;
 
 	// ft::BTree<T>* temp;
 
 	// temp = node->right;
 
-	// std::cout << "temp left = " << temp->left << std::endl;
+	// node->right = temp->left;
 
-	
+	// temp->left = node;
 
-	alloc.destroy(node->right);
-	alloc.deallocate(node->right, 1);
-	node->right = NULL;
-
-	// std::cout << "node rig = " << node->right << std::endl;
-
-
-	// std::cout << "Despues node rig = " << node->right << std::endl;
 
 	// if (temp->left != NULL) {
 	// 	temp->left->parent = node;
 	// }
 
-
-	// temp->parent = node->parent;
-
 	// if (node->parent == NULL)
 	// 	std::cout << "aqui fue\n";
-	// else if (node == node->parent->left)
+	// else if (node == node->parent->left) {
+	// 	std::cout << "por este else\n";
 	// 	node->parent->left = temp;
-	// else if (node == node->parent->right)
+	// }
+	// else if (node == node->parent->right) {
+	// 	std::cout << "por este OTRO\n";
+
 	// 	node->parent->right = temp;
-	// // free_sentinel(temp->left, alloc);
-	// temp->left = node;
+	// }
+
+	// temp->parent = node->parent;
 	// node->parent = temp;
-	// std::cout << "Termine"<< std::endl;
+
 
 	// // update the balance factor
 	// node->bf = node->bf - 1 - std::max(0, temp->bf);
