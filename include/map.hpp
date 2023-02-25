@@ -94,7 +94,7 @@ namespace ft
 
 		~map() {
 
-			BTree_PostOrder_free(_root, _node_alloc, _alloc);
+			this->clear();
 
 
 		}//std::cout << "Destructor MAP " << std::endl; }
@@ -188,11 +188,10 @@ namespace ft
 		 */
 		ft::pair<iterator, bool> insert (const value_type& val) {
 
-			iterator it;
+			iterator it = this->find(val.first);
 
-			// iterator it = this->find(val.first);
-			// if (it != this->end())
-			// 	return(ft::make_pair(it, false));
+			if (it != this->end())
+				return(ft::make_pair(it, false));
 			BTree_InsertNode(&_root, _alloc_pair(val), value_compare(_compare), _node_alloc);
 			_size++;
 			return (ft::make_pair(it, true));
@@ -209,6 +208,11 @@ namespace ft
 				this->insert(*first);
 				++first;
 			}
+		}
+
+		void clear() {
+			BTree_PostOrder_free(_root, _node_alloc, _alloc);
+			_size = 0;
 		}
 
 		size_type erase (const key_type& k) {

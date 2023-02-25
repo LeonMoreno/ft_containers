@@ -27,9 +27,8 @@ void	CheckRebalance(ft::BTree<T>** root, ft::BTree<T>* node) {
 template <class T>
 void	updateBalance(ft::BTree<T> **root ,ft::BTree<T>* node) {
 
-	// if (!node->parent)
-	// 	return ;
-	// std::cout << "UpdateBalance nodo = " << node->pair->first << " bf = " << node->bf << std::endl;
+	if (!node)
+		return ;
 
 	if (node->bf < -1 || node->bf > 1) {
 		CheckRebalance(root, node);
@@ -37,7 +36,6 @@ void	updateBalance(ft::BTree<T> **root ,ft::BTree<T>* node) {
 	}
 
 	if (node->parent != NULL) {
-		// std::cout << "2do if nodo = " << node->pair->first << " bf = " << node->bf << std::endl;
 
 		if (node == node->parent->left)
 			node->parent->bf -= 1;

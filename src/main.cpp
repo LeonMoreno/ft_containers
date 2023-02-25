@@ -77,11 +77,14 @@ void	vec_construct(void)
 }
 
 void	map_construct(void) {
+	std::cout << "Map Construct\n";
 
 	ft::map<int, int> mp;
 
 	for (int i = 0, j = 10; i < 30 * _ratio; i++, j++)
 		mp.insert(ft::make_pair(i, j));
+	std::cout << "Map Fini\n";
+
 
 	// mp.TraverseTreeIn();
 	// std::cout << std::endl;
@@ -110,17 +113,16 @@ void	map_test() {
 	leo.insert(std::pair<int, int>(41, 4) );
 	leo.insert(std::pair<int, int>(99, 4) );
 	leo.insert(std::pair<int, int>(105, 4) );
+	leo.insert(std::pair<int, int>(7, 4) );
+
 
 	std::map<int, int>::iterator	it;
 
-	for(it = leo.begin(); it != leo.end(); it++)
-		std::cout << it->first << std::endl;
+	it = leo.begin();
+	std::cout << "begin stl_map = " << it->first << std::endl;
+	it = leo.end();
 
-	std::cout << "in std::map size leo = " << leo.size() << std::endl;
-	std::cout << "max_size leo = " << leo.max_size() << std::endl;
-	std::cout << "empty leo = " << leo.empty() << std::endl;
-
-
+	std::cout << "end stl_map = " << it->first << std::endl;
 
 
 }
@@ -128,41 +130,40 @@ void	map_test() {
 
 int	main()
 {
-	// std::cout << std::endl << BYEL << "######################## VECTOR ###############################" << RESET << std::endl;
+	// std::cout << std::endl << BYEL << "######################## FT_MAP ###############################" << RESET << std::endl;
 	// usleep(520000);
 	// vec_construct();
-	// map_test();
-	map_construct();
+	map_test();
+	// map_construct();
 
-	// ft::map<int, int> leo;
+	ft::map<int, int> leo;
+
+	leo.insert(ft::pair<int, int>(98, 98) );
+	leo.insert(ft::pair<int, int>(38, 4) );
+	leo.insert(ft::pair<int, int>(74, 4) );
+	leo.insert(ft::pair<int, int>(93, 4) );
+	leo.insert(ft::pair<int, int>(25, 4) );
+	leo.insert(ft::pair<int, int>(31, 4) );
+	leo.insert(ft::pair<int, int>(37, 4) );
+	leo.insert(ft::pair<int, int>(40, 4) );
+	leo.insert(ft::pair<int, int>(92, 4) );
+	leo.insert(ft::pair<int, int>(101, 4) );
+	leo.insert(ft::pair<int, int>(75, 4) );
+	leo.insert(ft::pair<int, int>(34, 4) );
+	leo.insert(ft::pair<int, int>(41, 4) );
+	leo.insert(ft::pair<int, int>(99, 4) );
+	leo.insert(ft::pair<int, int>(105, 4) );
+	leo.insert(ft::pair<int, int>(7, 4) );
 
 
-	// leo.insert( ft::make_pair(50, 100) );
-	// leo.insert( ft::pair<int, int>(30, 100) );
-	// leo.insert( ft::pair<int, int>(60, 100) );
-	// leo.insert( ft::pair<int, int>(90, 100) );
-	// leo.insert( ft::pair<int, int>(80, 100) );
-	// leo.insert( ft::pair<int, int>(90, 100) );
-	// leo.insert( ft::pair<int, int>(100, 100) );
-	// leo.insert( ft::pair<int, int>(110, 100) );
-	// leo.insert( ft::pair<int, int>(70, 100) );
-	// leo.insert( ft::pair<int, int>(42, 100) );
+	ft::map<int, int>::iterator		it;
 
-	// leo.insert(ft::pair<int, int>(98, 98) );
-	// leo.insert(ft::pair<int, int>(38, 4) );
-	// leo.insert(ft::pair<int, int>(74, 4) );
-	// leo.insert(ft::pair<int, int>(93, 4) );
-	// leo.insert(ft::pair<int, int>(25, 4) );
-	// leo.insert(ft::pair<int, int>(31, 4) );
-	// leo.insert(ft::pair<int, int>(37, 4) );
-	// leo.insert(ft::pair<int, int>(40, 4) );
-	// leo.insert(ft::pair<int, int>(92, 4) );
-	// leo.insert(ft::pair<int, int>(101, 4) );
-	// leo.insert(ft::pair<int, int>(75, 4) );
-	// leo.insert(ft::pair<int, int>(34, 4) );
-	// leo.insert(ft::pair<int, int>(41, 4) );
-	// leo.insert(ft::pair<int, int>(99, 4) );
-	// leo.insert(ft::pair<int, int>(105, 4) );
+	it = leo.begin();
+
+	std::cout << "begin ft_map = " << it->first << std::endl;
+	it = leo.end();
+	std::cout << "end ft_map = " << it.get_node()->parent->pair->first << std::endl;
+
 
 
 	// leo.TraverseTreeIn();
@@ -170,32 +171,6 @@ int	main()
 
 	// leo.prinBTree();
 
-	// ft::map<int, int>::iterator it = leo.begin();
-
-	// for(; it != leo.end(); it++)
-	// 	std::cout << it->second << std::endl;
-
-	// ft::map<int, int> andy(leo.begin(), leo.find(93));
-
-	// // andy.insert(ft::pair<int, int>(16, 4));
-
-	// it = andy.begin();
-
-
-
-	// for(it = andy.begin(); it != andy.end(); it++)
-	// 	std::cout << it->first << std::endl;
-
-	// ft::map<int, int> leo2(andy);
-
-	// for(it = leo2.begin(); it != leo2.end(); it++)
-	// 	std::cout << it->first << std::endl;
-
-	// std::cout << "size leo = " << leo.size() << std::endl;
-	// std::cout << "max_size leo = " << leo.max_size() << std::endl;
-	// std::cout << "empty leo = " << leo.empty() << std::endl;
-
-	// leo[ 89 ] = 32;
 
 
 

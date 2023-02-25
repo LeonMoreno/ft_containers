@@ -31,6 +31,7 @@ std::pair<int, int>	*new_pair(int x, int y) {
 	return (a);
 }
 
+
 int	main(void) {
 
 	key_compare<std::pair<int, int> > compare;
@@ -39,6 +40,10 @@ int	main(void) {
 
 	ft::BTree<std::pair<int, int> > *root = NULL;
 
+	for (int i = 0, j = 10; i < 30 * 100; i++, j++)
+		BTree_InsertNode(&root, new_pair(i, j), compare, alloc );
+
+
 	// BTree_InsertNode(&root, new_pair(25, 98), compare, alloc );
 
 	// BTree_InsertNode(&root, new_pair(15, 4), compare, alloc );
@@ -46,28 +51,28 @@ int	main(void) {
 	// BTree_InsertNode(&root, new_pair(18, 4), compare, alloc );
 
 
-	BTree_InsertNode(&root, new_pair(98, 98), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(98, 98), compare, alloc );
 	// BTree_InsertNode(&root, new_pair(38, 4) , compare, alloc);
 	// BTree_InsertNode(&root, new_pair(74, 4) , compare, alloc);
-	BTree_InsertNode(&root, new_pair(105, 4) , compare, alloc);
+	// BTree_InsertNode(&root, new_pair(105, 4) , compare, alloc);
 	// BTree_InsertNode(&root, new_pair(25, 4) , compare, alloc);
 	// BTree_InsertNode(&root, new_pair(31, 4) , compare, alloc);
 	// BTree_InsertNode(&root, new_pair(37, 4) , compare, alloc);
-	BTree_InsertNode(&root, new_pair(76, 4) , compare, alloc);
+	// BTree_InsertNode(&root, new_pair(76, 4) , compare, alloc);
 	// BTree_InsertNode(&root, new_pair(71, 4) , compare, alloc);
-	BTree_InsertNode(&root, new_pair(101, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(100, 4), compare, alloc );
-	BTree_InsertNode(&root, new_pair(99, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(101, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(100, 4), compare, alloc );
+	// BTree_InsertNode(&root, new_pair(99, 4), compare, alloc );
 	// BTree_InsertNode(&root, new_pair(107, 4), compare, alloc );
 	// BTree_InsertNode(&root, new_pair(180, 4), compare, alloc );
 
 
 
-	BTree_Print(root, "", false);
+	// BTree_Print(root, "", false);
 
 
-	BTree_TraverseInOrder(root);
-	std::cout << std::endl;
+	// BTree_TraverseInOrder(root);
+	// std::cout << std::endl;
 
 	// ft::BTree<std::pair<int, int> > *succesor = inorderSuccessor(root, 93);
 

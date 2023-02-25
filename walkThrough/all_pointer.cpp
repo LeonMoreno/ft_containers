@@ -1,5 +1,15 @@
 #include <iostream>
 
+void	ft_ensayo2(int **p) {
+
+	std::cout << "p = " << p << std::endl;
+
+	**p = 10;
+
+	std::cout << "p = " << **p << std::endl;
+
+}
+
 void	ft_ensayo(int **arr) {
 
 	std::cout << "\n ** ft_ensayo **" << std::endl;
@@ -23,7 +33,18 @@ int	main(void) {
 
 	std::cout << " ** MAIN **" << std::endl;
 
-	int	arr [] = { 'a', 'b', 'c', 'c' };
+	// int	arr [] = { 'a', 'b', 'c', 'c' };
+
+	int i;
+
+	int	*ptr = &i;
+
+	int	**pt2 = &ptr;
+
+	ft_ensayo2(pt2);
+
+	// std::cout << "p = " << *ptr << std::endl;
+
 
 	// std::cout << "main -- contenido PTR = " << ptr << std::endl;
 	// std::cout << "main -- ADRR PTR = " << &ptr << std::endl;
@@ -33,22 +54,22 @@ int	main(void) {
 
 	// std::cout << "main -- PTR = ARR = " << ptr << std::endl;
 
-	for (int i = 0; i < 4; i++)
-		std::cout << arr[i] << std::endl;
+	// for (int i = 0; i < 4; i++)
+	// 	std::cout << arr[i] << std::endl;
 	// ft_ensayo(&ptr);
 
-	std::cout << "arr[0] " << arr << std::endl;
-	std::cout << "arr[0] " << &arr[0] << std::endl;
+	// std::cout << "arr[0] " << arr << std::endl;
+	// std::cout << "arr[0] " << &arr[0] << std::endl;
 
 
 
-	int	*ptr1 = arr + (0 * sizeof(int));
+	// int	*ptr1 = arr + (0 * sizeof(int));
 
-	std::cout << "ptr_0 " << ptr1 << std::endl;
+	// std::cout << "ptr_0 " << ptr1 << std::endl;
 
-	int	*ptr2  = arr + 1;
+	// int	*ptr2  = arr + 1;
 
-	std::cout << "ptr_2 " << ptr2 << std::endl;
+	// std::cout << "ptr_2 " << ptr2 << std::endl;
 
 
 

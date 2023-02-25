@@ -39,6 +39,20 @@
             ],
             "preLaunchTask": "C/C++: g++ compilar archivo activo",
             "miDebuggerPath": "/usr/bin/gdb"
+        },
+		{
+            "name": "C/C++ MacOs_42",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/Containers",
+			"args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            "externalConsole": false, // set true to enable keyboard input
+            "MIMode": "lldb",
+            "preLaunchTask": "build"
         }
+
     ]
 }

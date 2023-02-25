@@ -28,32 +28,32 @@ ft::BTree<T>	*BTree_CreatRoot(T *pair, Alloc alloc) {
 }
 
 template <class T, class Alloc>
-ft::BTree<T>	*BTree_CreatNode(ft::BTree<T>* root, T *pair, Alloc alloc) {
+ft::BTree<T>	*BTree_CreatNode(T *pair, Alloc alloc) {
 
-	free_sentinel(root, alloc);
 	ft::BTree<T> *new_node = alloc.allocate(1);
-	alloc.construct(root, ft::BTree<T>(pair));
+	alloc.construct(new_node, ft::BTree<T>(pair));
 	new_node->left = Creat_SentinelNode<T>(new_node, alloc);
 	new_node->right = Creat_SentinelNode<T>(new_node, alloc);
 	return (new_node);
 }
 
 template <class T, class Compare, class Alloc>
-void	InsertHelp(ft::BTree<T>** _root, ft::BTree<T> *root,
+void	InsertHelp(ft::BTree<T>** _root, ft::BTree<T> **root,
 	ft::BTree<T>* parent, T* pair, Compare compare, Alloc alloc) {
 
-	if(is_sentinel(root)) {
-			BTree_CreatNode(root, pair, alloc);
-			root->parent = parent;
-			updateBalance(_root, root);
-			return ;
+	if(is_sentinel(*root)) {
+		free_sentinel(*root, alloc);
+		*root = BTree_CreatNode(pair, alloc);
+		(*root)->parent = parent;
+		updateBalance(_root, *root);
+		return ;
 	}
 
-	if (is_equal(root, *pair, compare))
+	if (is_equal(*root, *pair, compare))
 		return ;
-	if (compare(*root->pair, *pair))
-		return (InsertHelp(_root, root->right, root, pair, compare, alloc));
-	return (InsertHelp(_root, root->left, root, pair, compare, alloc));
+	if (compare(*(*root)->pair, *pair))
+		return (InsertHelp(_root, &(*root)->right, *root, pair, compare, alloc));
+	return (InsertHelp(_root, &(*root)->left, *root, pair, compare, alloc));
 }
 
 template <class T, class Compare, class Alloc>
@@ -64,7 +64,7 @@ void	BTree_InsertNode(ft::BTree<T> **root, T* pair, Compare compare, Alloc alloc
 
 		return ;
 	}
-	InsertHelp(root, *root, *root, pair, compare, alloc);
+	InsertHelp(root, root, *root, pair, compare, alloc);
 }
 
 template <class T, class Alloc>
