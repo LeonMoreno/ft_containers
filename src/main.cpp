@@ -80,11 +80,14 @@ void	map_construct(void) {
 
 	ft::map<int, int> mp;
 
-	for (int i = 0, j = 10; i < 30 * 1000; i++, j++)
+	for (int i = 0, j = 10; i < 30 * _ratio; i++, j++)
 		mp.insert(ft::make_pair(i, j));
 
-	mp.TraverseTreeIn();
-	std::cout << std::endl;
+	// mp.TraverseTreeIn();
+	// std::cout << std::endl;
+
+	// mp.prinBTree();
+
 
 }
 
@@ -129,15 +132,15 @@ int	main()
 	// usleep(520000);
 	// vec_construct();
 	// map_test();
-	// map_construct();
+	map_construct();
 
-	ft::map<int, int> leo;
+	// ft::map<int, int> leo;
 
 
 	// leo.insert( ft::make_pair(50, 100) );
-	leo.insert( ft::pair<int, int>(30, 100) );
-	leo.insert( ft::pair<int, int>(60, 100) );
-	leo.insert( ft::pair<int, int>(90, 100) );
+	// leo.insert( ft::pair<int, int>(30, 100) );
+	// leo.insert( ft::pair<int, int>(60, 100) );
+	// leo.insert( ft::pair<int, int>(90, 100) );
 	// leo.insert( ft::pair<int, int>(80, 100) );
 	// leo.insert( ft::pair<int, int>(90, 100) );
 	// leo.insert( ft::pair<int, int>(100, 100) );
@@ -165,7 +168,7 @@ int	main()
 	// leo.TraverseTreeIn();
 	// std::cout << std::endl;
 
-	leo.prinBTree();
+	// leo.prinBTree();
 
 	// ft::map<int, int>::iterator it = leo.begin();
 
