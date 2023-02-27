@@ -54,29 +54,54 @@ ft::BTree<T>* inorderSuccessor(ft::BTree<T> *root, int p) {
 	return (successor);
 }
 
-/* Esta mal, no mira hacia la IZ
-   encuentra es nodo, no numero o ref.
-   Ademas necesito el root para que funcione. */
+// Funcion para operator overload ++
 template <class T>
-ft::BTree<T>* precedenteNode(ft::BTree<T>* root, ft::BTree<T>* node) {
-	std::cout << "root parente = " << root->parent << std::endl;
+ft::BTree<T>* BTree_minNode(ft::BTree<T> *root) {
 
-	std::cout << "node parente = " << node->parent->pair->first << std::endl;
+	while (root->left != NULL && !is_sentinel(root->left)) {
+		root = root->left;
+	}
+	return (root);
+}
 
-	ft::BTree<T>* node_per = node->parent;
+template <class T>
+ft::BTree<T>* BTree_NodeSuccessor(ft::BTree<T>* root) {
 
-	std::cout << "padre node per = " << node_per->parent->pair->first << std::endl;
+	if (root->right != NULL && !is_sentinel(root->right))
+		return (BTree_minNode(root->right));
 
+	ft::BTree<T>* tmp = root->parent;
 
-	// while(root != NULL && !is_sentinel(root)) {
+	while (tmp != NULL && root == tmp->right) {
+		root = tmp;
+		tmp = tmp->parent;
+	}
+	return (tmp);
+}
 
-	// 	if (root->right == node)
-	// 		return (root);
-	// 	root = root->right;
-	// }
+// Funcion para operator overload --
+template <class T>
+ft::BTree<T>* BTree_maxNode(ft::BTree<T> *root) {
 
-	return (node->parent);
-	return (NULL);
+	while (root->right != NULL && !is_sentinel(root->right)) {
+		root = root->right;
+	}
+	return (root);
+}
+
+template <class T>
+ft::BTree<T>* BTree_NodePrev(ft::BTree<T>* root) {
+
+	if (root->left != NULL && !is_sentinel(root->left))
+		return (BTree_maxNode(root->left));
+
+	ft::BTree<T>* tmp = root->parent;
+
+	while (tmp != NULL && root == tmp->left) {
+		root = tmp;
+		tmp = tmp->parent;
+	}
+	return (tmp);
 }
 
 template <class T, class Compare>

@@ -118,11 +118,16 @@ void	map_test() {
 
 	std::map<int, int>::iterator	it;
 
-	it = leo.begin();
-	std::cout << "begin stl_map = " << it->first << std::endl;
-	it = leo.end();
+	it = leo.find(25);
 
-	std::cout << "end stl_map = " << it->first << std::endl;
+	std::cout << "begin stl_map = " << (it--)->first << std::endl;
+
+
+	// it = leo.begin();
+
+
+	// for (; it != leo.end(); it++)
+	// 	std::cout << "STL = " << it->first << std::endl;
 
 
 }
@@ -158,11 +163,20 @@ int	main()
 
 	ft::map<int, int>::iterator		it;
 
-	it = leo.begin();
 
-	std::cout << "begin ft_map = " << it->first << std::endl;
-	it = leo.end();
-	std::cout << "end ft_map = " << it.get_node()->parent->pair->first << std::endl;
+	it = leo.find(25);
+
+
+	std::cout << "begin ft_map = " << (it--)->first << std::endl;
+
+	// for (; it != leo.end(); it++)
+	// 	std::cout << "FT = " << it->first << std::endl;
+
+
+
+	// it = leo.end();
+	// std::cout << "end ft_map = " << it.get_node()->parent->pair->first << std::endl;
+
 
 
 

@@ -42,6 +42,14 @@ ft::BTree<T>* BTree_beginInOrder(ft::BTree<T> *root) {
 	return (help_begin(root));
 }
 
+/**
+ * @brief  ENcuentro end. Que es el sentinela a la Dr.
+ * 	despues del utlimo nodo.
+ *
+ * @tparam T
+ * @param root
+ * @return ft::BTree<T>*
+ */
 template <class T>
 ft::BTree<T>* help_end(ft::BTree<T> *root)
 {
