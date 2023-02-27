@@ -83,6 +83,7 @@ void	map_construct(void) {
 
 	for (int i = 0, j = 10; i < 30 * _ratio; i++, j++)
 		mp.insert(ft::make_pair(i, j));
+	ft::map<int, int>(mp.begin(), mp.end());
 	std::cout << "Map Fini\n";
 
 
@@ -98,37 +99,40 @@ void	map_test() {
 
 	std::map<int, int> leo;
 
-	leo.insert(std::pair<int, int>(98, 98) );
-	leo.insert(std::pair<int, int>(38, 4) );
-	leo.insert(std::pair<int, int>(74, 4) );
-	leo.insert(std::pair<int, int>(93, 4) );
-	leo.insert(std::pair<int, int>(25, 4) );
-	leo.insert(std::pair<int, int>(31, 4) );
-	leo.insert(std::pair<int, int>(37, 4) );
-	leo.insert(std::pair<int, int>(40, 4) );
-	leo.insert(std::pair<int, int>(92, 4) );
-	leo.insert(std::pair<int, int>(101, 4) );
-	leo.insert(std::pair<int, int>(75, 4) );
-	leo.insert(std::pair<int, int>(34, 4) );
-	leo.insert(std::pair<int, int>(41, 4) );
-	leo.insert(std::pair<int, int>(99, 4) );
-	leo.insert(std::pair<int, int>(105, 4) );
-	leo.insert(std::pair<int, int>(7, 4) );
+	leo[43] = 7;
+
+	// leo.insert(std::pair<int, int>(98, 98) );
+	// leo.insert(std::pair<int, int>(38, 4) );
+	// leo.insert(std::pair<int, int>(74, 4) );
+	// leo.insert(std::pair<int, int>(93, 4) );
+	// leo.insert(std::pair<int, int>(25, 4) );
+	// leo.insert(std::pair<int, int>(31, 4) );
+	// leo.insert(std::pair<int, int>(37, 4) );
+	// leo.insert(std::pair<int, int>(40, 4) );
+	// leo.insert(std::pair<int, int>(92, 4) );
+	// leo.insert(std::pair<int, int>(101, 4) );
+	// leo.insert(std::pair<int, int>(75, 4) );
+	// leo.insert(std::pair<int, int>(34, 4) );
+	// leo.insert(std::pair<int, int>(41, 4) );
+	// leo.insert(std::pair<int, int>(99, 4) );
+	// leo.insert(std::pair<int, int>(105, 4) );
+	// leo.insert(std::pair<int, int>(7, 4) );
 
 
-	std::map<int, int>::iterator	it;
+	// std::map<int, int>::iterator	it;
 
-	it = leo.find(25);
-
-	std::cout << "begin stl_map = " << (it--)->first << std::endl;
+	// std::map<int, int> andy(leo.begin(), leo.find(40));
 
 
-	// it = leo.begin();
+	// std::map<int, int> leo2(andy);
 
-
-	// for (; it != leo.end(); it++)
+	// for (it = leo2.begin(); it != leo2.end(); it++)
 	// 	std::cout << "STL = " << it->first << std::endl;
 
+
+	// std::map<int, int>::iterator it;
+
+	// it->first = 98;
 
 }
 
@@ -143,33 +147,52 @@ int	main()
 
 	ft::map<int, int> leo;
 
-	leo.insert(ft::pair<int, int>(98, 98) );
-	leo.insert(ft::pair<int, int>(38, 4) );
-	leo.insert(ft::pair<int, int>(74, 4) );
-	leo.insert(ft::pair<int, int>(93, 4) );
-	leo.insert(ft::pair<int, int>(25, 4) );
-	leo.insert(ft::pair<int, int>(31, 4) );
-	leo.insert(ft::pair<int, int>(37, 4) );
-	leo.insert(ft::pair<int, int>(40, 4) );
-	leo.insert(ft::pair<int, int>(92, 4) );
-	leo.insert(ft::pair<int, int>(101, 4) );
-	leo.insert(ft::pair<int, int>(75, 4) );
-	leo.insert(ft::pair<int, int>(34, 4) );
-	leo.insert(ft::pair<int, int>(41, 4) );
-	leo.insert(ft::pair<int, int>(99, 4) );
-	leo.insert(ft::pair<int, int>(105, 4) );
-	leo.insert(ft::pair<int, int>(7, 4) );
+	// ft::map<int, int>::iterator it;
+
+	// it->first = 1;
+
+	leo[34] = 7;
+
+	// leo.insert(ft::pair<int, int>(98, 98) );
+	// leo.insert(ft::pair<int, int>(38, 4) );
+	// leo.insert(ft::pair<int, int>(74, 4) );
+	// leo.insert(ft::pair<int, int>(93, 4) );
+	// leo.insert(ft::pair<int, int>(25, 4) );
+	// leo.insert(ft::pair<int, int>(31, 4) );
+	// leo.insert(ft::pair<int, int>(37, 4) );
+	// leo.insert(ft::pair<int, int>(40, 4) );
+	// leo.insert(ft::pair<int, int>(92, 4) );
+	// leo.insert(ft::pair<int, int>(101, 4) );
+	// leo.insert(ft::pair<int, int>(75, 4) );
+	// leo.insert(ft::pair<int, int>(34, 4) );
+	// leo.insert(ft::pair<int, int>(41, 4) );
+	// leo.insert(ft::pair<int, int>(99, 4) );
+	// leo.insert(ft::pair<int, int>(105, 4) );
+	// leo.insert(ft::pair<int, int>(7, 4) );
 
 
-	ft::map<int, int>::iterator		it;
+	// ft::map<int, int>::iterator		it;
 
 
-	it = leo.find(25);
+	// it = leo.find(25);
 
 
-	std::cout << "begin ft_map = " << (it--)->first << std::endl;
+	// std::cout << "begin ft_map = " << (it)->first << std::endl;
 
-	// for (; it != leo.end(); it++)
+
+
+	// ft::map<int, int>::iterator		it2;
+
+	// it2 = it;
+
+	// std::cout << "IT2 begin ft_map = " << (it2)->first << std::endl;
+
+
+	// ft::map<int, int> andy(leo.begin(), leo.find(40));
+
+	// ft::map<int, int> leo2(andy);
+
+	// for (; it != leo2.end(); it++)
 	// 	std::cout << "FT = " << it->first << std::endl;
 
 
@@ -183,7 +206,7 @@ int	main()
 	// leo.TraverseTreeIn();
 	// std::cout << std::endl;
 
-	// leo.prinBTree();
+	leo.prinBTree();
 
 
 

@@ -120,7 +120,7 @@ namespace ft {
 			}
 
 
-			//---------------PRIVATE HELPER FUNCIONS----------------------------------------
+			//--------------- HELPER FUNCIONS----------------------------------------
 
 			node_pointer get_node(void) { return (this->_node_ptr); }
 

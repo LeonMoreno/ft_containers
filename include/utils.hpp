@@ -130,7 +130,7 @@ namespace ft {
 
 			// copy constructor
 			template<class U, class V>
-			pair (const pair<U,V>& pr) : first(pr.first), second(pr.second) { }
+			pair (const pair<U,V>& pr): first(pr.first), second(pr.second) {}
 
 			// init constructor
 			pair (const first_type& a, const second_type& b) : first(a), second(b) {  } //std::cout << "INIT constru pair\n"; }
@@ -178,8 +178,8 @@ namespace ft {
 // https://cplusplus.com/reference/utility/pair/
 
 	template <class T1, class T2>
-	pair<T1, T2> make_pair (T1 x, T2 y) {
-		return ( pair<T1, T2>(x, y) );
+	ft::pair<T1, T2> make_pair (T1 x, T2 y) {
+		return ( ft::pair<T1, T2>(x, y) );
 	}
 
 } // namespace ft end

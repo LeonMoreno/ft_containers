@@ -5,6 +5,7 @@
 #include "utils.hpp"
 #include "map_iterator.hpp"
 #include "../BTree/include/BTree.hpp"
+#include "reverse_vector_iterator.hpp"
 
 
 namespace ft
@@ -100,12 +101,14 @@ namespace ft
 		}//std::cout << "Destructor MAP " << std::endl; }
 
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
-		// map& operator= (const map& other)
-		// 	{
-		// 		this->clear();
-		// 		this->insert(other.begin(), other.end());
-		// 		return (*this);
-		// 	}
+		// Assigns new contents to the container, replacing its current content.
+		map& operator= (const map& other)
+			{
+				// std::cout << " ASSIGNMENT copy" << std::endl;
+				this->clear();
+				this->insert(other.begin(), other.end());
+				return (*this);
+			}
 
 
 //-------------------------------Getters and Setters-----------------------------------------------//
@@ -115,9 +118,9 @@ namespace ft
 			return (iterator(BTree_beginInOrder(_root)));
 		}
 
-		// iterator prcedente(ft::BTree<value_type>* node) {
-		// 	return (iterator(precedenteNode(_root, node)));
-		// }
+		const_iterator begin() const {
+			return (const_iterator(BTree_beginInOrder(_root)));
+		}
 
 		/**
 		 * @brief  Returns an iterator referring to
@@ -135,6 +138,10 @@ namespace ft
 			return (iterator(ptr));
 		}
 
+		const_iterator end() const {
+			return (const_iterator(BTree_endInOrder(_root)));
+		 }
+
 		reverse_iterator rbegin() {
 			return reverse_iterator(--this->end());
 		}
@@ -148,32 +155,35 @@ namespace ft
 
 //---------------------------CAPACITY----------------------------------------//
 
-	size_type size() const {
-		return (_size);
-	}
+		size_type size() const {
+			return (_size);
+		}
 
-	bool empty() const {
-		if (_size == 0)
-			return (true);
-		return (false);
-	}
+		bool empty() const {
+			if (_size == 0)
+				return (true);
+			return (false);
+		}
 
-	size_type max_size() const {
-		return (_alloc.max_size());
-	}
+		size_type max_size() const {
+			return (_alloc.max_size());
+		}
 
 
 
 
 //---------------------------ELEMENT ACCESS----------------------------------------//
 
-// mapped_type& operator[] (const key_type& k) {
+		mapped_type& operator[] (const key_type& key)
+		{
+			iterator					pair_iterator;
+			ft::pair<iterator, bool>	insert_return;
 
-// 	iterator it = this->find(k.first);
-// 	if (it != this->end())
-// 		return
-// 	return (it);
-// }
+			insert_return = insert(ft::make_pair(key, mapped_type()));
+			pair_iterator = insert_return.first;
+			// std::cout << "pair first  = " << pair_iterator->second << std::endl;
+			return (pair_iterator->second);
+		}
 
 //---------------------------Modifiers----------------------------------------//
 
@@ -192,6 +202,7 @@ namespace ft
 			if (it != this->end())
 				return(ft::make_pair(it, false));
 			BTree_InsertNode(&_root, _alloc_pair(val), value_compare(_compare), _node_alloc);
+			it = this->find(val.first);
 			_size++;
 			return (ft::make_pair(it, true));
 		}
@@ -234,7 +245,7 @@ namespace ft
 
 			ft::BTree<value_type>* ptr_to_find = NULL;
 
-			ptr_to_find = BTree_find<value_type>(_root, ft::make_pair(k, 1), value_compare(_compare));
+			ptr_to_find = BTree_find<value_type>(_root, ft::make_pair(k, mapped_type()), value_compare(_compare));
 
 			if (ptr_to_find)
 				return (iterator(ptr_to_find));
