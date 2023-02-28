@@ -79,39 +79,20 @@ void	vec_construct(void)
 void	map_construct(void) {
 	std::cout << "Map Construct\n";
 
-	std::vector<int> v;
+	// std::vector<int> v;
 	ft::map<int, int> mp;
 
-	// ft::pair<ft::map<int, int>::iterator, bool> pair = mp.insert(ft::make_pair(7, 7));
+	mp.clear();
 
-	// ft::map<int, int>::iterator it = mp.begin();
-
-	// v.push_back(it->first);
-    // v.push_back(it->second);
-    // v.push_back(pair.first->first);
-    // v.push_back(pair.first->second);
-    // v.push_back(pair.second);
-
-	mp.insert(ft::make_pair(7, 7));
-	mp.insert(ft::make_pair(9, 9));
-
-	// ft::pair<ft::map<int, int>::iterator, bool> pair2 = mp.insert(ft::make_pair(9, 9));
-	// ft::map<int, int>::iterator it2 = pair.first;
-
-  	// v.push_back(it2->first);
-    // v.push_back(it2->second);
-    // v.push_back(pair2.first->first);
-    // v.push_back(pair2.first->second);
-    // v.push_back(pair2.second);
-
-
-	for (int i = 0, j = 0; i < 50 * _ratio; ++i, ++j) {
+	for (int i = 1, j = 0; i < 100 * _ratio; ++i, ++j) {
 		mp.insert(ft::make_pair(i, j));
 	}
 
+	std::cout << "size = " << mp.size() << std::endl;
+
 	// mp.prinBTree();
 
-	ft::map<int, int>::iterator it3 = mp.begin();
+	// ft::map<int, int>::iterator it3 = mp.begin();
 
 	// std::cout << "iter = " << it3->first << std::endl;
 	// ++it3;
@@ -127,12 +108,12 @@ void	map_construct(void) {
 
 
 
-	for (; it3 != mp.end(); ++it3) {
-		v.push_back(it3->first);
-        v.push_back(it3->second);
+	// for (; it3 != mp.end(); ++it3) {
+	// 	v.push_back(it3->first);
+    //     v.push_back(it3->second);
 		// std::cout << it3->first << std::endl;
 		// std::cout << it3->second << std::endl;
-	}
+	// }
 
 
 
@@ -172,23 +153,27 @@ int	main()
 	// usleep(520000);
 	// vec_construct();
 	// map_test();
-	map_construct();
-	// andy.prinBTree();
+	// map_construct();
 
-	// ft::map<int, int> leo;
+	ft::map<int, int> leo;
 
-	// leo.insert(ft::pair<int, int>(98, 98) );
-	// leo.insert(ft::pair<int, int>(38, 4) );
-	// leo.insert(ft::pair<int, int>(74, 4) );
+	leo.insert(ft::pair<int, int>(98, 98) );
+	leo.insert(ft::pair<int, int>(38, 4) );
+	leo.insert(ft::pair<int, int>(74, 4) );
+	leo.insert(ft::pair<int, int>(7, 7) );
+
 
 	// ft::map<int, int> andy;
+
+	leo.prinBTree();
+	leo.TraverseTreeIn();
 
 	// andy.insert(ft::pair<int, int>(98, 7) );
 	// andy.insert(ft::pair<int, int>(38, 4) );
 	// andy.insert(ft::pair<int, int>(74, 4) );
 
 
-	// std::cout << "size " << andy.size() << std::endl;
+	std::cout << "size " << leo.upper_bound(98).get_node() << std::endl;
 
 	// ft::pair<int, int> a(3, 43);
 	// ft::pair<int, int> b(43, 43);

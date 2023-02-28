@@ -212,12 +212,22 @@ namespace ft
 				return(ft::make_pair(it, false));
 			BTree_InsertNode(&_root, _alloc_pair(val), value_compare(_compare), _node_alloc);
 			it = this->find(val.first);
-			_size++;
+			this->_size++;
 			return (ft::make_pair(it, true));
 		}
 
 		// with hint (2)
-		// iterator insert (iterator position, const value_type& val);
+		iterator insert (iterator position, const value_type& val) {
+			iterator it = this->find(val.first);
+			(void) position;
+
+			if (it != this->end())
+				return(it);
+			BTree_InsertNode(&_root, _alloc_pair(val), value_compare(_compare), _node_alloc);
+			it = this->find(val.first);
+			this->_size++;
+			return (it);
+		}
 
 		// range
 		template <class InputIterator>
@@ -277,20 +287,17 @@ namespace ft
 
 		 iterator upper_bound (const key_type& key)
 			{
-				ft::BTree<value_type>* upper;
+				iterator node;
 
-				upper = inorderSuccessor(_root, key);
-				// ft::btree<value_type> *node = btree_begin(this->_root);
-				// value_type boundary_pair = ft::make_pair(key, mapped_type());
+				node = find(key);
 
-				// while(node != end_node)
-				// {
-				// 	if (this->value_comp()(boundary_pair, *node->item))
-				// 		return iterator(node);
-				// 	else
-				// 		node = btree_next(node);
-				// }
-				return (iterator(upper));
+				ft::BTree<value_type>* suce = node.get_node();
+				ft::BTree<value_type>* suce2 = node.get_node();
+
+				suce2 = BTree_NodeSuccessor(suce);
+
+
+				return (iterator(suce2));
 			}
 
 
