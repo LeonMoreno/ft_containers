@@ -48,8 +48,7 @@ namespace ft {
 				return this->_node_ptr == rhs._node_ptr;
 			}
 
-			bool operator!=(const iterator& rhs)
-			{
+			bool operator!=(const iterator& rhs) {
 				return this->_node_ptr != rhs._node_ptr;
 			}
 

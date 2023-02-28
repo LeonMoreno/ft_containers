@@ -100,7 +100,7 @@ namespace ft
 
 		}//std::cout << "Destructor MAP " << std::endl; }
 
-//---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
+//---------------------------COPY ASSIGNMENT OPERATOR Overload----------------------------------------//
 		// Assigns new contents to the container, replacing its current content.
 		map& operator= (const map& other)
 			{
@@ -109,7 +109,6 @@ namespace ft
 				this->insert(other.begin(), other.end());
 				return (*this);
 			}
-
 
 //-------------------------------Getters and Setters-----------------------------------------------//
 
@@ -150,13 +149,23 @@ namespace ft
 				return reverse_iterator(--this->begin());
 		}
 
+		const_reverse_iterator rbegin(void) const
+		{
+			return const_reverse_iterator(--this->end());
+		}
+
+		const_reverse_iterator rend(void) const
+		{
+			return const_reverse_iterator(--this->begin());
+		}
+
 // }
 
 
 //---------------------------CAPACITY----------------------------------------//
 
-		size_type size() const {
-			return (_size);
+		size_type size(void) const {
+			return (this->_size);
 		}
 
 		bool empty() const {
@@ -239,6 +248,20 @@ namespace ft
 			BTree_TraverseInOrder(_root);
 		}
 
+//---------------------------Observers----------------------------------------//
+
+		key_compare key_comp() const {
+			return (key_compare(key_compare()));
+		}
+
+		// value_compare value_comp() const {
+
+		// }
+
+		void prinBTree() {
+			BTree_Print(_root, "", false);
+		}
+
 //---------------------------Operations----------------------------------------//
 
 		 iterator find (const key_type& k) {
@@ -270,19 +293,7 @@ namespace ft
 				return (iterator(upper));
 			}
 
-//---------------------------Observers----------------------------------------//
 
-		key_compare key_comp() const {
-			return (key_compare(key_compare()));
-		}
-
-		// value_compare value_comp() const {
-
-		// }
-
-		void prinBTree() {
-			BTree_Print(_root, "", false);
-		}
 
 //---------------------------Allocator----------------------------------------//
 
@@ -313,6 +324,55 @@ namespace ft
 			node_alloc_type			_node_alloc;
 
 	};
+
+	/* *******************************************************************************/
+	/* 								Non-member function 							 */
+	/* *******************************************************************************/
+
+//---------------------------relational operators (vector (overloads)----------------//
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator== ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) {
+
+		if (lhs.size() != rhs.size())
+			return (false);
+
+		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator!= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) {
+
+		return (!(lhs == rhs));
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator< ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) {
+
+		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator>  ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) {
+		return (rhs < lhs);
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator<= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) {
+		return (!(rhs < lhs));
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator>= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) {
+		return (!(lhs < rhs));
+	}
+
+
+
+
+
+
+
 
 } // namespace ft
 

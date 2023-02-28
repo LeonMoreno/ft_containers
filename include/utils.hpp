@@ -86,6 +86,7 @@ namespace ft {
 	bool equal (InputIterator1 first1, InputIterator1 last1, InputIterator2 first2) {
 
 		while (first1 != last1) 	{
+
 			if (*first1 != *first2)
 				return false;
 			first1++;
@@ -100,15 +101,20 @@ namespace ft {
 	template <class InputIterator1, class InputIterator2>
 	bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
 								InputIterator2 first2, InputIterator2 last2) {
-		while (first1!=last1)
+		while (first1 != last1)
 		{
-			if (first2==last2 || *first2<*first1)
-				return false;
-			else if (*first1<*first2)
-				return true;
+			if (first2 == last2 || *first2 < *first1)
+				return (false);
+			else if (*first1 < *first2)
+				return (true);
 			++first1; ++first2;
 		}
-		return (first2!=last2);
+		if (first2 != last2)
+			return (true);
+
+		// std::cout << "LLego aqui " << std::endl;
+
+		return (false);
 	}
 
 /*------------------------ ft::pair ------------------------------------ */
@@ -156,12 +162,22 @@ namespace ft {
 
 	template <class T1, class T2>
 	bool operator< (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) {
-		return ((lhs.first < rhs.first) && (lhs.second < rhs.second));
+		// std::cout << "viene por estos lados ??" << std::endl;
+		if (lhs.first < rhs.first)
+			return (true);
+		if(rhs.first < lhs.first)
+		return (false);
+		if (lhs.second < rhs.second)
+			return (true);
+
+		return (false);
+
+		// return ((lhs.first < rhs.first) && (lhs.second < rhs.second));
 	}
 
 	template <class T1, class T2>
 	bool operator<= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) {
-		return ((lhs.first <= rhs.first) && (lhs.second <= rhs.second));
+		return (!(rhs < lhs));
 	}
 
 	template <class T1, class T2>
@@ -171,7 +187,7 @@ namespace ft {
 
 	template <class T1, class T2>
 	bool operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) {
-		return ((lhs.first >= rhs.first) && (lhs.second >=rhs.second));
+		return (!(lhs < rhs));
 	}
 
 /*------------------------ ft::make_pair ------------------------------------ */

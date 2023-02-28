@@ -45,7 +45,7 @@ void	rotation_Right(ft::BTree<T>** root, ft::BTree<T>* node) {
 	//Movimientos
 	node->left = temp->right;
 	if (temp->right != NULL)
-		temp->parent = node;
+		temp->right->parent = node;
 	temp->right = node;
 	// Conexion al Arbol
 	if (node->parent == NULL)

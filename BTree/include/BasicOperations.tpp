@@ -48,7 +48,6 @@ void	InsertHelp(ft::BTree<T>** _root, ft::BTree<T> **root,
 		updateBalance(_root, *root);
 		return ;
 	}
-
 	if (is_equal(*root, *pair, compare))
 		return ;
 	if (compare(*(*root)->pair, *pair))

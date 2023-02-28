@@ -79,12 +79,61 @@ void	vec_construct(void)
 void	map_construct(void) {
 	std::cout << "Map Construct\n";
 
+	std::vector<int> v;
 	ft::map<int, int> mp;
 
-	for (int i = 0, j = 10; i < 30 * _ratio; i++, j++)
+	// ft::pair<ft::map<int, int>::iterator, bool> pair = mp.insert(ft::make_pair(7, 7));
+
+	// ft::map<int, int>::iterator it = mp.begin();
+
+	// v.push_back(it->first);
+    // v.push_back(it->second);
+    // v.push_back(pair.first->first);
+    // v.push_back(pair.first->second);
+    // v.push_back(pair.second);
+
+	mp.insert(ft::make_pair(7, 7));
+	mp.insert(ft::make_pair(9, 9));
+
+	// ft::pair<ft::map<int, int>::iterator, bool> pair2 = mp.insert(ft::make_pair(9, 9));
+	// ft::map<int, int>::iterator it2 = pair.first;
+
+  	// v.push_back(it2->first);
+    // v.push_back(it2->second);
+    // v.push_back(pair2.first->first);
+    // v.push_back(pair2.first->second);
+    // v.push_back(pair2.second);
+
+
+	for (int i = 0, j = 0; i < 50 * _ratio; ++i, ++j) {
 		mp.insert(ft::make_pair(i, j));
-	ft::map<int, int>(mp.begin(), mp.end());
-	std::cout << "Map Fini\n";
+	}
+
+	// mp.prinBTree();
+
+	ft::map<int, int>::iterator it3 = mp.begin();
+
+	// std::cout << "iter = " << it3->first << std::endl;
+	// ++it3;
+	// std::cout << "iter = " << it3->first << std::endl;
+	// ++it3;
+	// std::cout << "iter = " << it3->first << std::endl;
+	// ++it3;
+	// std::cout << "iter = " << it3->first << std::endl;
+	// ++it3;
+	// std::cout << "iter = " << it3->first << std::endl;
+	// ++it3;
+	// std::cout << "iter = " << it3->first << std::endl;
+
+
+
+	for (; it3 != mp.end(); ++it3) {
+		v.push_back(it3->first);
+        v.push_back(it3->second);
+		// std::cout << it3->first << std::endl;
+		// std::cout << it3->second << std::endl;
+	}
+
 
 
 	// mp.TraverseTreeIn();
@@ -99,40 +148,20 @@ void	map_test() {
 
 	std::map<int, int> leo;
 
-	leo[43] = 7;
+	leo.insert(std::pair<int, int>(98, 98) );
+	leo.insert(std::pair<int, int>(38, 4) );
+	leo.insert(std::pair<int, int>(74, 4) );
 
-	// leo.insert(std::pair<int, int>(98, 98) );
-	// leo.insert(std::pair<int, int>(38, 4) );
-	// leo.insert(std::pair<int, int>(74, 4) );
-	// leo.insert(std::pair<int, int>(93, 4) );
-	// leo.insert(std::pair<int, int>(25, 4) );
-	// leo.insert(std::pair<int, int>(31, 4) );
-	// leo.insert(std::pair<int, int>(37, 4) );
-	// leo.insert(std::pair<int, int>(40, 4) );
-	// leo.insert(std::pair<int, int>(92, 4) );
-	// leo.insert(std::pair<int, int>(101, 4) );
-	// leo.insert(std::pair<int, int>(75, 4) );
-	// leo.insert(std::pair<int, int>(34, 4) );
-	// leo.insert(std::pair<int, int>(41, 4) );
-	// leo.insert(std::pair<int, int>(99, 4) );
-	// leo.insert(std::pair<int, int>(105, 4) );
-	// leo.insert(std::pair<int, int>(7, 4) );
+	std::map<int, int> andy;
 
+	andy.insert(std::pair<int, int>(98, 7) );
+	andy.insert(std::pair<int, int>(38, 4) );
+	andy.insert(std::pair<int, int>(74, 4) );
 
-	// std::map<int, int>::iterator	it;
+	bool min = andy < leo;
 
-	// std::map<int, int> andy(leo.begin(), leo.find(40));
+	std::cout << "std___ Menor ? " << min << std::endl;
 
-
-	// std::map<int, int> leo2(andy);
-
-	// for (it = leo2.begin(); it != leo2.end(); it++)
-	// 	std::cout << "STL = " << it->first << std::endl;
-
-
-	// std::map<int, int>::iterator it;
-
-	// it->first = 98;
 
 }
 
@@ -142,73 +171,32 @@ int	main()
 	// std::cout << std::endl << BYEL << "######################## FT_MAP ###############################" << RESET << std::endl;
 	// usleep(520000);
 	// vec_construct();
-	map_test();
-	// map_construct();
+	// map_test();
+	map_construct();
+	// andy.prinBTree();
 
-	ft::map<int, int> leo;
-
-	// ft::map<int, int>::iterator it;
-
-	// it->first = 1;
-
-	leo[34] = 7;
+	// ft::map<int, int> leo;
 
 	// leo.insert(ft::pair<int, int>(98, 98) );
 	// leo.insert(ft::pair<int, int>(38, 4) );
 	// leo.insert(ft::pair<int, int>(74, 4) );
-	// leo.insert(ft::pair<int, int>(93, 4) );
-	// leo.insert(ft::pair<int, int>(25, 4) );
-	// leo.insert(ft::pair<int, int>(31, 4) );
-	// leo.insert(ft::pair<int, int>(37, 4) );
-	// leo.insert(ft::pair<int, int>(40, 4) );
-	// leo.insert(ft::pair<int, int>(92, 4) );
-	// leo.insert(ft::pair<int, int>(101, 4) );
-	// leo.insert(ft::pair<int, int>(75, 4) );
-	// leo.insert(ft::pair<int, int>(34, 4) );
-	// leo.insert(ft::pair<int, int>(41, 4) );
-	// leo.insert(ft::pair<int, int>(99, 4) );
-	// leo.insert(ft::pair<int, int>(105, 4) );
-	// leo.insert(ft::pair<int, int>(7, 4) );
+
+	// ft::map<int, int> andy;
+
+	// andy.insert(ft::pair<int, int>(98, 7) );
+	// andy.insert(ft::pair<int, int>(38, 4) );
+	// andy.insert(ft::pair<int, int>(74, 4) );
 
 
-	// ft::map<int, int>::iterator		it;
+	// std::cout << "size " << andy.size() << std::endl;
+
+	// ft::pair<int, int> a(3, 43);
+	// ft::pair<int, int> b(43, 43);
 
 
-	// it = leo.find(25);
+	// bool min =  a < b;
 
-
-	// std::cout << "begin ft_map = " << (it)->first << std::endl;
-
-
-
-	// ft::map<int, int>::iterator		it2;
-
-	// it2 = it;
-
-	// std::cout << "IT2 begin ft_map = " << (it2)->first << std::endl;
-
-
-	// ft::map<int, int> andy(leo.begin(), leo.find(40));
-
-	// ft::map<int, int> leo2(andy);
-
-	// for (; it != leo2.end(); it++)
-	// 	std::cout << "FT = " << it->first << std::endl;
-
-
-
-	// it = leo.end();
-	// std::cout << "end ft_map = " << it.get_node()->parent->pair->first << std::endl;
-
-
-
-
-	// leo.TraverseTreeIn();
-	// std::cout << std::endl;
-
-	leo.prinBTree();
-
-
+	// std::cout << "FT___ Menor ? " << min << std::endl;
 
 
 
