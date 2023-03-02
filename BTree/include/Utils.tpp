@@ -142,4 +142,25 @@ void	BTree_PostOrder_free(ft::BTree<T>* root, Alloc1 node_alloc, Alloc2 pair_all
 	// std::cout << " Deallocat node " << root << std::endl;
 }
 
+template <class T, class Alloc1, class Alloc2>
+void	free_Node_OneSentinel(ft::BTree<T>* node, ft::BTree<T>* senti, Alloc1 node_alloc, Alloc2 pair_alloc) {
+
+	free_sentinel(senti, node_alloc);
+	pair_alloc.destroy(node->pair);
+	pair_alloc.deallocate(node->pair, 1);
+	node_alloc.destroy(node);
+	node_alloc.deallocate(node, 1);
+}
+
+template <class T, class Alloc1>
+void	free_Node_OneSentinel_A(ft::BTree<T>* node, ft::BTree<T>* senti, Alloc1 node_alloc) {
+
+	free_sentinel(senti, node_alloc);
+	// pair_alloc.destroy(node->pair);
+	// pair_alloc.deallocate(node->pair, 1);
+	node_alloc.destroy(node);
+	node_alloc.deallocate(node, 1);
+}
+
+
 #endif

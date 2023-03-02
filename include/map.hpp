@@ -245,7 +245,7 @@ namespace ft
 		}
 
 		size_type erase (const key_type& k) {
-			BTree_deleteNode<value_type>(_root, k, _alloc);
+			BTree_deleteNode<value_type>(&_root, _root, k, _node_alloc, _alloc);
 			_size--;
 			return(1);
 		}

@@ -66,34 +66,161 @@ void	BTree_InsertNode(ft::BTree<T> **root, T* pair, Compare compare, Alloc alloc
 	InsertHelp(root, root, *root, pair, compare, alloc);
 }
 
-template <class T, class Alloc>
-ft::BTree<T>*	BTree_deleteNode(ft::BTree<T> *root, int key, Alloc alloc) {
+template <class T, class Alloc1, class Alloc2>
+void	BTree_deleteNode_A(ft::BTree<T> **_root, ft::BTree<T> *root,
+		int key, Alloc1 node_alloc, Alloc2 pair_alloc) {
 
-	if (!root)
-		return (root);
-	if (key == root->pair.first) {
-		if (!root->left) {
-			if (!root->right) {
-				alloc.destroy(root);
-				alloc.deallocate(root, 1);
+	if (!root || is_sentinel(root))
+		return ;
+	if (key == root->pair->first) {
+		// case 1
+		if (is_sentinel(root->left) && is_sentinel(root->right)) {
+
+			ft::BTree<T>* tmp_setinel = root->right;
+			ft::BTree<T>* papa= root->parent;
+
+			if (root->parent == NULL) {
+				BTree_PostOrder_free(root, node_alloc, pair_alloc);
+				(*_root) = NULL;
+				return ;
 			}
-			return (root->right);
+			if (root == root->parent->left)
+				root->parent->left = tmp_setinel;
+			else if (root == root->parent->right)
+				root->parent->right = tmp_setinel;
+			tmp_setinel->parent = papa;
+			free_Node_OneSentinel_A(root, root->left, node_alloc);
+			updateBalance_Del(_root, papa);
+			return ;
 		}
-		else if (!root->right)
-			return (root->left);
-		else {
-			ft::BTree<T>* p = inorderSuccessor(root, root->pair.first);
+		// Case 2
+		else if (is_sentinel(root->left)){
 
-			root->pair = p->pair;
-			root->right = BTree_deleteNode(root->right, p->pair.first, alloc);
-			return (root);
+			ft::BTree<T>* papa= root->parent;
+
+			if (root == root->parent->left)
+				root->parent->left = root->right;
+			else if (root == root->parent->right)
+				root->parent->right = root->right;
+			root->right->parent = papa;
+			free_Node_OneSentinel_A(root, root->left, node_alloc);
+			updateBalance(_root, papa);
+			return ;
 		}
+		else if (is_sentinel(root->right)){
+
+			ft::BTree<T>* papa= root->parent;
+
+			if (root == root->parent->left)
+				root->parent->left = root->left;
+			else if (root == root->parent->right)
+				root->parent->right = root->left;
+			root->left->parent = papa;
+			free_Node_OneSentinel_A(root, root->right, node_alloc);
+			updateBalance(_root, papa);
+			return ;
+		}
+		// case 3 // Hijos a ambos lados
+		else {
+			std::cout << "voy por aca AMBPS\n";
+
+
+			ft::BTree<T>* tmp = BTree_minNode(root->right);
+
+			pair_alloc.destroy(root->pair);
+			pair_alloc.deallocate(root->pair, 1);
+
+			root->pair = tmp->pair;
+
+			BTree_deleteNode_A(_root, root->right, tmp->pair->first, node_alloc, pair_alloc);
+			return ;
+		}
+
 	}
-	else if (key > root->pair.first)
-		root->right = BTree_deleteNode(root->right, key, alloc);
-	else
-		root->left = BTree_deleteNode(root->left, key, alloc);
-	return (root);
+	else if (key > root->pair->first)
+		return (BTree_deleteNode_A(_root, root->right, key, node_alloc, pair_alloc));
+	return (BTree_deleteNode_A(_root, root->left, key, node_alloc, pair_alloc));
+}
+
+
+
+
+
+template <class T, class Alloc1, class Alloc2>
+void	BTree_deleteNode(ft::BTree<T> **_root, ft::BTree<T> *root,
+		int key, Alloc1 node_alloc, Alloc2 pair_alloc) {
+
+	if (!root || is_sentinel(root))
+		return ;
+	if (key == root->pair->first) {
+		// case 1
+		if (is_sentinel(root->left) && is_sentinel(root->right)) {
+
+			ft::BTree<T>* tmp_setinel = root->right;
+			ft::BTree<T>* papa= root->parent;
+
+			if (root->parent == NULL) {
+				BTree_PostOrder_free(root, node_alloc, pair_alloc);
+				(*_root) = NULL;
+				return ;
+			}
+			if (root == root->parent->left)
+				root->parent->left = tmp_setinel;
+			else if (root == root->parent->right)
+				root->parent->right = tmp_setinel;
+			tmp_setinel->parent = papa;
+			free_Node_OneSentinel(root, root->left, node_alloc, pair_alloc);
+			updateBalance_Del(_root, papa);
+			return ;
+		}
+		// Case 2
+		else if (is_sentinel(root->left)){
+
+			ft::BTree<T>* papa= root->parent;
+
+			if (root->parent == NULL)
+				(*_root) = root->right;
+			else if (root == root->parent->left)
+				root->parent->left = root->right;
+			else if (root == root->parent->right)
+				root->parent->right = root->right;
+			root->right->parent = papa;
+			free_Node_OneSentinel(root, root->left, node_alloc, pair_alloc);
+			updateBalance(_root, papa);
+			return ;
+		}
+		else if (is_sentinel(root->right)){
+
+			ft::BTree<T>* papa= root->parent;
+
+			if (root->parent == NULL)
+				(*_root) = root->left;
+			else if (root == root->parent->left)
+				root->parent->left = root->left;
+			else if (root == root->parent->right)
+				root->parent->right = root->left;
+			root->left->parent = papa;
+			free_Node_OneSentinel(root, root->right, node_alloc, pair_alloc);
+			updateBalance(_root, papa);
+			return ;
+		}
+		// case 3 // Hijos a ambos lados
+		else {
+			ft::BTree<T>* tmp = BTree_minNode(root->right);
+
+			pair_alloc.destroy(root->pair);
+			pair_alloc.deallocate(root->pair, 1);
+
+			root->pair = tmp->pair;
+
+			BTree_deleteNode_A(_root, root->right, tmp->pair->first, node_alloc, pair_alloc);
+			return ;
+		}
+
+	}
+	else if (key > root->pair->first)
+		return (BTree_deleteNode(_root, root->right, key, node_alloc, pair_alloc));
+	return (BTree_deleteNode(_root, root->left, key, node_alloc, pair_alloc));
 }
 
 
