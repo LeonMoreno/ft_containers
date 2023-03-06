@@ -104,7 +104,7 @@ void	BTree_deleteNode_A(ft::BTree<T> **_root, ft::BTree<T> *root,
 				root->parent->right = root->right;
 			root->right->parent = papa;
 			free_Node_OneSentinel_A(root, root->left, node_alloc);
-			updateBalance(_root, papa);
+			updateBalance_Del(_root, papa);
 			return ;
 		}
 		else if (is_sentinel(root->right)){
@@ -117,12 +117,12 @@ void	BTree_deleteNode_A(ft::BTree<T> **_root, ft::BTree<T> *root,
 				root->parent->right = root->left;
 			root->left->parent = papa;
 			free_Node_OneSentinel_A(root, root->right, node_alloc);
-			updateBalance(_root, papa);
+			updateBalance_Del(_root, papa);
 			return ;
 		}
 		// case 3 // Hijos a ambos lados
 		else {
-			std::cout << "voy por aca AMBPS\n";
+			// std::cout << "voy por aca AMBPS\n";
 
 
 			ft::BTree<T>* tmp = BTree_minNode(root->right);
@@ -156,6 +156,9 @@ void	BTree_deleteNode(ft::BTree<T> **_root, ft::BTree<T> *root,
 		// case 1
 		if (is_sentinel(root->left) && is_sentinel(root->right)) {
 
+		// std::cout << "case_1 = " << root->pair->first << std::endl;
+
+
 			ft::BTree<T>* tmp_setinel = root->right;
 			ft::BTree<T>* papa= root->parent;
 
@@ -164,10 +167,17 @@ void	BTree_deleteNode(ft::BTree<T> **_root, ft::BTree<T> *root,
 				(*_root) = NULL;
 				return ;
 			}
-			if (root == root->parent->left)
+			if (root == root->parent->left) {
+				// std::cout << "root = root->papa->left bf = " <<  papa->bf << std::endl;
+				papa->bf =+ 1;
 				root->parent->left = tmp_setinel;
-			else if (root == root->parent->right)
+				// std::cout << "root = root->papa->left bf = " <<  papa->bf << std::endl;
+
+			}
+			else if (root == root->parent->right) {
+				papa->bf =- 1;
 				root->parent->right = tmp_setinel;
+			}
 			tmp_setinel->parent = papa;
 			free_Node_OneSentinel(root, root->left, node_alloc, pair_alloc);
 			updateBalance_Del(_root, papa);
@@ -176,17 +186,24 @@ void	BTree_deleteNode(ft::BTree<T> **_root, ft::BTree<T> *root,
 		// Case 2
 		else if (is_sentinel(root->left)){
 
+		// std::cout << "case_2 = " << root->pair->first << std::endl;
+
+
 			ft::BTree<T>* papa= root->parent;
 
 			if (root->parent == NULL)
 				(*_root) = root->right;
-			else if (root == root->parent->left)
+			else if (root == root->parent->left) {
+				papa->bf =+ 1;
 				root->parent->left = root->right;
-			else if (root == root->parent->right)
+			}
+			else if (root == root->parent->right) {
+				papa->bf =- 1;
 				root->parent->right = root->right;
+			}
 			root->right->parent = papa;
 			free_Node_OneSentinel(root, root->left, node_alloc, pair_alloc);
-			updateBalance(_root, papa);
+			updateBalance_Del(_root, papa);
 			return ;
 		}
 		else if (is_sentinel(root->right)){
@@ -195,17 +212,23 @@ void	BTree_deleteNode(ft::BTree<T> **_root, ft::BTree<T> *root,
 
 			if (root->parent == NULL)
 				(*_root) = root->left;
-			else if (root == root->parent->left)
-				root->parent->left = root->left;
-			else if (root == root->parent->right)
+			else if (root == root->parent->left) {
+				papa->bf =+ 1;
+				papa->left = root->left;
+			}
+			else if (root == root->parent->right) {
+				papa->bf =- 1;
 				root->parent->right = root->left;
+			}
 			root->left->parent = papa;
 			free_Node_OneSentinel(root, root->right, node_alloc, pair_alloc);
-			updateBalance(_root, papa);
+			updateBalance_Del(_root, papa);
 			return ;
 		}
 		// case 3 // Hijos a ambos lados
 		else {
+			// std::cout << "case 3 Pares " << root->pair->first << std::endl;
+
 			ft::BTree<T>* tmp = BTree_minNode(root->right);
 
 			pair_alloc.destroy(root->pair);

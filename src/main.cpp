@@ -81,17 +81,27 @@ void	map_construct(void) {
 
 	ft::map<int, int> mp;
 
-	// for (int i = 1, j = 0; i < 30 * _ratio; ++i, ++j) {
-	for (int i = 1, j = 0; i < 1 * 3; ++i, ++j) {
+	for (int i = 1, j = 0; i < 30 * _ratio; ++i, ++j) {
+	// for (int i = 1, j = 0; i < 1 * 13; ++i, ++j) {
 		mp.insert(ft::make_pair(i, j));
 	}
 
 	ft::map<int, int>::iterator it = mp.begin();
 
-	for (; it != mp.end(); it = mp.begin())
+	// std::cout << "\n INIT ArbOL \n ";
+	// mp.prinBTree();
+
+	for ( ; it != mp.end(); it = mp.begin()) {
+		// std::cout << " \n erase = " << it->first << std::endl;
 		mp.erase(it->first);
 
-	// mp.prinBTree();
+		// std::cout << " \n ArbOL \n ";
+		// mp.prinBTree();
+
+	}
+
+
+
 
 
 }
@@ -153,6 +163,8 @@ int	main()
 
 
 	// leo.prinBTree();
+	std::cout << "Map FINITO\n";
+
 
 
 	return (0);

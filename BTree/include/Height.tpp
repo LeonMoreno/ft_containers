@@ -67,16 +67,6 @@ void	updateBalance_Del(ft::BTree<T> **root ,ft::BTree<T>* node) {
 		CheckRebalance(root, node);
 		return ;
 	}
-
-	if (node->parent != NULL) {
-
-		if (node == node->parent->left)
-			node->parent->bf += 1;
-		else if (node == node->parent->right)
-			node->parent->bf -= 1;
-		// if (node->parent->bf != 0)
-		updateBalance_Del(root, node->parent);
-	}
 }
 
 #endif
