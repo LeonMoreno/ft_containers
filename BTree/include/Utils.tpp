@@ -139,7 +139,7 @@ void	BTree_PostOrder_free(ft::BTree<T>* root, Alloc1 node_alloc, Alloc2 pair_all
 	}
 	node_alloc.destroy(root);
 	node_alloc.deallocate(root, 1);
-	// std::cout << " Deallocat node " << root << std::endl;
+	// std::cout << " Deallocat node " << root->pair << std::endl;
 }
 
 template <class T, class Alloc1, class Alloc2>

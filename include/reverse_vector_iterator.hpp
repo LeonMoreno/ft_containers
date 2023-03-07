@@ -5,114 +5,124 @@
 
 namespace ft {
 
-	/*		https://cplusplus.com/reference/iterator/reverse_vector_iterator/				*/
+	/*		std::reverse_iterator is an iterator adaptor that reverses the direction of a given iterator,
+			which must be at least a LegacyBidirectionalIterator or model bidirectional_iterator (since C++20).
+			In other words, when provided with a bidirectional iterator, std::reverse_iterator produces a
+			new iterator that moves from the end to the beginning of the sequence defined by the underlying bidirectional
+			iterator.
 
-	template <typename T>
+			https://cplusplus.com/reference/iterator/reverse_vector_iterator/
+			https://en.cppreference.com/w/cpp/iterator/reverse_iterator		*/
+
+	template <class T>
 	class reverse_vector_iterator
 	{
 		public:
 			/*---------------VECTOR ITERATOR TYPEDEFS (iterator traits - las propiedades del iterator)-------- */
 
-			// typedef	T													iterator_type;
-			// typedef typename ft::iterator_traits<T>::value_type			value_type;
-			// typedef typename ft::iterator_traits<T>::difference_type	difference_type;
-			// typedef typename ft::iterator_traits<T>::iterator_category	iterator_category;
-			// typedef typename ft::iterator_traits<T>::pointer			pointer;
-			// typedef typename ft::iterator_traits<T>::reference			reference;
+			// (until C++20)
+			typedef	T													iterator_type;
+			typedef typename ft::iterator_traits<T>::iterator_category	iterator_category;
+			typedef typename ft::iterator_traits<T>::value_type			value_type;
+			typedef typename ft::iterator_traits<T>::difference_type	difference_type;
+			typedef typename ft::iterator_traits<T>::pointer			pointer;
+			typedef typename ft::iterator_traits<T>::reference			reference;
 
-			typedef T									iterator_type;
-			typedef typename T::iterator_category		iterator_category;
-			typedef typename T::value_type			value_type;
-			typedef typename T::difference_type		difference_type;
-			typedef typename T::pointer				pointer;
-			typedef typename T::reference				reference;
+			// typedef T									iterator_type;
+			// typedef typename T::iterator_category		iterator_category;
+			// typedef typename T::value_type			value_type;
+			// typedef typename T::difference_type		difference_type;
+			// typedef typename T::pointer				pointer;
+			// typedef typename T::reference				reference;
 
 			/*---------------Constructor and Destructors ----------------------------------------------------- */
 
-			reverse_vector_iterator(void) : _reverse_ptr() {  } /* por si aca ??*/
+			reverse_vector_iterator(void) : _reverse() {  } /* por si aca ??*/
 
-			explicit reverse_vector_iterator(iterator_type it) : _reverse_ptr(it) {   } /* default constructor */
+			explicit reverse_vector_iterator(iterator_type it) : _reverse(it) {   } /* default constructor */
 
-			reverse_vector_iterator(const reverse_vector_iterator &copy) : _reverse_ptr(copy.base()) { } /* copy constructor */
+			reverse_vector_iterator(const reverse_vector_iterator &copy) : _reverse(copy._reverse) { } /* copy constructor */
 
 			template <class Iter>
-			reverse_vector_iterator (const reverse_vector_iterator<Iter>& rev_it) : _reverse_ptr(rev_it.base()) { }
+			reverse_vector_iterator (const reverse_vector_iterator<Iter>& rev_it) : _reverse(rev_it.base()) { }
 
 			~reverse_vector_iterator() { };
 
 			/*--------------- Getters and Setters-------------------------------------------------------------- */
 
-			iterator_type base() const { return (_reverse_ptr); } // Revisar.
+			iterator_type base() const { return (_reverse); } // Revisar.
 
 			/*---------------Assignment OPERADORES-------------------------------------------------------------------------- */
 
 			reverse_vector_iterator& operator=(reverse_vector_iterator const &rhs) {
 
-				_reverse_ptr = rhs.base();
+				_reverse = rhs.base();
 				return (*this);
 			}
 
 			/*--------------- Vector MEMBER OPERADORES overload REVERSE ITERATOR--------------------------------------------- */
 
 			/* -- Can be dereferenced. deferencia para obtener su valor  */
-			reference operator*(void) const { return *iterator_type(_reverse_ptr); }
+			reference operator*(void) const {
+				iterator_type tmp = this->_reverse;
 
-			pointer operator->() const { return (_reverse_ptr); }
+				return *(tmp);
+			}
+
+			pointer operator->() const { return &(operator*()); }
 
 			reverse_vector_iterator operator+(difference_type n) const {
 
-				_reverse_ptr - n;
-				 return (*this);
-			}
-
-			reverse_vector_iterator& operator++(void) {
-				_reverse_ptr--;
-				 return (*this);
-			}
-
-			reverse_vector_iterator& operator++(int) {
-
-				reverse_vector_iterator ti = *this;
-				_reverse_ptr--;
-				 return (*this);
-			}
-
-			reverse_vector_iterator& operator+= (difference_type n)  {
-
-				_reverse_ptr -= n;
+				_reverse - n;
 				 return (*this);
 			}
 
 			reverse_vector_iterator operator- (difference_type n) const {
 
-				_reverse_ptr + n;
+				_reverse + n;
 				 return (*this);
 			}
 
-			reverse_vector_iterator& operator--() {
-				_reverse_ptr++;
-				 return (*this);
-			}
+			reverse_vector_iterator& operator+= (difference_type n)  {
 
-			reverse_vector_iterator  operator--(int) {
-
-				reverse_vector_iterator temp = *this;
-				_reverse_ptr++;
+				_reverse -= n;
 				 return (*this);
 			}
 
 			reverse_vector_iterator& operator-= (difference_type n) {
 
-				_reverse_ptr += n;
+				_reverse += n;
 				 return (*this);
 			}
 
-			reference operator[] (difference_type n) const { return (_reverse_ptr - n - 1); }
+			reverse_vector_iterator& operator++(void) {
+				_reverse--;
+				 return (*this);
+			}
 
+			reverse_vector_iterator operator++(int) {
 
+				reverse_vector_iterator ti = *this;
+				this->_reverse--;
+				 return (ti);
+			}
+
+			reverse_vector_iterator& operator--() {
+				_reverse++;
+				 return (*this);
+			}
+
+			reverse_vector_iterator  operator--(int) {
+
+				reverse_vector_iterator ti = *this;
+				_reverse++;
+				 return (ti);
+			}
+
+			reference operator[] (difference_type n) const { return (_reverse - n - 1); }
 
 			protected:
-				iterator_type		_reverse_ptr;
+				iterator_type		_reverse;
 
 	};
 

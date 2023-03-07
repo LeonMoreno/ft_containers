@@ -70,6 +70,9 @@ template <class T, class Alloc1, class Alloc2>
 void	BTree_deleteNode_A(ft::BTree<T> **_root, ft::BTree<T> *root,
 		int key, Alloc1 node_alloc, Alloc2 pair_alloc) {
 
+	// std::cout << "O SORPRESA ENTRO ACA = " << std::endl;
+
+
 	if (!root || is_sentinel(root))
 		return ;
 	if (key == root->pair->first) {
@@ -146,13 +149,14 @@ void	BTree_deleteNode_A(ft::BTree<T> **_root, ft::BTree<T> *root,
 
 
 
-template <class T, class Alloc1, class Alloc2>
+template <class T, class Alloc1, class Alloc2, class Compare>
 void	BTree_deleteNode(ft::BTree<T> **_root, ft::BTree<T> *root,
-		int key, Alloc1 node_alloc, Alloc2 pair_alloc) {
+		T key, Alloc1 node_alloc, Alloc2 pair_alloc, Compare compe) {
 
 	if (!root || is_sentinel(root))
 		return ;
-	if (key == root->pair->first) {
+	// if (key == root->pair->first) {
+	if (is_equal(root, key, compe)) {
 		// case 1
 		if (is_sentinel(root->left) && is_sentinel(root->right)) {
 
@@ -169,13 +173,13 @@ void	BTree_deleteNode(ft::BTree<T> **_root, ft::BTree<T> *root,
 			}
 			if (root == root->parent->left) {
 				// std::cout << "root = root->papa->left bf = " <<  papa->bf << std::endl;
-				papa->bf =+ 1;
+				papa->bf += 1;
 				root->parent->left = tmp_setinel;
 				// std::cout << "root = root->papa->left bf = " <<  papa->bf << std::endl;
 
 			}
 			else if (root == root->parent->right) {
-				papa->bf =- 1;
+				papa->bf -= 1;
 				root->parent->right = tmp_setinel;
 			}
 			tmp_setinel->parent = papa;
@@ -194,11 +198,11 @@ void	BTree_deleteNode(ft::BTree<T> **_root, ft::BTree<T> *root,
 			if (root->parent == NULL)
 				(*_root) = root->right;
 			else if (root == root->parent->left) {
-				papa->bf =+ 1;
+				papa->bf += 1;
 				root->parent->left = root->right;
 			}
 			else if (root == root->parent->right) {
-				papa->bf =- 1;
+				papa->bf += 1;
 				root->parent->right = root->right;
 			}
 			root->right->parent = papa;
@@ -213,11 +217,11 @@ void	BTree_deleteNode(ft::BTree<T> **_root, ft::BTree<T> *root,
 			if (root->parent == NULL)
 				(*_root) = root->left;
 			else if (root == root->parent->left) {
-				papa->bf =+ 1;
+				papa->bf += 1;
 				papa->left = root->left;
 			}
 			else if (root == root->parent->right) {
-				papa->bf =- 1;
+				papa->bf -= 1;
 				root->parent->right = root->left;
 			}
 			root->left->parent = papa;
@@ -241,9 +245,10 @@ void	BTree_deleteNode(ft::BTree<T> **_root, ft::BTree<T> *root,
 		}
 
 	}
-	else if (key > root->pair->first)
-		return (BTree_deleteNode(_root, root->right, key, node_alloc, pair_alloc));
-	return (BTree_deleteNode(_root, root->left, key, node_alloc, pair_alloc));
+	// else if (key > root->pair->first)
+	else if (compe(*root->pair, key))
+		return (BTree_deleteNode(_root, root->right, key, node_alloc, pair_alloc, compe));
+	return (BTree_deleteNode(_root, root->left, key, node_alloc, pair_alloc, compe));
 }
 
 

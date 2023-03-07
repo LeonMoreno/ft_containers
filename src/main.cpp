@@ -76,54 +76,87 @@ void	vec_construct(void)
 	usleep(500000);
 }
 
-void	map_construct(void) {
-	std::cout << "Map Construct\n";
+void	map_stl(void) {
+	std::cout << "Map STL\n";
 
-	ft::map<int, int> mp;
-
-	for (int i = 1, j = 0; i < 30 * _ratio; ++i, ++j) {
-	// for (int i = 1, j = 0; i < 1 * 13; ++i, ++j) {
-		mp.insert(ft::make_pair(i, j));
-	}
-
-	ft::map<int, int>::iterator it = mp.begin();
-
-	// std::cout << "\n INIT ArbOL \n ";
-	// mp.prinBTree();
-
-	for ( ; it != mp.end(); it = mp.begin()) {
-		// std::cout << " \n erase = " << it->first << std::endl;
-		mp.erase(it->first);
-
-		// std::cout << " \n ArbOL \n ";
-		// mp.prinBTree();
-
-	}
+	std::map<int, int> mp;
+	// std::map<int, int, std::greater<int> > mp2;
+    // std::vector<int> v;
 
 
+	mp.insert(std::make_pair(10, 10));
+	// mp2.insert(std::make_pair(10, 10));
+	// if (mp.lower_bound(11) == mp.end())
+    //     v.push_back(1);
+    // if (mp2.lower_bound(1) == mp2.end())
+    //     v.push_back(1);
+	mp.insert(std::make_pair(20, 20));
+    mp.insert(std::make_pair(30, 30));
+    mp.insert(std::make_pair(40, 40));
+    mp.insert(std::make_pair(50, 50));
+    mp.insert(std::make_pair(60, 60));
+    // mp2.insert(std::make_pair(20, 20));
+    // mp2.insert(std::make_pair(30, 30));
+    // mp2.insert(std::make_pair(40, 40));
+    // mp2.insert(std::make_pair(50, 50));
+    // mp2.insert(std::make_pair(60, 60));
 
 
+
+
+    std::map<int, int>::iterator it;
+
+	for (it = mp.begin(); it != mp.end(); it++)
+		std::cout << it->first << " " ;
+	std::cout << std::endl;
+
+	it = mp.upper_bound(1);
+
+	std::cout << "Upper = " << it->first << std::endl;
+
+	std::pair<std::map<int, int>::iterator, std::map<int, int>::iterator > ret;
+	ret =  mp.equal_range(1);
+
+
+	std::cout << "Equal = " << ret.first->first << std::endl;
+
+	// for (int i = 1; i < 60; i += 10) {
+	// 	std::cout << "i = " << i << std::endl;
+    //     it = mp.lower_bound(i);
+    //     v.push_back(it->first);
+    // }
+
+	// std::vector<int>::iterator itv;
+
+	// for (itv = v.begin(); itv != v.end(); itv++)
+	// 	std::cout << *itv << " ";
+	// std::cout << std::endl;
 
 }
 
-void	map_test() {
+void	map_ft() {
 
-	std::map<int, int> leo;
+	std::cout << "Map FT\n";
 
-	leo.insert(std::pair<int, int>(98, 98) );
-	leo.insert(std::pair<int, int>(38, 4) );
-	leo.insert(std::pair<int, int>(74, 4) );
+	ft::map<int, int > mp;
 
-	std::map<int, int> andy;
+	mp.insert(ft::make_pair(10, 10));
+	mp.insert(ft::make_pair(20, 20));
+    mp.insert(ft::make_pair(30, 30));
+    mp.insert(ft::make_pair(40, 40));
+    mp.insert(ft::make_pair(50, 50));
+    mp.insert(ft::make_pair(60, 60));
 
-	andy.insert(std::pair<int, int>(98, 7) );
-	andy.insert(std::pair<int, int>(38, 4) );
-	andy.insert(std::pair<int, int>(74, 4) );
+	ft::map<int, int>::iterator itm = mp.begin();
 
-	bool min = andy < leo;
+	// for ( ; itm != mp.end(); itm++)
+	// 	std::cout << itm->first << ' ';
 
-	std::cout << "std___ Menor ? " << min << std::endl;
+	// std::cout << std::endl;
 
+ 	// itm = mp.lower_bound(7);
+
+	mp.erase(20);
 
 }
 
@@ -133,8 +166,12 @@ int	main()
 	// std::cout << std::endl << BYEL << "######################## FT_MAP ###############################" << RESET << std::endl;
 	// usleep(520000);
 	// vec_construct();
-	// map_test();
-	map_construct();
+
+
+
+	// map_stl();
+
+	map_ft();
 
 	// ft::map<int, int> leo;
 

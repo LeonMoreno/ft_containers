@@ -118,6 +118,10 @@ namespace ft {
 				return (this->_node_ptr->pair);
 			}
 
+			pointer operator->(void) const {
+				return (this->_node_ptr->pair);
+			}
+
 
 			//--------------- HELPER FUNCIONS----------------------------------------
 

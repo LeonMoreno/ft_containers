@@ -194,6 +194,17 @@ namespace ft
 			return (pair_iterator->second);
 		}
 
+		mapped_type& at (const key_type& k) {
+
+			iterator it;
+
+			it = this->find(k);
+			if (it != this->end())
+				return ((*it).second);
+			else
+				throw std::out_of_range("key not present");
+		}
+
 //---------------------------Modifiers----------------------------------------//
 
 
@@ -241,13 +252,39 @@ namespace ft
 
 		void clear() {
 			BTree_PostOrder_free(_root, _node_alloc, _alloc);
+			_root = NULL;
 			_size = 0;
 		}
 
+		 void erase (iterator position) {
+			this->erase(position->first);
+		 }
+
 		size_type erase (const key_type& k) {
-			BTree_deleteNode<value_type>(&_root, _root, k, _node_alloc, _alloc);
+
+			iterator it = this->find(k);
+
+			if (it == this->end())
+				return (0);
+			BTree_deleteNode<value_type>(&_root, _root, ft::make_pair(k, mapped_type()), _node_alloc, _alloc, value_compare(_compare));
 			_size--;
 			return(1);
+		}
+
+		void erase (iterator first, iterator last) {
+
+			value_type	*next_pair;
+			iterator	temp;
+
+			while (first != last) {
+				temp = first;
+				next_pair = &(*(++temp));
+				this->erase(first);
+				if (next_pair)
+					first = find(next_pair->first);
+				else
+					first = last;
+			}
 		}
 
 		void	TraverseTreePre() {
@@ -264,9 +301,9 @@ namespace ft
 			return (key_compare(key_compare()));
 		}
 
-		// value_compare value_comp() const {
-
-		// }
+		value_compare value_comp() const {
+			return (value_compare(_compare));
+		}
 
 		void prinBTree() {
 			BTree_Print(_root, "", false);
@@ -285,20 +322,94 @@ namespace ft
 			return(iterator(this->end()));
 		 }
 
-		 iterator upper_bound (const key_type& key)
-			{
-				iterator node;
+		 const_iterator find (const key_type& k) const {
 
-				node = find(key);
+			ft::BTree<value_type>* ptr_to_find = NULL;
 
-				ft::BTree<value_type>* suce = node.get_node();
-				ft::BTree<value_type>* suce2 = node.get_node();
+			ptr_to_find = BTree_find<value_type>(_root, ft::make_pair(k, mapped_type()), value_compare(_compare));
 
-				suce2 = BTree_NodeSuccessor(suce);
+			if (ptr_to_find)
+				return (const_iterator(ptr_to_find));
+			return(const_iterator(this->end()));
 
+		 }
 
-				return (iterator(suce2));
+		 size_type count (const key_type& k) const {
+
+			iterator it;
+
+			it = find(k);
+			if (it == this->end())
+				return (0);
+			return (1);
+		 }
+
+		iterator lower_bound(const Key& key) {
+
+			iterator itb = begin();
+			iterator itf = end();
+
+			while (itb != itf) {
+				if (!_compare(itb.get_node()->pair->first, key))
+					break;
+				itb++;
 			}
+			return (itb);
+		}
+
+		const_iterator lower_bound (const key_type& k) const {
+
+			const_iterator itb = begin();
+			const_iterator itf = end();
+
+			while (itb != itf) {
+				if (!_compare(itb.get_node()->pair->first, k))
+					break;
+				itb++;
+			}
+			return (itb);
+		}
+
+		/**
+		 * @brief  The function uses its internal comparison object (key_comp) to determine this,
+		 * returning an iterator to the first element for which key_comp(k,element_key) would return true.
+		 * @param k
+		 * @return iterator
+		 */
+		iterator upper_bound (const key_type& k) {
+
+			iterator itb = begin();
+			iterator itf = end();
+
+			while (itb != itf) {
+				if (_compare(k, itb.get_node()->pair->first))
+					break;
+				itb++;
+			}
+			return (itb);
+		 }
+
+		 const_iterator upper_bound (const key_type& k) const {
+
+			const_iterator itb = begin();
+			const_iterator itf = end();
+
+			while (itb != itf) {
+				if (_compare(k, itb.get_node()->pair->first))
+					break;
+				itb++;
+			}
+			return (itb);
+		 }
+
+		ft::pair<const_iterator, const_iterator> equal_range (const key_type& k) const {
+			return (ft::pair<const_iterator, const_iterator>(this->lower_bound(k), this->upper_bound(k)));
+		}
+
+		ft::pair<iterator, iterator> equal_range (const key_type& k)
+		{
+			return (ft::pair<iterator, iterator>(this->lower_bound(k), this->upper_bound(k)));
+		}
 
 
 
