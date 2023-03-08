@@ -80,57 +80,23 @@ void	map_stl(void) {
 	std::cout << "Map STL\n";
 
 	std::map<int, int> mp;
-	// std::map<int, int, std::greater<int> > mp2;
-    // std::vector<int> v;
 
+	mp.insert(std::pair<int, int>(37, 98) );
+	mp.insert(std::pair<int, int>(40, 4) );
+	mp.insert(std::pair<int, int>(41, 4) );
 
-	mp.insert(std::make_pair(10, 10));
-	// mp2.insert(std::make_pair(10, 10));
-	// if (mp.lower_bound(11) == mp.end())
-    //     v.push_back(1);
-    // if (mp2.lower_bound(1) == mp2.end())
-    //     v.push_back(1);
-	mp.insert(std::make_pair(20, 20));
-    mp.insert(std::make_pair(30, 30));
-    mp.insert(std::make_pair(40, 40));
-    mp.insert(std::make_pair(50, 50));
-    mp.insert(std::make_pair(60, 60));
-    // mp2.insert(std::make_pair(20, 20));
-    // mp2.insert(std::make_pair(30, 30));
-    // mp2.insert(std::make_pair(40, 40));
-    // mp2.insert(std::make_pair(50, 50));
-    // mp2.insert(std::make_pair(60, 60));
-
-
-
-
-    std::map<int, int>::iterator it;
+	std::map<int, int>::iterator it;
 
 	for (it = mp.begin(); it != mp.end(); it++)
-		std::cout << it->first << " " ;
+		std::cout << it->first << " ";
+
 	std::cout << std::endl;
 
-	it = mp.upper_bound(1);
+	// std::map<int, int>::reverse_iterator rit = mp.rbegin();
+	std::map<int, int>::reverse_iterator rit2 = mp.rend();
 
-	std::cout << "Upper = " << it->first << std::endl;
+	std::cout  << "reverse_ rend STD " << rit2->first << std::endl;
 
-	std::pair<std::map<int, int>::iterator, std::map<int, int>::iterator > ret;
-	ret =  mp.equal_range(1);
-
-
-	std::cout << "Equal = " << ret.first->first << std::endl;
-
-	// for (int i = 1; i < 60; i += 10) {
-	// 	std::cout << "i = " << i << std::endl;
-    //     it = mp.lower_bound(i);
-    //     v.push_back(it->first);
-    // }
-
-	// std::vector<int>::iterator itv;
-
-	// for (itv = v.begin(); itv != v.end(); itv++)
-	// 	std::cout << *itv << " ";
-	// std::cout << std::endl;
 
 }
 
@@ -138,28 +104,35 @@ void	map_ft() {
 
 	std::cout << "Map FT\n";
 
-	ft::map<int, int > mp;
+	ft::map<int, int> leo;
 
-	mp.insert(ft::make_pair(10, 10));
-	mp.insert(ft::make_pair(20, 20));
-    mp.insert(ft::make_pair(30, 30));
-    mp.insert(ft::make_pair(40, 40));
-    mp.insert(ft::make_pair(50, 50));
-    mp.insert(ft::make_pair(60, 60));
+	leo.insert(ft::pair<int, int>(37, 98) );
+	leo.insert(ft::pair<int, int>(40, 4) );
+	leo.insert(ft::pair<int, int>(41, 4) );
 
-	ft::map<int, int>::iterator itm = mp.begin();
+	leo.prinBTree();
 
-	// for ( ; itm != mp.end(); itm++)
-	// 	std::cout << itm->first << ' ';
+	ft::map<int, int>::iterator it;
 
-	// std::cout << std::endl;
+	for (it = leo.begin(); it != leo.end(); it++)
+		std::cout << it->first << " ";
 
- 	// itm = mp.lower_bound(7);
+	std::cout << std::endl;
 
-	mp.erase(20);
+	ft::map<int, int>::reverse_iterator rit = leo.rbegin();
+	ft::map<int, int>::reverse_iterator rit2 = leo.rend();
+
+	std::cout << "reverse_ rbegin ft " << rit->first << std::endl;
+	rit++;
+	rit2--;
+	std::cout << "reverse_ rbegin ft " << rit->first << std::endl;
+	std::cout << "reverse_ rend ft " << rit2->first << std::endl;
+
+
+
+
 
 }
-
 
 int	main()
 {
@@ -167,42 +140,12 @@ int	main()
 	// usleep(520000);
 	// vec_construct();
 
-
-
 	// map_stl();
 
 	map_ft();
 
-	// ft::map<int, int> leo;
-
-	// leo.insert(ft::pair<int, int>(37, 98) );
-	// leo.insert(ft::pair<int, int>(40, 4) );
-	// leo.insert(ft::pair<int, int>(41, 4) );
-	// leo.insert(ft::pair<int, int>(38, 4) );
-	// leo.insert(ft::pair<int, int>(31, 7) );
-	// leo.insert(ft::pair<int, int>(25, 7) );
-	// leo.insert(ft::pair<int, int>(34, 7) );
-	// leo.insert(ft::pair<int, int>(7, 7) );
-	// leo.insert(ft::pair<int, int>(74, 7) );
-	// leo.insert(ft::pair<int, int>(93, 7) );
-	// leo.insert(ft::pair<int, int>(92, 7) );
-	// leo.insert(ft::pair<int, int>(75, 7) );
-	// leo.insert(ft::pair<int, int>(99, 7) );
-	// leo.insert(ft::pair<int, int>(98, 7) );
-	// leo.insert(ft::pair<int, int>(101, 7) );
-	// leo.insert(ft::pair<int, int>(105, 7) );
-
-	// leo.prinBTree();
-	// leo.TraverseTreeIn();
-
-	// leo.erase(37);
-
-
-
 	// leo.prinBTree();
 	std::cout << "Map FINITO\n";
-
-
 
 	return (0);
 }

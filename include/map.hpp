@@ -141,18 +141,23 @@ namespace ft
 			return (const_iterator(BTree_endInOrder(_root)));
 		 }
 
+
+		// reverse IT # Aqui hago --this->end() para que end no sea el sentinela.
 		reverse_iterator rbegin() {
 			return reverse_iterator(--this->end());
-		}
-
-		reverse_iterator rend(void) {
-				return reverse_iterator(--this->begin());
 		}
 
 		const_reverse_iterator rbegin(void) const
 		{
 			return const_reverse_iterator(--this->end());
 		}
+
+
+		// Aqui hago --this->begin() para que begin SI sea el sentinela.
+		reverse_iterator rend(void) {
+				return reverse_iterator(--this->begin());
+		}
+
 
 		const_reverse_iterator rend(void) const
 		{

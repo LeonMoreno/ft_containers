@@ -98,11 +98,25 @@ namespace ft {
 
 			map_iterator operator--(void) {
 
+				node_pointer root = findRoot(_node_ptr);
+
+				if (BTree_beginInOrder(root) == _node_ptr) {
+					_node_ptr = _node_ptr->left;
+					return (*this);
+				}
+
 				_node_ptr = BTree_NodePrev(_node_ptr);
 				return (*this);
 			}
 
 			map_iterator operator--(int) {
+
+				node_pointer root = findRoot(_node_ptr);
+
+				if (BTree_beginInOrder(root) == _node_ptr) {
+					_node_ptr = _node_ptr->left;
+					return (*this);
+				}
 
 				map_iterator temp = *this;
 				_node_ptr = BTree_NodePrev(_node_ptr);
