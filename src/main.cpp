@@ -76,58 +76,151 @@ void	vec_construct(void)
 	usleep(500000);
 }
 
+template <class C>
+void	fillMap(std::map<int, int, C> &mp) {
+
+	mp.insert(std::make_pair(16, 3));
+	mp.insert(std::make_pair(8, 3));
+	mp.insert(std::make_pair(23, 3));
+	mp.insert(std::make_pair(7, 3));
+	mp.insert(std::make_pair(19, 3));
+	mp.insert(std::make_pair(29, 3));
+	mp.insert(std::make_pair(41, 3));
+	mp.insert(std::make_pair(4, 3));
+	mp.insert(std::make_pair(11, 3));
+}
+
 void	map_stl(void) {
-	std::cout << "Map STL\n";
+	std::cout << " \n Map STL\n";
 
 	std::map<int, int> mp;
 
-	mp.insert(std::pair<int, int>(37, 98) );
-	mp.insert(std::pair<int, int>(40, 4) );
-	mp.insert(std::pair<int, int>(41, 4) );
+	fillMap(mp);
 
-	std::map<int, int>::iterator it;
-
-	for (it = mp.begin(); it != mp.end(); it++)
-		std::cout << it->first << " ";
-
+	std::cout << " Map_0 std::less (default) STL \n";
+	for (std::map<int, int>::iterator it = mp.begin(); it != mp.end(); it++)
+		std::cout << it->first << ' ';
 	std::cout << std::endl;
 
-	// std::map<int, int>::reverse_iterator rit = mp.rbegin();
-	std::map<int, int>::reverse_iterator rit2 = mp.rend();
+	for (std::map<int, int>::iterator it = --mp.end(); it != mp.begin(); it--)
+		std::cout << it->first << ' ';
+	std::cout << std::endl;
 
-	std::cout  << "reverse_ rend STD " << rit2->first << std::endl;
+    std::map<int, int, std::greater<int> > mp1;
+	fillMap(mp1);
+
+	std::cout << " Map_1 std::greater STL \n";
+	for (std::map<int, int>::iterator it = mp1.begin(); it != mp1.end(); it++)
+		std::cout << it->first << ' ';
+	std::cout << std::endl;
+
+	std::cout << mp1.begin()->first << std::endl;
+	mp1.erase(41);
+	std::cout << mp1.begin()->first << std::endl;
+	mp1.erase(29);
+	std::cout << mp1.begin()->first << std::endl;
+
+	std::cout << " Map_2 std::greater STL \n";
+
+	std::map<int, int, std::greater<int> > mp2;
+	mp2.insert(std::make_pair(3, 3));
+	std::cout << mp2.begin()->first << std::endl;
+	mp2.erase(3);
+	if (mp2.begin() == mp2.end())
+		std::cout << "por que ?? " << std::endl;
+
+	std::cout << " Map_3 std::plus STL \n";
+    std::map<int, int, std::minus<int> > mp3;
+    fillMap(mp3);
+	for (std::map<int, int>::iterator it = mp3.begin(); it != mp3.end(); it++)
+		std::cout << it->first << ' ';
+	std::cout << std::endl;
+
+
 
 
 }
 
+template <class C>
+void	fillMap(ft::map<int, int, C> &mp) {
+
+	mp.insert(ft::make_pair(16, 3));
+	mp.insert(ft::make_pair(8, 3));
+	mp.insert(ft::make_pair(23, 3));
+	mp.insert(ft::make_pair(7, 3));
+	mp.insert(ft::make_pair(19, 3));
+	mp.insert(ft::make_pair(29, 3));
+	mp.insert(ft::make_pair(41, 3));
+	mp.insert(ft::make_pair(4, 3));
+	mp.insert(ft::make_pair(11, 3));
+}
+
+
 void	map_ft() {
 
-	std::cout << "Map FT\n";
+	std::cout << "\n Map FT\n";
 
 	ft::map<int, int> leo;
 
-	leo.insert(ft::pair<int, int>(37, 98) );
-	leo.insert(ft::pair<int, int>(40, 4) );
-	leo.insert(ft::pair<int, int>(41, 4) );
+	fillMap(leo);
+	std::cout << " Map_0 std::less (default) FT \n";
 
-	leo.prinBTree();
-
-	ft::map<int, int>::iterator it;
-
-	for (it = leo.begin(); it != leo.end(); it++)
-		std::cout << it->first << " ";
-
+	for (ft::map<int, int>::iterator it = leo.begin(); it != leo.end(); it++)
+		std::cout << it->first << ' ';
+	std::cout << std::endl;
+	for (ft::map<int, int>::iterator it = --leo.end(); it != leo.begin(); it--)
+		std::cout << it->first << ' ';
 	std::cout << std::endl;
 
-	ft::map<int, int>::reverse_iterator rit = leo.rbegin();
-	ft::map<int, int>::reverse_iterator rit2 = leo.rend();
+	// leo.prinBTree();
 
-	std::cout << "reverse_ rbegin ft " << rit->first << std::endl;
-	rit++;
-	rit2--;
-	std::cout << "reverse_ rbegin ft " << rit->first << std::endl;
-	std::cout << "reverse_ rend ft " << rit2->first << std::endl;
 
+	ft::map<int, int, std::greater<int> > mp1;
+	fillMap(mp1);
+
+	std::cout << " Map_1 std::greater STL \n";
+	for (ft::map<int, int>::iterator it = mp1.begin(); it != mp1.end(); it++)
+		std::cout << it->first << ' ';
+	std::cout << std::endl;
+
+	std::cout << mp1.begin()->first << std::endl;
+	mp1.erase(41);
+	std::cout << mp1.begin()->first << std::endl;
+	mp1.erase(29);
+	std::cout << mp1.begin()->first << std::endl;
+
+	std::cout << " Map_2 std::greater STL \n";
+
+	ft::map<int, int, std::greater<int> > mp2;
+	mp2.insert(ft::make_pair(3, 3));
+	std::cout << mp2.begin()->first << std::endl;
+	mp2.erase(3);
+	if (mp2.begin() == mp2.end())
+		std::cout << "por que ?? " << mp2.begin().get_node() << std::endl;
+
+	std::cout << " Map_3 std::plus FT \n";
+    ft::map<int, int, std::minus<int> > mp3;
+    fillMap(mp3);
+	for (ft::map<int, int>::iterator it = mp3.begin(); it != mp3.end(); it++)
+		std::cout << it->first << ' ';
+	std::cout << std::endl;
+
+	// mp3.prinBTree();
+
+	/* situacion compare
+		-- Falla con --
+	- std::plus
+	- std::minus
+	- std::multiples
+	- std::bit_xor
+	- std::logical_and
+
+		-- BiEn con --
+	- std::greater
+	- std::less
+	- std::greater_equal
+
+	*/
 
 
 
@@ -140,7 +233,7 @@ int	main()
 	// usleep(520000);
 	// vec_construct();
 
-	// map_stl();
+	map_stl();
 
 	map_ft();
 

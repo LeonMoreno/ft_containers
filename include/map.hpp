@@ -5,7 +5,7 @@
 #include "utils.hpp"
 #include "map_iterator.hpp"
 #include "../BTree/include/BTree.hpp"
-#include "reverse_vector_iterator.hpp"
+#include "reverse_iterator.hpp"
 
 
 namespace ft
@@ -48,8 +48,8 @@ namespace ft
 		typedef std::size_t										size_type;
 		typedef std::ptrdiff_t									difference_type;
 
-		typedef	ft::reverse_vector_iterator<iterator>			reverse_iterator;
-		typedef	ft::reverse_vector_iterator<const_iterator>		const_reverse_iterator;
+		typedef	ft::reverse_iterator<iterator>			reverse_iterator;
+		typedef	ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 
 		class value_compare
 			{
@@ -291,6 +291,28 @@ namespace ft
 					first = last;
 			}
 		}
+
+		void swap (map& x) {
+
+			size_type				tmp_size = this->_size;
+			key_compare				tmp_compare = this->_compare;
+			allocator_type			tmp_alloc = this->_alloc;
+			ft::BTree<value_type>	*tmp_root = this->_root;
+			node_alloc_type			tmp_node_alloc = this->_node_alloc;
+
+			this->_size = x._size;
+			this->_compare = x._compare;
+			this->_alloc = x._alloc;
+			this->_root = x._root;
+			this->_node_alloc = x._node_alloc;
+
+			x._size = tmp_size;
+			x._compare = tmp_compare;
+			x._alloc = tmp_alloc;
+			x._root = tmp_root;
+			x._node_alloc = tmp_node_alloc;
+		}
+
 
 		void	TraverseTreePre() {
 			BTree_TraversePreOrder(_root);

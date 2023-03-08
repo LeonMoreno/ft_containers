@@ -1,5 +1,5 @@
-#ifndef REVERSE_VECTOR_ITERATOR
-# define REVERSE_VECTOR_ITERATOR
+#ifndef REVERSE_ITERATOR
+# define REVERSE_ITERATOR
 
 #include "itetator_traits.hpp"
 
@@ -11,11 +11,10 @@ namespace ft {
 			new iterator that moves from the end to the beginning of the sequence defined by the underlying bidirectional
 			iterator.
 
-			https://cplusplus.com/reference/iterator/reverse_vector_iterator/
 			https://en.cppreference.com/w/cpp/iterator/reverse_iterator		*/
 
 	template <class T>
-	class reverse_vector_iterator
+	class reverse_iterator
 	{
 		public:
 			/*---------------VECTOR ITERATOR TYPEDEFS (iterator traits - las propiedades del iterator)-------- */
@@ -37,16 +36,16 @@ namespace ft {
 
 			/*---------------Constructor and Destructors ----------------------------------------------------- */
 
-			reverse_vector_iterator(void) : _reverse() {  } /* por si aca ??*/
+			reverse_iterator(void) : _reverse() {  } /* por si aca ??*/
 
-			explicit reverse_vector_iterator(iterator_type it) : _reverse(it) {   } /* default constructor */
+			explicit reverse_iterator(iterator_type it) : _reverse(it) {   } /* default constructor */
 
-			reverse_vector_iterator(const reverse_vector_iterator &copy) : _reverse(copy._reverse) { } /* copy constructor */
+			reverse_iterator(const reverse_iterator &copy) : _reverse(copy._reverse) { } /* copy constructor */
 
 			template <class Iter>
-			reverse_vector_iterator (const reverse_vector_iterator<Iter>& rev_it) : _reverse(rev_it.base()) { }
+			reverse_iterator (const reverse_iterator<Iter>& rev_it) : _reverse(rev_it.base()) { }
 
-			~reverse_vector_iterator() { };
+			~reverse_iterator() { };
 
 			/*--------------- Getters and Setters-------------------------------------------------------------- */
 
@@ -54,7 +53,7 @@ namespace ft {
 
 			/*---------------Assignment OPERADORES-------------------------------------------------------------------------- */
 
-			reverse_vector_iterator& operator=(reverse_vector_iterator const &rhs) {
+			reverse_iterator& operator=(reverse_iterator const &rhs) {
 
 				_reverse = rhs.base();
 				return (*this);
@@ -71,50 +70,50 @@ namespace ft {
 
 			pointer operator->() const { return &(operator*()); }
 
-			reverse_vector_iterator operator+(difference_type n) const {
+			reverse_iterator operator+(difference_type n) const {
 
 				_reverse - n;
 				 return (*this);
 			}
 
-			reverse_vector_iterator operator- (difference_type n) const {
+			reverse_iterator operator- (difference_type n) const {
 
 				_reverse + n;
 				 return (*this);
 			}
 
-			reverse_vector_iterator& operator+= (difference_type n)  {
+			reverse_iterator& operator+= (difference_type n)  {
 
 				_reverse -= n;
 				 return (*this);
 			}
 
-			reverse_vector_iterator& operator-= (difference_type n) {
+			reverse_iterator& operator-= (difference_type n) {
 
 				_reverse += n;
 				 return (*this);
 			}
 
-			reverse_vector_iterator& operator++(void) {
+			reverse_iterator& operator++(void) {
 				_reverse--;
 				 return (*this);
 			}
 
-			reverse_vector_iterator operator++(int) {
+			reverse_iterator operator++(int) {
 
-				reverse_vector_iterator ti = *this;
+				reverse_iterator ti = *this;
 				this->_reverse--;
 				 return (ti);
 			}
 
-			reverse_vector_iterator& operator--() {
+			reverse_iterator& operator--() {
 				_reverse++;
 				 return (*this);
 			}
 
-			reverse_vector_iterator  operator--(int) {
+			reverse_iterator  operator--(int) {
 
-				reverse_vector_iterator ti = *this;
+				reverse_iterator ti = *this;
 				_reverse++;
 				 return (ti);
 			}
