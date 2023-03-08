@@ -1,7 +1,6 @@
 #ifndef MAP_HPP
 # define MAP_HPP
 
-#include <functional>
 #include "utils.hpp"
 #include "map_iterator.hpp"
 #include "../BTree/include/BTree.hpp"
@@ -34,6 +33,7 @@ namespace ft
 		// typedef ft::pair<const Key, T>						value_type;
 		typedef ft::pair<const key_type, mapped_type>			value_type;
 		typedef Compare											key_compare;
+		// value_compare: Nested function class to compare elements
 		typedef Alloc											allocator_type;
 
 		typedef typename allocator_type::reference				reference;
@@ -45,11 +45,19 @@ namespace ft
 		typedef ft::map_iterator<value_type>					iterator;
 		typedef ft::map_iterator<value_type>					const_iterator;
 
-		typedef std::size_t										size_type;
-		typedef std::ptrdiff_t									difference_type;
+		typedef	ft::reverse_iterator<iterator>					reverse_iterator;
+		typedef	ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 
-		typedef	ft::reverse_iterator<iterator>			reverse_iterator;
-		typedef	ft::reverse_iterator<const_iterator>		const_reverse_iterator;
+		typedef std::ptrdiff_t									difference_type;
+		typedef std::size_t										size_type;
+
+
+
+//--------------------------- Observers ---------------------------------------//
+		/**
+		 * @brief  Returns a comparison object that can be used to compare two elements
+		 *  to get whether the key of the first one goes before the second.
+		 */
 
 		class value_compare
 			{
@@ -66,8 +74,6 @@ namespace ft
 					return comp(x.first, y.first);
 				}
 			};
-
-
 
 //---------------------------constructor & Destructor---------------------------------------//
 
@@ -89,16 +95,12 @@ namespace ft
 		// -- copy constructor
 		map (const map& x) : _size(0), _compare(x.key_comp()), _alloc(x.get_allocator()), _root(NULL) {
 			// std::cout << " construct copy" << std::endl;
-
 			*this = x;
 		}
 
 		~map() {
-
 			this->clear();
-
-
-		}//std::cout << "Destructor MAP " << std::endl; }
+		}
 
 //---------------------------COPY ASSIGNMENT OPERATOR Overload----------------------------------------//
 		// Assigns new contents to the container, replacing its current content.
@@ -109,8 +111,6 @@ namespace ft
 				this->insert(other.begin(), other.end());
 				return (*this);
 			}
-
-//-------------------------------Getters and Setters-----------------------------------------------//
 
 //---------------------------Iterator----------------------------------------//
 		iterator begin() {
@@ -147,8 +147,7 @@ namespace ft
 			return reverse_iterator(--this->end());
 		}
 
-		const_reverse_iterator rbegin(void) const
-		{
+		const_reverse_iterator rbegin(void) const {
 			return const_reverse_iterator(--this->end());
 		}
 
@@ -159,13 +158,9 @@ namespace ft
 		}
 
 
-		const_reverse_iterator rend(void) const
-		{
+		const_reverse_iterator rend(void) const {
 			return const_reverse_iterator(--this->begin());
 		}
-
-// }
-
 
 //---------------------------CAPACITY----------------------------------------//
 
@@ -211,9 +206,6 @@ namespace ft
 		}
 
 //---------------------------Modifiers----------------------------------------//
-
-
-
 		/**
 		 * @brief  single element (1)
 		 *
@@ -311,15 +303,6 @@ namespace ft
 			x._alloc = tmp_alloc;
 			x._root = tmp_root;
 			x._node_alloc = tmp_node_alloc;
-		}
-
-
-		void	TraverseTreePre() {
-			BTree_TraversePreOrder(_root);
-		}
-
-		void	TraverseTreeIn() {
-			BTree_TraverseInOrder(_root);
 		}
 
 //---------------------------Observers----------------------------------------//
@@ -438,15 +421,11 @@ namespace ft
 			return (ft::pair<iterator, iterator>(this->lower_bound(k), this->upper_bound(k)));
 		}
 
-
-
 //---------------------------Allocator----------------------------------------//
 
 		allocator_type get_allocator() const {
 			return (_alloc);
 		}
-
-
 
 		private:
 
@@ -512,12 +491,10 @@ namespace ft
 		return (!(lhs < rhs));
 	}
 
-
-
-
-
-
-
+	template <class Key, class T, class Compare, class Alloc>
+	void swap (map<Key,T,Compare,Alloc>& x, map<Key,T,Compare,Alloc>& y) {
+		x.swap(y);
+	}
 
 } // namespace ft
 
