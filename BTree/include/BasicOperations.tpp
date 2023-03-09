@@ -50,7 +50,7 @@ void	InsertHelp(ft::BTree<T>** _root, ft::BTree<T> **root,
 	}
 	// if (is_equal(*root, *pair, compare)) // solo un ensayo ;)
 	// 	return ;
-	// if (compare(*(*root)->pair, *pair)) // -- Aqui estaba el problema de Compare 
+	// if (compare(*(*root)->pair, *pair)) // -- Aqui estaba el problema de Compare
 	if (compare(*pair, *(*root)->pair))
 		return (InsertHelp(_root, &(*root)->left, *root, pair, compare, alloc));
 	return (InsertHelp(_root, &(*root)->right, *root, pair, compare, alloc));
@@ -145,10 +145,6 @@ void	BTree_deleteNode_A(ft::BTree<T> **_root, ft::BTree<T> *root,
 		return (BTree_deleteNode_A(_root, root->right, key, node_alloc, pair_alloc));
 	return (BTree_deleteNode_A(_root, root->left, key, node_alloc, pair_alloc));
 }
-
-
-
-
 
 template <class T, class Alloc1, class Alloc2, class Compare>
 void	BTree_deleteNode(ft::BTree<T> **_root, ft::BTree<T> *root,

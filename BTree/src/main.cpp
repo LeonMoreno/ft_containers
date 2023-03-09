@@ -68,15 +68,13 @@ int	main(void) {
 	BTree_InsertNode(&root, new_pair(7, 4), compare, alloc);
 
 
-
-
 	// BTree_Print(root, "", false);
 
 
 	BTree_TraverseInOrder(root);
 	std::cout << std::endl;
 
-	prevNode(root, 105);
+	BTree_NodePrev(root);
 
 	// ft::BTree<std::pair<int, int> > *succesor = inorderSuccessor(root, 93);
 

@@ -5,7 +5,6 @@
 #include "reverse_iterator.hpp"
 #include "utils.hpp" //
 #include <memory> //
-#include <iostream> //
 
 namespace ft{
 
@@ -15,21 +14,21 @@ namespace ft{
 	class vector {
 		public:
 
-//---------------------------Member Types---------------------------------------//
+//---------------------------Member Types -- C++98 ------------------------------------//
 			typedef T											value_type;
 			typedef Alloc										allocator_type;
 
-			typedef T&											reference;
-			typedef const T& 									const_reference;
+			typedef typename allocator_type::reference			reference;
+			typedef typename allocator_type::const_reference 	const_reference;
 
-			typedef T*											pointer;
-			typedef const T*									const_pointer;
+			typedef typename allocator_type::pointer			pointer;
+			typedef typename allocator_type::const_pointer		const_pointer;
 
 			typedef vector_iterator<pointer>					iterator;
 			typedef vector_iterator <const_pointer>				const_iterator;
 
-			typedef	ft::reverse_iterator <iterator>			reverse_iterator;
-			typedef	ft::reverse_iterator <const_iterator>	const_reverse_iterator;
+			typedef	ft::reverse_iterator <iterator>				reverse_iterator;
+			typedef	ft::reverse_iterator <const_iterator>		const_reverse_iterator;
 
 			typedef	std::ptrdiff_t								difference_type;
 			typedef std::size_t									size_type;
@@ -310,35 +309,6 @@ namespace ft{
 				_size = _size + n;
 			}
 
-			// template <class InputIterator>
-			// void insert (iterator position, InputIterator first, InputIterator last,
-			//  typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0) {
-
-			// 	size_type		pos = position - begin();
-			// 	size_type		n = last - first;
-
-			// 	std::cout << "pos " << pos << " n = " << n << std::endl;
-
-
-			// 	 if (first == last)
-			// 		return ;
-			// 	if (_cap == 0)
-			// 		reserve(n);
-			// 	if (_size + n >= _cap) {
-			// 		if (_size + n > _cap * 2)
-			// 			_ft_realloc(_size + n);
-			// 		else
-			// 			reserve(_cap * 2);
-			// 	}
-			// 	for (size_type i = (_size + n - 1); i >= n + pos; i--) {
-			// 		_arr.construct(&(_begin[i]), *((_begin + (i - n))));
-			// 		_arr.destroy(&_begin[i - n]);
-			// 	}
-			// 	for (size_type i = pos; i < n + pos; i++)
-			// 		_arr.construct(&(_begin[i]), *first++);
-			// 	_size = _size + n;
-			// }
-
 
 			// insert range -- begin to end // falta hacer hard test
 			template <class InputIterator>
@@ -446,6 +416,7 @@ namespace ft{
 
 		private:
 
+			// Evalua la capacidad para hacer reserva.
 			void	_ft_evalCap(size_type new_cap) {
 
 				if (_size + new_cap <= _cap)

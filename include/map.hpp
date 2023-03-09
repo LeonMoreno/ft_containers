@@ -19,7 +19,7 @@ namespace ft
 	class map
 	{
 		public:
-//---------------------------member types -- Definitions---------------------------------//
+//---------------------------member types -- Definitions C++98 -----------------------------//
 
 
 		/*  Each element in a map is uniquely identified by its key value.
@@ -315,9 +315,10 @@ namespace ft
 			return (value_compare(_compare));
 		}
 
-		void prinBTree() {
-			BTree_Print(_root, "", false);
-		}
+		// Para imprimir el BTree
+		// void prinBTree() {
+		// 	BTree_Print(_root, "", false);
+		// }
 
 //---------------------------Operations----------------------------------------//
 

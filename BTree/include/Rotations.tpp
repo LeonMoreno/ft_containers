@@ -4,12 +4,6 @@
 #include "BTree.hpp"
 #include <algorithm>
 
-// template <class T>
-// void swap(ft::BTree<T>* rh, ft::BTree<T>* lh) {
-
-
-// }
-
 template <class T>
 void	rotation_Left(ft::BTree<T>** root, ft::BTree<T>* node) {
 	// std::cout << "RotaLeft nodo = " << node->pair->first << " bf = " << node->bf << std::endl;

@@ -151,7 +151,6 @@ namespace ft {
 		private:
 			node_pointer	_node_ptr;
 
-
 	};
 
 

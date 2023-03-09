@@ -125,6 +125,70 @@ namespace ft {
 
 	};
 
+
+	/* *******************************************************************************/
+	/* 			Non-Member Functions Overloads	reverse_iterator					 */
+	/* *******************************************************************************/
+
+	template<typename T1, typename T2>
+	bool operator==(const reverse_iterator<T1> &lhs, const reverse_iterator<T2> &rhs) {
+				return (lhs.base() == rhs.base());
+	}
+
+	template<typename T1, typename T2>
+	bool operator!=(const reverse_iterator<T1> &lhs, const reverse_iterator<T2> &rhs) {
+		return (lhs.base() != rhs.base());
+	}
+
+	template<typename T1, typename T2>
+	bool operator<(const reverse_iterator<T1> &lhs, const reverse_iterator<T2> &rhs) {
+		return (lhs.base() > rhs.base());
+	}
+
+	template<typename T1, typename T2>
+	bool operator<=(const reverse_iterator<T1> &lhs, const reverse_iterator<T2> &rhs) {
+		return (lhs.base() >= rhs.base());
+	}
+
+	template<typename T1, typename T2>
+	bool operator>(const reverse_iterator<T1> &lhs, const reverse_iterator<T2> &rhs) {
+		return (lhs.base() < rhs.base());
+	}
+
+	template<typename T1, typename T2>
+	bool operator>=(const reverse_iterator<T1> &lhs, const reverse_iterator<T2> &rhs) {
+		return (lhs.base() <= rhs.base());
+	}
+
+	template<typename T1>
+	reverse_iterator<T1> operator+(const reverse_iterator<T1> &lhs, typename reverse_iterator<T1>::difference_type offset) {
+
+		return (reverse_iterator<T1>(lhs.base() - offset));
+	}
+
+	template<typename T2>
+	reverse_iterator<T2> operator+(typename reverse_iterator<T2>::difference_type offset, const reverse_iterator<T2> &rhs) {
+
+		return (reverse_iterator<T2>(rhs.base() - offset));
+	}
+
+	template<typename T2>
+	reverse_iterator<T2> operator-(typename reverse_iterator<T2>::difference_type offset, const reverse_iterator<T2> &rhs) {
+
+		return (reverse_iterator<T2>(rhs.base() + offset));
+	}
+
+	template<typename T1>
+	reverse_iterator<T1> operator-(const reverse_iterator<T1> &lhs, typename reverse_iterator<T1>::difference_type offset) {
+
+		return (reverse_iterator<T1>(lhs.base() + offset));
+	}
+
+	template<typename Iterator1, typename Iterator2>
+	typename reverse_iterator<Iterator1>::difference_type operator-(const reverse_iterator<Iterator1>& lhs, const reverse_iterator<Iterator2>& rhs) {
+		return (rhs.base() - lhs.base());
+	}
+
 } // namespace ft end
 
 #endif
