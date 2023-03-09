@@ -1,39 +1,32 @@
 <h1 align="center">
-	🚀 MiniShell
+	🚀 ft_containers
 </h1>
 
 <p align="center">
-	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/LeonMoreno/minishell?color=lightblue" />
-	<img alt="Number of lines of code" src="https://img.shields.io/tokei/lines/github/LeonMoreno/minishell?color=critical" />
-	<img alt="Code language count" src="https://img.shields.io/github/languages/count/LeonMoreno/minishell?color=yellow" />
-	<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/LeonMoreno/minishell?color=blue" />
-	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/LeonMoreno/minishell?color=green" />
+	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/LeonMoreno/ft_containers?color=lightblue" />
+	<img alt="Number of lines of code" src="https://img.shields.io/tokei/lines/github/LeonMoreno/ft_containers?color=critical" />
+	<img alt="Code language count" src="https://img.shields.io/github/languages/count/LeonMoreno/ft_containers?color=yellow" />
+	<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/LeonMoreno/ft_containers?color=blue" />
+	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/LeonMoreno/ft_containers?color=green" />
 </p>
 
 </p>
-
-[![lmoreno's 42 minishell Score](https://badge42.vercel.app/api/v2/cl9iw50pk00410gjruy6yjcvt/project/2605116)](https://github.com/JaeSeoKim/badge42)
-
-As beautiful as a shell
-
 
 ## 💡 About the project
 
-	🚀 TLDR: This project is about creating a simple shell. Yes, your own little bash. 
-	You will learn a lot about processes and file descriptors.
+	🚀 TLDR: The standard C++ containers have all a specific usage.. 
+		To make sure you understand them, let’s re-implement them!
 
 ## Screenshots
 
-As beautiful as a shell
-
-<img src="img/minishell.gif" width="800"/>
 
 ## Skills:
 * Rigor
-* Unix.
-* Imperative programming.
-* Teamwork.
-* using git in a team.
+* Object-oriented programming
+* Using STL.
+* Template metaprogramming
+* Data structure -- Binary search tree
+* Self-balancing binary search trees (RBT, AVL)
 
 
 ## Objectives:
