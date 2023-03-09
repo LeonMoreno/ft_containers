@@ -84,6 +84,7 @@
 		"stop_token": "cpp",
 		"thread": "cpp",
 		"cinttypes": "cpp",
-		"*.ipp": "cpp"
+		"*.ipp": "cpp",
+		"__memory": "cpp"
 	}
 }

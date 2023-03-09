@@ -9,8 +9,8 @@
 	#include <vector>
 #else
 	#define VERSION  "FT_VER"
-	#include "../../../include/stack.hpp"
-	#include "../../../include/utils.hpp"
+	#include "../../../containers/stack.hpp"
+	#include "../../../headers/utils.hpp"
 #endif
 
 #endif

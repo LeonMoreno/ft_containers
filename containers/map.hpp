@@ -1,10 +1,11 @@
 #ifndef MAP_HPP
 # define MAP_HPP
 
-#include "utils.hpp"
-#include "map_iterator.hpp"
+#include "../headers/utility.tpp"
+#include "../headers/algorithm.tpp"
+#include "../iterators/map_iterator.hpp"
 #include "../BTree/include/BTree.hpp"
-#include "reverse_iterator.hpp"
+#include "../iterators/reverse_iterator.hpp"
 
 
 namespace ft

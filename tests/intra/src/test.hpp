@@ -8,8 +8,8 @@
 	#include <map>
 #else
 	#define VERSION  "FT_VER"
-	#include "../../../include/map.hpp"
-	#include "../../../include/utils.hpp"
+	#include "../../../containers/map.hpp"
+	#include "../../../headers/utils.hpp"
 #endif
 
 #endif

@@ -1,8 +1,9 @@
-#ifndef ITERATOR_TRAITS_HPP
-# define ITERATOR_TRAITS_HPP
+#ifndef ITERATOR_TPP
+# define ITERATOR_TPP
 
 #include <cstddef> // ptrdiff_t
-#include <iterator> // para std::random_access_iterator_tag
+#include <iterator>
+
 
 // Intro iterators traits :
 // https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits
@@ -66,6 +67,5 @@ namespace ft {
 	};
 
 } // end namespace ft
-
 
 #endif

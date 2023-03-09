@@ -1,10 +1,10 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-#include "vector_iterator.hpp" //
-#include "reverse_iterator.hpp"
-#include "utils.hpp" //
-#include <memory> //
+#include "../iterators/vector_iterator.hpp" //
+#include "../iterators/reverse_iterator.hpp"
+#include "../headers/type_traits.tpp" //
+#include "../headers/algorithm.tpp" //
 
 namespace ft{
 
