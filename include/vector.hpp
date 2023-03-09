@@ -225,6 +225,8 @@ namespace ft{
 
 			const_reference back() const { return (_begin[_size - 1]); }
 
+			/* Returns a direct pointer to the memory array used
+			internally by the vector to store its owned elements. */
 			value_type* data() { return (_begin); }
 
 			const value_type* data() const { return (_begin); }
