@@ -1,6 +1,12 @@
-<h1 align="center">
-	🚀 ft_containers
-</h1>
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+    <code><img height="80" src="https://raw.githubusercontent.com/LeonMoreno/LeonMoreno/master/img/cpp_logo.png"></code>
+  </a>
+
+<h1 align="center">ft_container</h1>
+
 
 <p align="center">
 	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/LeonMoreno/ft_containers?color=lightblue" />
