@@ -1,11 +1,10 @@
-
-<!-- PROJECT LOGO -->
-<br />
 <div align="center">
     <code><img height="80" src="https://raw.githubusercontent.com/LeonMoreno/LeonMoreno/master/img/cpp_logo.png"></code>
-  </a>
+</a>
 
-<h1 align="center">ft_container</h1>
+<h1 align="center">
+	ft_containers
+</h1></div>
 
 
 <p align="center">
